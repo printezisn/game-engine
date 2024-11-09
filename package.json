@@ -26,6 +26,9 @@
     "prepare": "husky",
     "test:unit": "vitest run ./src --passWithNoTests"
   },
+  "dependencies": {
+    "husky": "9.1.6"
+  },
   "devDependencies": {
     "@eslint/js": "9.14.0",
     "@pixi/sound": "6.0.1",
@@ -33,7 +36,6 @@
     "eslint": "9.14.0",
     "globals": "15.12.0",
     "gsap": "3.12.5",
-    "husky": "9.1.6",
     "jsdom": "25.0.1",
     "matter-js": "0.20.0",
     "mini-signals": "2.0.0",
