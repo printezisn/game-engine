@@ -1,0 +1,17 @@
+{
+  "name": "@printezisn/game-engine",
+  "type": "module",
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "5.6.2",
+    "vite": "5.4.10"
+  }
+}
