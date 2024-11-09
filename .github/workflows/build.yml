@@ -1,0 +1,38 @@
+name: Build
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Use Node.js 20x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: Install dependencies
+        run: pnpm i
+      - name: Run linter
+        run: pnpm lint
+      - name: Run unit tests
+        run: pnpm test:unit
+      - name: Build
+        run: pnpm build
