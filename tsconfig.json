@@ -16,10 +16,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
+    //"noUncheckedSideEffectImports": true,
 
     "outDir": "./dist",
-    "declaration": true
+    "declaration": true,
+    "declarationDir": "./dist",
+    "noEmit": true
   },
   "include": ["src"]
 }

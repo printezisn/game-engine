@@ -9,6 +9,7 @@ import { type BaseScene } from './scenes';
 import { initSound } from './sound';
 import { initPhysicsEngine, updatePhysics } from './physics-engine';
 import { Animation } from './animation';
+import '@pixi/sound';
 
 let app!: Application;
 

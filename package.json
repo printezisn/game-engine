@@ -2,37 +2,47 @@
   "name": "@printezisn/game-engine",
   "type": "module",
   "version": "0.1.0",
+  "files": [
+    "dist"
+  ],
+  "module": "./dist/game-engine.js",
+  "main": "./dist/game-engine.umd.cjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/game-engine.js",
+      "require": "./dist/game-engine.umd.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "engines": {
     "node": ">=20"
   },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "NODE_ENV=production tsc",
-    "lint": "eslint ./src",
-    "lint:fix": "eslint ./src --fix",
+    "build": "vite build",
+    "lint": "tsc && eslint ./src",
+    "lint:fix": "tsc && eslint ./src --fix",
     "prettier:format": "prettier --write .",
     "prepare": "husky",
     "test:unit": "vitest run ./src --passWithNoTests"
   },
-  "dependencies": {
-    "@pixi/sound": "6.0.1",
-    "@types/matter-js": "0.19.7",
-    "matter-js": "0.20.0",
-    "mini-signals": "2.0.0",
-    "pixi.js": "8.5.2"
-  },
   "devDependencies": {
     "@eslint/js": "9.14.0",
+    "@pixi/sound": "6.0.1",
+    "@types/matter-js": "0.19.7",
     "eslint": "9.14.0",
     "globals": "15.12.0",
     "gsap": "3.12.5",
     "husky": "9.1.6",
     "jsdom": "25.0.1",
+    "matter-js": "0.20.0",
+    "mini-signals": "2.0.0",
+    "pixi.js": "8.5.2",
     "prettier": "3.3.3",
-    "typescript-eslint": "8.13.0",
-    "vitest": "2.1.4",
     "typescript": "5.6.2",
-    "vite": "5.4.10"
+    "typescript-eslint": "8.13.0",
+    "vite": "5.4.10",
+    "vite-plugin-dts": "4.3.0",
+    "vitest": "2.1.4"
   }
 }

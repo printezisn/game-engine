@@ -1,4 +1,4 @@
-import { Sound, type IMediaInstance } from '@pixi/sound';
+import { type Sound, type IMediaInstance } from '@pixi/sound';
 import gameState from './game-state';
 import { Assets } from 'pixi.js';
 import { Animation } from './animation';
