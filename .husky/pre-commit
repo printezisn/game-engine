@@ -1,0 +1,3 @@
+pnpm prettier:format
+pnpm lint
+git update-index --again
