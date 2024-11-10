@@ -12,6 +12,7 @@ const config = {
   maxFPS: 60,
   debug: false,
   assets: {
+    basePath: '/assets',
     manifest: {} as AssetsManifest,
     extra: [] as Asset[],
   },

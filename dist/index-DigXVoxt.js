@@ -7,6 +7,7 @@ const W = {
   maxFPS: 60,
   debug: !1,
   assets: {
+    basePath: "/assets",
     manifest: {},
     extra: []
   },
@@ -5315,7 +5316,7 @@ const _r = (n) => {
   },
   test: () => !0,
   load: async () => {
-    await import("./browserAll-D9pa2So7.js");
+    await import("./browserAll-VLSZTgZD.js");
   }
 }, tf = {
   extension: {
@@ -5325,7 +5326,7 @@ const _r = (n) => {
   },
   test: () => typeof self < "u" && self.WorkerGlobalScope !== void 0,
   load: async () => {
-    await import("./webworkerAll-ZmzW0ebW.js");
+    await import("./webworkerAll-RkqKgEa5.js");
   }
 };
 class pt {
@@ -11612,13 +11613,13 @@ async function zd(n) {
   for (let s = 0; s < t.length; s++) {
     const a = t[s];
     if (a === "webgpu" && await Dd()) {
-      const { WebGPURenderer: o } = await import("./WebGPURenderer-DdwQ7Oz0.js");
+      const { WebGPURenderer: o } = await import("./WebGPURenderer-DAsg-VJu.js");
       e = o, i = { ...n, ...n.webgpu };
       break;
     } else if (a === "webgl" && Od(
       n.failIfMajorPerformanceCaveat ?? zh.defaultOptions.failIfMajorPerformanceCaveat
     )) {
-      const { WebGLRenderer: o } = await import("./WebGLRenderer-BZuqcONc.js");
+      const { WebGLRenderer: o } = await import("./WebGLRenderer-Btb-saB4.js");
       e = o, i = { ...n, ...n.webgl };
       break;
     } else if (a === "canvas")
@@ -20871,7 +20872,7 @@ const Mc = () => W.screen.width * 1 / W.screen.aspectRatio, Xo = () => {
     ),
     (async () => {
       await de.init({
-        basePath: `/games/${W.gameName}/assets`,
+        basePath: W.assets.basePath,
         manifest: W.assets.manifest
       }), de.addBundle("extra", W.assets.extra), await Promise.all([
         de.loadBundle("default"),

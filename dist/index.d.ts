@@ -195,6 +195,7 @@ export declare const engineConfig: {
     maxFPS: number;
     debug: boolean;
     assets: {
+        basePath: string;
         manifest: AssetsManifest;
         extra: Asset[];
     };
