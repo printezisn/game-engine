@@ -9,5 +9,6 @@ export * from './application';
 export * from './signals';
 export * from './sound';
 export * from './helpers/numbers';
+export * from './helpers/closures';
 export { engineConfig };
 export { engineGameState };

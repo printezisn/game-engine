@@ -5315,7 +5315,7 @@ const _r = (n) => {
   },
   test: () => !0,
   load: async () => {
-    await import("./browserAll-DNOGCbX5.js");
+    await import("./browserAll-DDLhyzZG.js");
   }
 }, tf = {
   extension: {
@@ -5325,7 +5325,7 @@ const _r = (n) => {
   },
   test: () => typeof self < "u" && self.WorkerGlobalScope !== void 0,
   load: async () => {
-    await import("./webworkerAll-BEjXSCP0.js");
+    await import("./webworkerAll-CqHNHD0u.js");
   }
 };
 class pt {
@@ -11612,13 +11612,13 @@ async function zd(n) {
   for (let s = 0; s < t.length; s++) {
     const a = t[s];
     if (a === "webgpu" && await Dd()) {
-      const { WebGPURenderer: o } = await import("./WebGPURenderer-CSJtBNyx.js");
+      const { WebGPURenderer: o } = await import("./WebGPURenderer-BYSDA7UQ.js");
       e = o, i = { ...n, ...n.webgpu };
       break;
     } else if (a === "webgl" && Od(
       n.failIfMajorPerformanceCaveat ?? zh.defaultOptions.failIfMajorPerformanceCaveat
     )) {
-      const { WebGLRenderer: o } = await import("./WebGLRenderer-1mugU_tT.js");
+      const { WebGLRenderer: o } = await import("./WebGLRenderer-CvS0D1fB.js");
       e = o, i = { ...n, ...n.webgl };
       break;
     } else if (a === "canvas")
@@ -20933,6 +20933,7 @@ export {
   h_ as aT,
   Rg as aU,
   m_ as aV,
+  Vg as aW,
   Cm as aa,
   ec as ab,
   go as ac,

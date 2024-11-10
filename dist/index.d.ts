@@ -174,6 +174,8 @@ export declare class CreditsButtonComponent extends ButtonComponent {
     protected onClick(): Promise<void>;
 }
 
+export declare const debounce: (callback: () => void, timeMs?: number) => () => void;
+
 export declare interface DisplayObject {
     get object(): Container;
     set parent(parent: DisplayObject | null);
