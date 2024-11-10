@@ -1,14 +1,40 @@
-export const debounce = (callback: () => void, timeMs = 500) => {
+export const debounce = (
+  startCallback: () => void,
+  cancelCallback: () => void,
+  startWaitTime = 500,
+  cancelWaitTime = 1000,
+) => {
   let timerId: NodeJS.Timeout | null = null;
+  let started = false;
 
-  return () => {
-    if (timerId !== null) {
+  const start = () => {
+    if (timerId != null) {
       clearTimeout(timerId);
     }
 
     timerId = setTimeout(() => {
+      started = true;
       timerId = null;
-      callback();
-    }, timeMs);
+      startCallback();
+    }, startWaitTime);
   };
+
+  const cancel = () => {
+    if (timerId != null) {
+      clearTimeout(timerId);
+      timerId = null;
+    }
+
+    if (started) {
+      timerId = setTimeout(() => {
+        started = false;
+        timerId = null;
+        cancelCallback();
+      }, cancelWaitTime);
+    } else {
+      cancelCallback();
+    }
+  };
+
+  return { start, cancel };
 };

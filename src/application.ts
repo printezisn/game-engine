@@ -40,9 +40,13 @@ const resizeCanvas = () => {
 };
 
 const handleContainerResize = () => {
-  const resizeCallback = debounce(() => {
-    resizeCanvas();
-  }, 100);
+  const { start: resizeCallback } = debounce(
+    () => {
+      resizeCanvas();
+    },
+    () => {},
+    100,
+  );
   const containerResizeObservers = new ResizeObserver(() => {
     resizeCallback();
   });

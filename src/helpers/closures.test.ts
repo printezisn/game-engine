@@ -6,9 +6,12 @@ describe('game engine closures', () => {
   describe('debounce', () => {
     it('runs frequent calls only once', async () => {
       let totalCalls = 0;
-      const callback = debounce(() => {
-        totalCalls++;
-      });
+      const { start: callback } = debounce(
+        () => {
+          totalCalls++;
+        },
+        () => {},
+      );
 
       callback();
       callback();

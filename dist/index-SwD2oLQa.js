@@ -5315,7 +5315,7 @@ const _r = (n) => {
   },
   test: () => !0,
   load: async () => {
-    await import("./browserAll-DDLhyzZG.js");
+    await import("./browserAll-D9pa2So7.js");
   }
 }, tf = {
   extension: {
@@ -5325,7 +5325,7 @@ const _r = (n) => {
   },
   test: () => typeof self < "u" && self.WorkerGlobalScope !== void 0,
   load: async () => {
-    await import("./webworkerAll-CqHNHD0u.js");
+    await import("./webworkerAll-ZmzW0ebW.js");
   }
 };
 class pt {
@@ -11612,13 +11612,13 @@ async function zd(n) {
   for (let s = 0; s < t.length; s++) {
     const a = t[s];
     if (a === "webgpu" && await Dd()) {
-      const { WebGPURenderer: o } = await import("./WebGPURenderer-BYSDA7UQ.js");
+      const { WebGPURenderer: o } = await import("./WebGPURenderer-DdwQ7Oz0.js");
       e = o, i = { ...n, ...n.webgpu };
       break;
     } else if (a === "webgl" && Od(
       n.failIfMajorPerformanceCaveat ?? zh.defaultOptions.failIfMajorPerformanceCaveat
     )) {
-      const { WebGLRenderer: o } = await import("./WebGLRenderer-CvS0D1fB.js");
+      const { WebGLRenderer: o } = await import("./WebGLRenderer-BZuqcONc.js");
       e = o, i = { ...n, ...n.webgl };
       break;
     } else if (a === "canvas")
@@ -19351,13 +19351,17 @@ class Gg extends Ug {
     );
   }
 }
-const Vg = (n, t = 500) => {
-  let e = null;
-  return () => {
-    e !== null && clearTimeout(e), e = setTimeout(() => {
-      e = null, n();
-    }, t);
-  };
+const Vg = (n, t, e = 500, i = 1e3) => {
+  let r = null, s = !1;
+  return { start: () => {
+    r != null && clearTimeout(r), r = setTimeout(() => {
+      s = !0, r = null, n();
+    }, e);
+  }, cancel: () => {
+    r != null && (clearTimeout(r), r = null), s ? r = setTimeout(() => {
+      s = !1, r = null, t();
+    }, i) : t();
+  } };
 }, Wg = (n, t, e, i) => {
   const r = n.clientWidth, s = n.clientHeight;
   if (r < s) {
@@ -20833,9 +20837,14 @@ const Mc = () => W.screen.width * 1 / W.screen.aspectRatio, Xo = () => {
   const i = X.screen.orientation !== e;
   X.screen.orientation = e, i && es(W.signals.onOrientationChange);
 }, e_ = () => {
-  const n = Vg(() => {
-    Xo();
-  }, 100);
+  const { start: n } = Vg(
+    () => {
+      Xo();
+    },
+    () => {
+    },
+    100
+  );
   new ResizeObserver(() => {
     n();
   }).observe(W.gameContainer), Xo();
