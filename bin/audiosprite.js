@@ -3,30 +3,10 @@
 import audiosprite from 'audiosprite';
 import fs from 'fs';
 
-// eslint-disable-next-line
-const game = process.env.GAME_NAME?.trim();
-if (!game) {
-  console.error('Missing game name');
-  // eslint-disable-next-line
-  process.exit(1);
-}
-
-if (!fs.existsSync(`./src/assets/games/${game}/raw-audio-files`)) {
-  console.error('Invalid game name');
-  // eslint-disable-next-line
-  process.exit(1);
-}
-
-if (!fs.existsSync(`./src/assets/games/${game}/audio`)) {
-  console.error('Output directory does not exist');
-  // eslint-disable-next-line
-  process.exit(1);
-}
-
 audiosprite(
-  [`./src/assets/games/${game}/raw-audio-files/*`],
+  [`./assets/raw-audio-files/*`],
   {
-    output: `./src/assets/games/${game}/audio/sounds`,
+    output: `./assets/audio/sounds`,
   },
   (err, result) => {
     if (err) {
@@ -36,11 +16,11 @@ audiosprite(
     }
 
     fs.writeFileSync(
-      `./src/assets/games/${game}/audio/sounds.json`,
+      `./assets/audio/sounds.json`,
       JSON.stringify(result.spritemap),
     );
-    fs.unlinkSync(`./src/assets/games/${game}/audio/sounds.ac3`);
-    fs.unlinkSync(`./src/assets/games/${game}/audio/sounds.m4a`);
-    fs.unlinkSync(`./src/assets/games/${game}/audio/sounds.ogg`);
+    fs.unlinkSync(`./assets/audio/sounds.ac3`);
+    fs.unlinkSync(`./assets/audio/sounds.m4a`);
+    fs.unlinkSync(`./assets/audio/sounds.ogg`);
   },
 );
