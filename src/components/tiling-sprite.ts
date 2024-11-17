@@ -1,14 +1,15 @@
-import { Texture, TilingSprite } from 'pixi.js';
+import { TilingSprite } from 'pixi.js';
 import BaseComponent from './base';
 import type { SpriteProps, Point } from './types';
 import { basePropsToConfig } from './helpers';
+import { getTexture } from '../textures';
 
 class TilingSpriteComponent extends BaseComponent<TilingSprite> {
   constructor(props: SpriteProps) {
     super(
       new TilingSprite({
         ...basePropsToConfig(props),
-        texture: Texture.from(props.resource),
+        texture: getTexture(props.resource),
       }),
       props,
     );

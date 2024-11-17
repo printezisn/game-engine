@@ -1,14 +1,15 @@
-import { Sprite, Texture } from 'pixi.js';
+import { Sprite } from 'pixi.js';
 import BaseComponent from './base';
-import type { Point, SpriteProps } from './types';
+import type { Point, Resource, SpriteProps } from './types';
 import { basePropsToConfig } from './helpers';
+import { getTexture } from '../textures';
 
 class SpriteComponent extends BaseComponent<Sprite> {
   constructor(props: SpriteProps) {
     super(
       new Sprite({
         ...basePropsToConfig(props),
-        texture: Texture.from(props.resource),
+        texture: getTexture(props.resource),
       }),
       props,
     );
@@ -30,8 +31,8 @@ class SpriteComponent extends BaseComponent<Sprite> {
     return this.object.texture.height;
   }
 
-  set texture(resource: string) {
-    this.object.texture = Texture.from(resource);
+  set texture(resource: Resource) {
+    this.object.texture = getTexture(resource);
   }
 }
 

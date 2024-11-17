@@ -26,11 +26,31 @@ export interface Rectangle {
   y: number;
   width: number;
   height: number;
-  borderRadius?: number;
+}
+
+export interface RoundedRectangle {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  borderRadius: number;
 }
 
 export interface Polygon {
   points: Point[];
+}
+
+export interface Shape {
+  circle?: Circle;
+  rectangle?: Rectangle;
+  roundedRectangle?: RoundedRectangle;
+  polygon?: Polygon;
+}
+
+export interface FilledShape extends Shape {
+  fillColor: number;
+  strokeColor?: number;
+  strokeWidth?: number;
 }
 
 export interface BaseProps {
@@ -50,28 +70,22 @@ export interface BaseProps {
   visible?: boolean;
   tint?: number;
   zIndex?: number;
-  hitArea?: HitArea;
-}
-
-export interface HitArea {
-  circle?: Circle;
-  rectangle?: Rectangle;
-  polygon?: Polygon;
+  hitArea?: Shape;
 }
 
 export interface SpriteProps extends BaseProps {
-  resource: string;
+  resource: Resource;
 }
 
 export interface ButtonProps extends SpriteProps {
-  hoverResource: string;
-  disabledResource: string;
+  hoverResource: Resource;
+  disabledResource: Resource;
 }
 
 export interface VolumeButtonProps extends ButtonProps {
-  mutedResource: string;
-  mutedHoverResource: string;
-  mutedDisabledResource: string;
+  mutedResource: Resource;
+  mutedHoverResource: Resource;
+  mutedDisabledResource: Resource;
 }
 
 export interface TextProps extends BaseProps {
@@ -91,3 +105,5 @@ export interface TextProps extends BaseProps {
 export interface ContainerProps extends BaseProps {
   sortableChildren?: boolean;
 }
+
+export type Resource = string | FilledShape;

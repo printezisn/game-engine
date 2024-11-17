@@ -1,4 +1,4 @@
-import { BaseProps } from './types';
+import type { BaseProps } from './types';
 
 export const basePropsToConfig = (props: BaseProps) => ({
   label: props.label,

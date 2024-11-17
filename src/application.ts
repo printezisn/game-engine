@@ -10,6 +10,7 @@ import { initSound, pauseSounds, resumeSounds } from './sound';
 import { initPhysicsEngine, updatePhysics } from './physics-engine';
 import { Animation } from './animation';
 import '@pixi/sound';
+import { setRenderer } from './textures';
 
 let _app!: Application;
 let _paused = false;
@@ -140,6 +141,7 @@ export const initGame = async () => {
   config.gameContainer.appendChild(_app.canvas);
   _app.canvas.style.position = 'absolute';
 
+  setRenderer(_app.renderer);
   changeScene(new LoadingScene());
   _handleContainerResize();
   initPhysicsEngine();

@@ -5,7 +5,7 @@ import {
   RoundedRectangle,
   type Container,
 } from 'pixi.js';
-import type { BaseProps, DisplayObject, HitArea, Point } from './types';
+import type { BaseProps, DisplayObject, Point, Shape } from './types';
 import type ContainerComponent from './container';
 import { addSignalListener, removeSignalListener } from '../signals';
 import config from '../config';
@@ -220,20 +220,20 @@ abstract class BaseComponent<T extends Container> implements DisplayObject {
     this.object.zIndex = zIndex;
   }
 
-  set hitArea(hitArea: HitArea | null | undefined) {
+  set hitArea(hitArea: Shape | null | undefined) {
     if (hitArea?.circle) {
       this.object.hitArea = new Circle(
         hitArea.circle.x,
         hitArea.circle.y,
         hitArea.circle.radius,
       );
-    } else if (hitArea?.rectangle?.borderRadius != null) {
+    } else if (hitArea?.roundedRectangle) {
       this.object.hitArea = new RoundedRectangle(
-        hitArea.rectangle.x,
-        hitArea.rectangle.y,
-        hitArea.rectangle.width,
-        hitArea.rectangle.height,
-        hitArea.rectangle.borderRadius,
+        hitArea.roundedRectangle.x,
+        hitArea.roundedRectangle.y,
+        hitArea.roundedRectangle.width,
+        hitArea.roundedRectangle.height,
+        hitArea.roundedRectangle.borderRadius,
       );
     } else if (hitArea?.rectangle) {
       this.object.hitArea = new Rectangle(
