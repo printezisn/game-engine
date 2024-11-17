@@ -1,7 +1,7 @@
 {
   "name": "@printezisn/game-engine",
   "type": "module",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "author": {
     "name": "Nikos Printezis",
     "url": "https://printezisn.github.io/"
@@ -43,24 +43,24 @@
   "dependencies": {
     "husky": "9.1.6",
     "vite": "5.4.10",
-    "vite-plugin-dts": "4.3.0"
+    "vite-plugin-dts": "4.3.0",
+    "gsap": "3.12.5",
+    "matter-js": "0.20.0",
+    "mini-signals": "2.0.0",
+    "pixi.js": "8.5.2",
+    "@pixi/sound": "6.0.1",
+    "vitest": "2.1.4",
+    "typescript": "5.6.2",
+    "typescript-eslint": "8.13.0",
+    "@types/matter-js": "0.19.7"
   },
   "devDependencies": {
     "@assetpack/core": "1.2.1",
     "@eslint/js": "9.14.0",
-    "@pixi/sound": "6.0.1",
-    "@types/matter-js": "0.19.7",
     "audiosprite": "0.7.2",
     "eslint": "9.14.0",
     "globals": "15.12.0",
-    "gsap": "3.12.5",
     "jsdom": "25.0.1",
-    "matter-js": "0.20.0",
-    "mini-signals": "2.0.0",
-    "pixi.js": "8.5.2",
-    "prettier": "3.3.3",
-    "typescript": "5.6.2",
-    "typescript-eslint": "8.13.0",
-    "vitest": "2.1.4"
+    "prettier": "3.3.3"
   }
 }
