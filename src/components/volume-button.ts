@@ -18,13 +18,13 @@ class VolumeButtonComponent extends ButtonComponent {
   }
 
   protected async _onClick() {
-    super._onClick();
-
     localStorage.setItem('muted', gameState.muted ? 'false' : 'true');
     gameState.muted = !gameState.muted;
     setMute(gameState.muted);
 
     this._setResources();
+
+    super._onClick();
   }
 
   private _setResources() {

@@ -11,9 +11,11 @@ import { initPhysicsEngine, updatePhysics } from './physics-engine';
 import { Animation } from './animation';
 import '@pixi/sound';
 import { setRenderer } from './textures';
+import PauseScene from './scenes/pause';
 
 let _app!: Application;
 let _paused = false;
+let _pauseScene!: PauseScene;
 
 const _getScreenHeight = () => {
   return (config.screen.width * 1) / config.screen.aspectRatio;
@@ -94,20 +96,32 @@ const _handleTick = () => {
 
 const _handleFocus = () => {
   let focusedOnce = false;
+  let timerId: NodeJS.Timeout | null = null;
 
   window.addEventListener('focus', () => {
     focusedOnce = true;
     if (!_paused) return;
 
     _paused = false;
+    _pauseScene.visible = false;
     resumeSounds();
+
+    if (timerId != null) clearTimeout(timerId);
+    timerId = setTimeout(() => {
+      timerId = null;
+      _app.stage.eventMode = 'passive';
+    }, 100);
   });
 
   window.addEventListener('blur', () => {
     if (_paused || !focusedOnce) return;
 
     _paused = true;
+    _pauseScene.visible = true;
+    _app.stage.eventMode = 'none';
     pauseSounds();
+
+    if (timerId != null) clearTimeout(timerId);
   });
 };
 
@@ -142,7 +156,13 @@ export const initGame = async () => {
   _app.canvas.style.position = 'absolute';
 
   setRenderer(_app.renderer);
+
+  _pauseScene = new PauseScene();
+  await _pauseScene.init();
+  _app.stage.addChild(_pauseScene.object);
+
   changeScene(new LoadingScene());
+
   _handleContainerResize();
   initPhysicsEngine();
   Animation.initEngine();

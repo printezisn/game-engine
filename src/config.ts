@@ -29,6 +29,17 @@ const config = {
     fontSize: 28,
     textColor: 0xffffff,
     keepAliveTimeMS: 2000,
+    text: 'Loading...',
+  },
+  pauseScene: {
+    overlayColor: 0x000000,
+    overlayAlpha: 0.8,
+    fontFamily: 'Arial, sans-serif',
+    titleFontSize: 48,
+    subTitleFontSize: 28,
+    textColor: 0xffffff,
+    title: 'Paused',
+    subTitle: 'Click/tap to continue',
   },
   signals: {
     onResize: 'onResize',
