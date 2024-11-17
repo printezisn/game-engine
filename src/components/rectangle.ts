@@ -1,6 +1,7 @@
 import { Graphics } from 'pixi.js';
 import BaseComponent from './base';
-import { basePropsToConfig, type BaseProps } from './types';
+import { type BaseProps } from './types';
+import { basePropsToConfig } from './helpers';
 
 interface RectangleProps extends BaseProps {
   fillColor: number;

@@ -8,21 +8,21 @@ import {
 } from 'matter-js';
 import type { Movement, PhysicalEntity, Target } from './types';
 
-let engine!: Engine;
-const entities = new Map<string, PhysicalEntity>();
-const touchingGround = new Map<string, number>();
-const entitiesToUpdate = new Map<string, PhysicalEntity>();
-let entityLabel = 0;
+let _engine!: Engine;
+const _entities = new Map<string, PhysicalEntity>();
+const _touchingGround = new Map<string, number>();
+const _entitiesToUpdate = new Map<string, PhysicalEntity>();
+let _entityLabel = 0;
 
 export const initPhysicsEngine = () => {
-  engine = Engine.create();
+  _engine = Engine.create();
 
-  Events.on(engine, 'collisionStart', (e) => {
+  Events.on(_engine, 'collisionStart', (e) => {
     e.pairs.forEach((pair) => {
       const { bodyA, bodyB } = pair;
 
-      const entityA = entities.get(bodyA.label);
-      const entityB = entities.get(bodyB.label);
+      const entityA = _entities.get(bodyA.label);
+      const entityB = _entities.get(bodyB.label);
       if (!entityA || !entityB) return;
 
       const surface = [entityA, entityB].find((entity) => entity.surface);
@@ -31,9 +31,9 @@ export const initPhysicsEngine = () => {
       if (!nonSurface) return;
 
       if (surface) {
-        touchingGround.set(
+        _touchingGround.set(
           nonSurface.target.matterBody!.label,
-          Math.floor(getBounds(surface).y1),
+          Math.floor(_getBounds(surface).y1),
         );
       } else {
         entityA.onCollision?.(entityB.target);
@@ -42,12 +42,12 @@ export const initPhysicsEngine = () => {
     });
   });
 
-  Events.on(engine, 'collisionEnd', (e) => {
+  Events.on(_engine, 'collisionEnd', (e) => {
     e.pairs.forEach((pair) => {
       const { bodyA, bodyB } = pair;
 
-      const entityA = entities.get(bodyA.label);
-      const entityB = entities.get(bodyB.label);
+      const entityA = _entities.get(bodyA.label);
+      const entityB = _entities.get(bodyB.label);
       if (!entityA || !entityB) return;
 
       const surface = [entityA, entityB].find((entity) => entity.surface);
@@ -55,18 +55,18 @@ export const initPhysicsEngine = () => {
       if (!nonSurface) return;
 
       if (surface) {
-        touchingGround.delete(nonSurface.target.matterBody!.label);
+        _touchingGround.delete(nonSurface.target.matterBody!.label);
       }
     });
   });
 
-  Events.on(engine, 'afterUpdate', () => {
-    entitiesToUpdate.forEach((entity) => {
+  Events.on(_engine, 'afterUpdate', () => {
+    _entitiesToUpdate.forEach((entity) => {
       if (!entity.target.matterBody) return;
 
-      const bounds = getBounds(entity);
+      const bounds = _getBounds(entity);
       const onGround =
-        (touchingGround.get(entity.target.matterBody.label) ?? -Infinity) >=
+        (_touchingGround.get(entity.target.matterBody.label) ?? -Infinity) >=
         Math.floor(bounds.y2);
       entity.onUpdatePosition?.(bounds.x1, bounds.y1, onGround);
     });
@@ -74,7 +74,7 @@ export const initPhysicsEngine = () => {
 };
 
 export const updatePhysics = (interval: number) => {
-  Engine.update(engine, interval);
+  Engine.update(_engine, interval);
 };
 
 export const addPhysicalEntity = (entity: PhysicalEntity) => {
@@ -84,24 +84,24 @@ export const addPhysicalEntity = (entity: PhysicalEntity) => {
       entity.rectangle.y + entity.rectangle.height / 2,
       entity.rectangle.width,
       entity.rectangle.height,
-      createBodyDefinitionOptions(entity),
+      _createBodyDefinitionOptions(entity),
     );
   } else if (entity.circle) {
     entity.target.matterBody = Bodies.circle(
       entity.circle.x,
       entity.circle.y,
       entity.circle.radius,
-      createBodyDefinitionOptions(entity),
+      _createBodyDefinitionOptions(entity),
     );
   } else {
     throw new Error('No body specification provided');
   }
 
-  entities.set(entity.target.matterBody.label, entity);
+  _entities.set(entity.target.matterBody.label, entity);
   if (entity.onUpdatePosition) {
-    entitiesToUpdate.set(entity.target.matterBody.label, entity);
+    _entitiesToUpdate.set(entity.target.matterBody.label, entity);
   }
-  Composite.add(engine.world, entity.target.matterBody);
+  Composite.add(_engine.world, entity.target.matterBody);
 
   if (entity.movement) {
     setMovement(entity.target, entity.movement);
@@ -111,10 +111,10 @@ export const addPhysicalEntity = (entity: PhysicalEntity) => {
 export const removePhysicalEntity = (target: Target) => {
   if (!target.matterBody) return;
 
-  Composite.remove(engine.world, target.matterBody);
-  entities.delete(target.matterBody.label);
-  touchingGround.delete(target.matterBody.label);
-  entitiesToUpdate.delete(target.matterBody.label);
+  Composite.remove(_engine.world, target.matterBody);
+  _entities.delete(target.matterBody.label);
+  _touchingGround.delete(target.matterBody.label);
+  _entitiesToUpdate.delete(target.matterBody.label);
 };
 
 export const setMovement = (target: Target, movement: Movement) => {
@@ -134,15 +134,15 @@ export const movePhysicalEntity = (target: Target, x: number, y: number) => {
   });
 };
 
-const createBodyDefinitionOptions = (
+const _createBodyDefinitionOptions = (
   entity: PhysicalEntity,
 ): IBodyDefinition => {
-  entityLabel++;
+  _entityLabel++;
 
   if (entity.surface) {
     return {
       isStatic: true,
-      label: entityLabel.toString(),
+      label: _entityLabel.toString(),
       inertia: Infinity,
       inverseInertia: 0,
       restitution: 0,
@@ -157,7 +157,7 @@ const createBodyDefinitionOptions = (
       inertia: Infinity,
       inverseInertia: 0,
       restitution: 0,
-      label: entityLabel.toString(),
+      label: _entityLabel.toString(),
     };
   }
 
@@ -168,11 +168,11 @@ const createBodyDefinitionOptions = (
     frictionStatic: 0,
     restitution: 0,
     isSensor: true,
-    label: entityLabel.toString(),
+    label: _entityLabel.toString(),
   };
 };
 
-const getBounds = (entity: PhysicalEntity) => {
+const _getBounds = (entity: PhysicalEntity) => {
   if (!entity.target.matterBody) return { x1: 0, y1: 0, x2: 0, y2: 0 };
   if (entity.rectangle) {
     return {

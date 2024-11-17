@@ -1,9 +1,10 @@
 import { Texture, TilingSprite } from 'pixi.js';
 import BaseComponent from './base';
-import { basePropsToConfig, type BaseSpriteProps, type Point } from './types';
+import type { SpriteProps, Point } from './types';
+import { basePropsToConfig } from './helpers';
 
 class TilingSpriteComponent extends BaseComponent<TilingSprite> {
-  constructor(props: BaseSpriteProps) {
+  constructor(props: SpriteProps) {
     super(
       new TilingSprite({
         ...basePropsToConfig(props),
@@ -11,6 +12,14 @@ class TilingSpriteComponent extends BaseComponent<TilingSprite> {
       }),
       props,
     );
+  }
+
+  get anchor(): Point {
+    return this.object.anchor;
+  }
+
+  set anchor(anchor: Point) {
+    this.object.anchor = anchor;
   }
 
   get originalWidth() {

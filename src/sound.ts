@@ -19,15 +19,15 @@ interface FadeOutSoundOptions {
   fadeDuration: number;
 }
 
-let sound!: Sound;
-const playingSounds = new Map<string, IMediaInstance>();
+let _sound!: Sound;
+const _playingSounds = new Map<string, IMediaInstance>();
 
 export const initSound = () => {
-  sound = Assets.get('audio/sounds.mp3');
+  _sound = Assets.get('audio/sounds.mp3');
   const sprites = Assets.get('audio/sounds.json');
 
-  sound.muted = gameState.muted;
-  sound.addSprites(sprites);
+  _sound.muted = gameState.muted;
+  _sound.addSprites(sprites);
 };
 
 export const playSound = async (
@@ -36,14 +36,14 @@ export const playSound = async (
 ) => {
   const { loop = false, volume = 1 } = options;
 
-  const playingSound = await sound.play({
+  const playingSound = await _sound.play({
     sprite: name,
     loop,
     volume,
-    complete: () => playingSounds.delete(name),
+    complete: () => _playingSounds.delete(name),
   });
 
-  playingSounds.set(name, playingSound);
+  _playingSounds.set(name, playingSound);
 };
 
 export const fadeInSound = async (
@@ -65,19 +65,19 @@ export const fadeInSound = async (
     to: { volume: toVolume },
   });
 
-  await animation.start(playingSounds.get(name));
+  await animation.start(_playingSounds.get(name));
 };
 
 export const stopSound = (name: string) => {
-  playingSounds.get(name)?.stop();
-  playingSounds.delete(name);
+  _playingSounds.get(name)?.stop();
+  _playingSounds.delete(name);
 };
 
 export const fadeOutSound = async (
   name: string,
   options: FadeOutSoundOptions,
 ) => {
-  const playingSound = playingSounds.get(name);
+  const playingSound = _playingSounds.get(name);
   if (!playingSound) return;
 
   const { fadeDuration } = options;
@@ -93,5 +93,5 @@ export const fadeOutSound = async (
 };
 
 export const setMute = (muted: boolean) => {
-  sound.muted = muted;
+  _sound.muted = muted;
 };

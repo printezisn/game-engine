@@ -15,6 +15,24 @@ export interface Point {
   y: number;
 }
 
+export interface Circle {
+  x: number;
+  y: number;
+  radius: number;
+}
+
+export interface Rectangle {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  borderRadius?: number;
+}
+
+export interface Polygon {
+  points: Point[];
+}
+
 export interface BaseProps {
   label: string;
   position?: Point;
@@ -31,13 +49,32 @@ export interface BaseProps {
   cursor?: string;
   visible?: boolean;
   tint?: number;
+  zIndex?: number;
+  hitArea?: HitArea;
 }
 
-export interface BaseSpriteProps extends BaseProps {
+export interface HitArea {
+  circle?: Circle;
+  rectangle?: Rectangle;
+  polygon?: Polygon;
+}
+
+export interface SpriteProps extends BaseProps {
   resource: string;
 }
 
-export interface BaseTextProps extends BaseProps {
+export interface ButtonProps extends SpriteProps {
+  hoverResource: string;
+  disabledResource: string;
+}
+
+export interface VolumeButtonProps extends ButtonProps {
+  mutedResource: string;
+  mutedHoverResource: string;
+  mutedDisabledResource: string;
+}
+
+export interface TextProps extends BaseProps {
   text: string;
   fontFamily: string;
   fontSize: number;
@@ -51,17 +88,6 @@ export interface BaseTextProps extends BaseProps {
   bitmap?: boolean;
 }
 
-export const basePropsToConfig = (props: BaseProps) => ({
-  label: props.label,
-  position: props.position,
-  anchor: props.anchor,
-  scale: props.scale,
-  rotation: props.rotation,
-  width: props.width,
-  height: props.height,
-  alpha: props.alpha,
-  interactive: props.interactive,
-  cursor: props.cursor,
-  visible: props.visible,
-  tint: props.tint,
-});
+export interface ContainerProps extends BaseProps {
+  sortableChildren?: boolean;
+}

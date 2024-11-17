@@ -1,21 +1,32 @@
 import { Container } from 'pixi.js';
 import BaseComponent from './base';
-import { basePropsToConfig, type BaseProps, type DisplayObject } from './types';
+import { type ContainerProps, type DisplayObject } from './types';
 import gameState from '../game-state';
+import { basePropsToConfig } from './helpers';
 
 class ContainerComponent extends BaseComponent<Container> {
   private _components: DisplayObject[] = [];
 
-  constructor(props: BaseProps) {
-    super(new Container(basePropsToConfig(props)), props);
-  }
-
-  private set components(components: DisplayObject[]) {
-    this._components = components;
+  constructor(props: ContainerProps) {
+    super(
+      new Container({
+        ...basePropsToConfig(props),
+        sortableChildren: props.sortableChildren,
+      }),
+      props,
+    );
   }
 
   get components(): DisplayObject[] {
     return this._components;
+  }
+
+  get sortableChildren() {
+    return this.object.sortableChildren;
+  }
+
+  set sortableChildren(sortableChildren: boolean) {
+    this.object.sortableChildren = sortableChildren;
   }
 
   addComponent<T extends DisplayObject>(component: T) {
@@ -40,7 +51,7 @@ class ContainerComponent extends BaseComponent<Container> {
       component.parent = null;
       component.destroy();
     });
-    this.components = [];
+    this._components = [];
   }
 
   destroy() {
@@ -48,7 +59,7 @@ class ContainerComponent extends BaseComponent<Container> {
     super.destroy();
   }
 
-  positionToScreen() {
+  protected _positionToScreen() {
     if (this.props.horizontalAlignment === 'center') {
       this.x =
         (gameState.screen.width - (this.props.width ?? 0)) / 2 +

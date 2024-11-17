@@ -1,14 +1,11 @@
 import config from '../config';
 import { playSound } from '../sound';
 import SpriteComponent from './sprite';
-import type { BaseSpriteProps } from './types';
-
-interface ButtonProps extends BaseSpriteProps {
-  hoverResource: string;
-}
+import { type ButtonProps } from './types';
 
 class ButtonComponent extends SpriteComponent {
   private _pointerOver = false;
+  private _enabled = true;
 
   constructor(props: ButtonProps) {
     super(props);
@@ -18,30 +15,47 @@ class ButtonComponent extends SpriteComponent {
     return super.props as ButtonProps;
   }
 
-  protected get defaultResource() {
-    return this.props.resource;
+  get enabled() {
+    return this._enabled;
   }
 
-  protected get hoverResource() {
-    return this.props.hoverResource;
+  set enabled(enabled: boolean) {
+    if (this._enabled !== enabled) {
+      this._enabled = enabled;
+      this._setCurrentTexture();
+    }
   }
 
-  protected onPointerEnter() {
-    this.texture = this.hoverResource;
+  get pointerOver() {
+    return this._pointerOver;
+  }
+
+  protected _onPointerEnter() {
     this._pointerOver = true;
+    this._setCurrentTexture();
   }
 
-  protected onPointerOut() {
-    this.texture = this.defaultResource;
+  protected _onPointerOut() {
     this._pointerOver = false;
+    this._setCurrentTexture();
   }
 
-  protected async onClick() {
+  protected async _onClick() {
     playSound(config.sounds.click);
-    this.texture = this.defaultResource;
+    this.texture = this.enabled
+      ? this.props.resource
+      : this.props.disabledResource;
     await this.delay(0.1);
-    if (this._pointerOver) {
-      this.texture = this.hoverResource;
+    this._setCurrentTexture();
+  }
+
+  protected _setCurrentTexture() {
+    if (!this.enabled) {
+      this.texture = this.props.disabledResource;
+    } else if (this.pointerOver) {
+      this.texture = this.props.hoverResource;
+    } else {
+      this.texture = this.props.resource;
     }
   }
 }

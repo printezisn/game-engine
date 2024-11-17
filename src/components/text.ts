@@ -1,9 +1,10 @@
 import { BitmapText, Text, type TextOptions } from 'pixi.js';
 import BaseComponent from './base';
-import { basePropsToConfig, type BaseTextProps, type Point } from './types';
+import { type TextProps, type Point } from './types';
+import { basePropsToConfig } from './helpers';
 
 class TextComponent extends BaseComponent<Text | BitmapText> {
-  constructor(props: BaseTextProps) {
+  constructor(props: TextProps) {
     const options: TextOptions = {
       ...basePropsToConfig(props),
       text: props.text,

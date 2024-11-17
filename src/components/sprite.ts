@@ -1,9 +1,10 @@
 import { Sprite, Texture } from 'pixi.js';
 import BaseComponent from './base';
-import { basePropsToConfig, type BaseSpriteProps } from './types';
+import type { Point, SpriteProps } from './types';
+import { basePropsToConfig } from './helpers';
 
 class SpriteComponent extends BaseComponent<Sprite> {
-  constructor(props: BaseSpriteProps) {
+  constructor(props: SpriteProps) {
     super(
       new Sprite({
         ...basePropsToConfig(props),
@@ -11,6 +12,14 @@ class SpriteComponent extends BaseComponent<Sprite> {
       }),
       props,
     );
+  }
+
+  get anchor(): Point {
+    return this.object.anchor;
+  }
+
+  set anchor(anchor: Point) {
+    this.object.anchor = anchor;
   }
 
   get originalWidth() {

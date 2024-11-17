@@ -1,5 +1,11 @@
-import type { Container } from 'pixi.js';
-import type { BaseProps, DisplayObject, Point } from './types';
+import {
+  Circle,
+  Polygon,
+  Rectangle,
+  RoundedRectangle,
+  type Container,
+} from 'pixi.js';
+import type { BaseProps, DisplayObject, HitArea, Point } from './types';
 import type ContainerComponent from './container';
 import { addSignalListener, removeSignalListener } from '../signals';
 import config from '../config';
@@ -18,52 +24,57 @@ abstract class BaseComponent<T extends Container> implements DisplayObject {
     this._props = props;
     this._object = object;
 
+    this.hitArea = this.props.hitArea;
+
     if (this.props.horizontalAlignment || this.props.verticalAlignment) {
-      this.registerToSignal(config.signals.onResize, this.positionToScreen);
+      this._registerToSignal(config.signals.onResize, this._positionToScreen);
     }
-    if ((this as any).onResize) {
-      this.registerToSignal(config.signals.onResize, (this as any).onResize);
+    if ((this as any)._onResize) {
+      this._registerToSignal(config.signals.onResize, (this as any)._onResize);
     }
-    if ((this as any).onOrientationChange) {
-      this.registerToSignal(
+    if ((this as any)._onOrientationChange) {
+      this._registerToSignal(
         config.signals.onOrientationChange,
-        (this as any).onOrientationChange,
+        (this as any)._onOrientationChange,
       );
     }
-    if ((this as any).onTick) {
-      this.registerToSignal(config.signals.onTick, (this as any).onTick);
+    if ((this as any)._onTick) {
+      this._registerToSignal(config.signals.onTick, (this as any)._onTick);
     }
-    if ((this as any).onClick) {
+    if ((this as any)._onClick) {
       this.object.on('pointerdown', (e) => {
         e.stopImmediatePropagation();
-        (this as any).onClick();
+        (this as any)._onClick();
       });
     }
-    if ((this as any).onPointerUp) {
+    if ((this as any)._onPointerUp) {
       this.object.on('pointerup', (e) => {
         e.stopImmediatePropagation();
-        (this as any).onPointerUp();
+        (this as any)._onPointerUp();
       });
     }
-    if ((this as any).onPointerEnter) {
+    if ((this as any)._onPointerEnter) {
       this.object.on('pointerenter', () => {
-        (this as any).onPointerEnter();
+        (this as any)._onPointerEnter();
       });
     }
-    if ((this as any).onPointerOut) {
+    if ((this as any)._onPointerOut) {
       this.object.on('pointerout', () => {
-        (this as any).onPointerOut();
+        (this as any)._onPointerOut();
       });
     }
 
-    this.positionToScreen();
+    this._positionToScreen();
   }
 
-  protected registerToSignal(name: string, callback: (...args: any[]) => void) {
+  protected _registerToSignal(
+    name: string,
+    callback: (...args: any[]) => void,
+  ) {
     this._bindings.push(addSignalListener(name, callback.bind(this)));
   }
 
-  protected unregisterFromSignal(name: string) {
+  protected _unregisterFromSignal(name: string) {
     for (let i = 0; i < this._bindings.length; i++) {
       if (this._bindings[i].name === name) {
         removeSignalListener(name, this._bindings[i].binding);
@@ -201,6 +212,43 @@ abstract class BaseComponent<T extends Container> implements DisplayObject {
     this.object.tint = tint;
   }
 
+  get zIndex() {
+    return this.object.zIndex;
+  }
+
+  set zIndex(zIndex: number) {
+    this.object.zIndex = zIndex;
+  }
+
+  set hitArea(hitArea: HitArea | null | undefined) {
+    if (hitArea?.circle) {
+      this.object.hitArea = new Circle(
+        hitArea.circle.x,
+        hitArea.circle.y,
+        hitArea.circle.radius,
+      );
+    } else if (hitArea?.rectangle?.borderRadius != null) {
+      this.object.hitArea = new RoundedRectangle(
+        hitArea.rectangle.x,
+        hitArea.rectangle.y,
+        hitArea.rectangle.width,
+        hitArea.rectangle.height,
+        hitArea.rectangle.borderRadius,
+      );
+    } else if (hitArea?.rectangle) {
+      this.object.hitArea = new Rectangle(
+        hitArea.rectangle.x,
+        hitArea.rectangle.y,
+        hitArea.rectangle.width,
+        hitArea.rectangle.height,
+      );
+    } else if (hitArea?.polygon) {
+      this.object.hitArea = new Polygon(hitArea.polygon.points);
+    } else {
+      this.object.hitArea = null;
+    }
+  }
+
   animate(options: AnimationOptions) {
     return this._createAnimation(this, options);
   }
@@ -240,7 +288,7 @@ abstract class BaseComponent<T extends Container> implements DisplayObject {
     this.object.destroy();
   }
 
-  positionToScreen() {
+  protected _positionToScreen() {
     if (this.props.horizontalAlignment === 'center') {
       this.x = gameState.screen.width / 2 + (this.props.margin?.x ?? 0);
     } else if (this.props.horizontalAlignment === 'right') {

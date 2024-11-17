@@ -1,46 +1,44 @@
 import gameState from '../game-state';
 import { setMute } from '../sound';
 import ButtonComponent from './button';
-import type { BaseSpriteProps } from './types';
-
-interface VolumeButtonProps extends BaseSpriteProps {
-  hoverResource: string;
-  mutedResource: string;
-  mutedHoverResource: string;
-}
+import { type VolumeButtonProps } from './types';
 
 class VolumeButtonComponent extends ButtonComponent {
+  private _originalProps: VolumeButtonProps;
+
   constructor(props: VolumeButtonProps) {
     super(props);
 
-    if (gameState.muted) {
-      this.texture = this.props.mutedResource;
-    }
+    this._originalProps = structuredClone(props);
+    this._setResources();
   }
 
   get props() {
     return super.props as VolumeButtonProps;
   }
 
-  protected get defaultResource() {
-    if (gameState.muted) return this.props.mutedResource;
-
-    return super.defaultResource;
-  }
-
-  protected get hoverResource() {
-    if (gameState.muted) return this.props.mutedHoverResource;
-
-    return super.hoverResource;
-  }
-
-  protected async onClick() {
-    super.onClick();
+  protected async _onClick() {
+    super._onClick();
 
     localStorage.setItem('muted', gameState.muted ? 'false' : 'true');
     gameState.muted = !gameState.muted;
-
     setMute(gameState.muted);
+
+    this._setResources();
+  }
+
+  private _setResources() {
+    if (gameState.muted) {
+      this.props.resource = this._originalProps.mutedResource;
+      this.props.hoverResource = this._originalProps.mutedHoverResource;
+      this.props.disabledResource = this._originalProps.mutedDisabledResource;
+    } else {
+      this.props.resource = this._originalProps.resource;
+      this.props.hoverResource = this._originalProps.hoverResource;
+      this.props.disabledResource = this._originalProps.disabledResource;
+    }
+
+    this._setCurrentTexture();
   }
 }
 

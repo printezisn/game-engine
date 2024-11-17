@@ -10,13 +10,7 @@ import TilingBackgroundComponent from './tiling-background';
 import TilingSpriteComponent from './tiling-sprite';
 import VolumeButtonComponent from './volume-button';
 
-import {
-  type DisplayObject,
-  type BaseProps,
-  type BaseSpriteProps,
-  type BaseTextProps,
-  type Point,
-} from './types';
+export * from './types';
 
 export {
   BaseComponent,
@@ -30,9 +24,4 @@ export {
   TilingBackgroundComponent,
   TilingSpriteComponent,
   VolumeButtonComponent,
-  DisplayObject,
-  BaseProps,
-  BaseSpriteProps,
-  BaseTextProps,
-  Point,
 };

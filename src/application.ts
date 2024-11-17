@@ -11,24 +11,24 @@ import { initPhysicsEngine, updatePhysics } from './physics-engine';
 import { Animation } from './animation';
 import '@pixi/sound';
 
-let app!: Application;
+let _app!: Application;
 
-const getScreenHeight = () => {
+const _getScreenHeight = () => {
   return (config.screen.width * 1) / config.screen.aspectRatio;
 };
 
-const resizeCanvas = () => {
+const _resizeCanvas = () => {
   const { width, height, orientation } = resize(
     config.gameContainer,
-    app.canvas,
+    _app.canvas,
     config.screen.width,
-    getScreenHeight(),
+    _getScreenHeight(),
   );
 
   if (width !== gameState.screen.width || height !== gameState.screen.height) {
     gameState.screen.width = width;
     gameState.screen.height = height;
-    app.renderer.resize(width, height);
+    _app.renderer.resize(width, height);
     fireSignal(config.signals.onResize);
   }
 
@@ -39,10 +39,10 @@ const resizeCanvas = () => {
   }
 };
 
-const handleContainerResize = () => {
+const _handleContainerResize = () => {
   const { start: resizeCallback } = debounce(
     () => {
-      resizeCanvas();
+      _resizeCanvas();
     },
     () => {},
     100,
@@ -52,10 +52,10 @@ const handleContainerResize = () => {
   });
 
   containerResizeObservers.observe(config.gameContainer);
-  resizeCanvas();
+  _resizeCanvas();
 };
 
-const handleTick = () => {
+const _handleTick = () => {
   let totalDeltaTime = 0;
   let totalFPSEntries = 0;
   let totalFPS = 0;
@@ -71,8 +71,8 @@ const handleTick = () => {
     }, 1000);
   }
 
-  app.ticker.maxFPS = config.maxFPS;
-  app.ticker.add((ticker) => {
+  _app.ticker.maxFPS = config.maxFPS;
+  _app.ticker.add((ticker) => {
     if (config.debug) {
       totalFPS += Math.floor(ticker.FPS);
       totalFPSEntries++;
@@ -91,11 +91,11 @@ const handleTick = () => {
 export const changeScene = async (newScene: BaseScene) => {
   if (gameState.scene) {
     gameState.scene.destroy();
-    app.stage.removeChild(gameState.scene.object);
+    _app.stage.removeChild(gameState.scene.object);
   }
 
   gameState.scene = newScene;
-  app.stage.addChild(gameState.scene.object);
+  _app.stage.addChild(gameState.scene.object);
 
   await newScene.init();
 };
@@ -103,26 +103,26 @@ export const changeScene = async (newScene: BaseScene) => {
 export const initGame = async () => {
   config.gameContainer.style.backgroundColor = config.colors.backgroundColor;
 
-  app = new Application();
+  _app = new Application();
 
-  await app.init({
+  await _app.init({
     backgroundColor: config.colors.backgroundColor,
     width: config.screen.width,
-    height: getScreenHeight(),
+    height: _getScreenHeight(),
   });
 
   if (import.meta.env.DEV || config.debug) {
-    (globalThis as any).__PIXI_APP__ = app;
+    (globalThis as any).__PIXI_APP__ = _app;
   }
 
-  config.gameContainer.appendChild(app.canvas);
-  app.canvas.style.position = 'absolute';
+  config.gameContainer.appendChild(_app.canvas);
+  _app.canvas.style.position = 'absolute';
 
   changeScene(new LoadingScene());
-  handleContainerResize();
+  _handleContainerResize();
   initPhysicsEngine();
   Animation.initEngine();
-  handleTick();
+  _handleTick();
 
   await Promise.all([
     new Promise((resolve) =>

@@ -15,7 +15,7 @@ export class Animation {
   private _options: AnimationOptions;
   private _tween: gsap.core.Tween | null = null;
 
-  private static rootTimeMs = 0;
+  private static _rootTimeMs = 0;
 
   constructor(options: AnimationOptions) {
     this._options = options;
@@ -58,7 +58,7 @@ export class Animation {
   }
 
   static updateEngine(delta: number) {
-    this.rootTimeMs += delta;
-    gsap.updateRoot(this.rootTimeMs / 1000);
+    this._rootTimeMs += delta;
+    gsap.updateRoot(this._rootTimeMs / 1000);
   }
 }

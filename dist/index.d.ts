@@ -16,7 +16,7 @@ export declare const addSignalListener: (name: string, callback: (...args: any[]
 declare class Animation_2 {
     private _options;
     private _tween;
-    private static rootTimeMs;
+    private static _rootTimeMs;
     constructor(options: AnimationOptions);
     get options(): AnimationOptions;
     start(target: any): Promise<void>;
@@ -52,8 +52,8 @@ export declare abstract class BaseComponent<T extends Container> implements Disp
     private _bindings;
     private _animations;
     constructor(object: T, props: BaseProps);
-    protected registerToSignal(name: string, callback: (...args: any[]) => void): void;
-    protected unregisterFromSignal(name: string): void;
+    protected _registerToSignal(name: string, callback: (...args: any[]) => void): void;
+    protected _unregisterFromSignal(name: string): void;
     get props(): BaseProps;
     get object(): T;
     get x(): number;
@@ -86,11 +86,14 @@ export declare abstract class BaseComponent<T extends Container> implements Disp
     set rotation(rotation: number);
     get tint(): number;
     set tint(tint: number);
+    get zIndex(): number;
+    set zIndex(zIndex: number);
+    set hitArea(hitArea: HitArea | null | undefined);
     animate(options: AnimationOptions): Promise<void>;
     stopAnimations(): void;
     delay(duration: number): Promise<void>;
     destroy(): void;
-    positionToScreen(): void;
+    protected _positionToScreen(): void;
     private _createAnimation;
 }
 
@@ -110,6 +113,8 @@ export declare interface BaseProps {
     cursor?: string;
     visible?: boolean;
     tint?: number;
+    zIndex?: number;
+    hitArea?: HitArea;
 }
 
 export declare class BaseScene extends ContainerComponent {
@@ -117,42 +122,34 @@ export declare class BaseScene extends ContainerComponent {
     init(): Promise<void>;
 }
 
-export declare interface BaseSpriteProps extends BaseProps {
-    resource: string;
-}
-
-export declare interface BaseTextProps extends BaseProps {
-    text: string;
-    fontFamily: string;
-    fontSize: number;
-    textColor: number;
-    strokeColor?: number;
-    strokeWidth?: number;
-    lineHeight?: number;
-    wordWrap?: boolean;
-    wordWrapWidth?: number;
-    align?: 'left' | 'center' | 'right' | 'justify';
-    bitmap?: boolean;
-}
-
 export declare class ButtonComponent extends SpriteComponent {
     private _pointerOver;
+    private _enabled;
     constructor(props: ButtonProps);
     get props(): ButtonProps;
-    protected get defaultResource(): string;
-    protected get hoverResource(): string;
-    protected onPointerEnter(): void;
-    protected onPointerOut(): void;
-    protected onClick(): Promise<void>;
+    get enabled(): boolean;
+    set enabled(enabled: boolean);
+    get pointerOver(): boolean;
+    protected _onPointerEnter(): void;
+    protected _onPointerOut(): void;
+    protected _onClick(): Promise<void>;
+    protected _setCurrentTexture(): void;
 }
 
-declare interface ButtonProps extends BaseSpriteProps {
+export declare interface ButtonProps extends SpriteProps {
     hoverResource: string;
+    disabledResource: string;
 }
 
 export declare const changeScene: (newScene: BaseScene) => Promise<void>;
 
-declare interface Circle {
+export declare interface Circle {
+    x: number;
+    y: number;
+    radius: number;
+}
+
+declare interface Circle_2 {
     x: number;
     y: number;
     radius: number;
@@ -160,18 +157,23 @@ declare interface Circle {
 
 export declare class ContainerComponent extends BaseComponent<Container> {
     private _components;
-    constructor(props: BaseProps);
-    private set components(value);
+    constructor(props: ContainerProps);
     get components(): DisplayObject[];
+    get sortableChildren(): boolean;
+    set sortableChildren(sortableChildren: boolean);
     addComponent<T extends DisplayObject>(component: T): T;
     removeComponent(component: DisplayObject): void;
     removeComponents(): void;
     destroy(): void;
-    positionToScreen(): void;
+    protected _positionToScreen(): void;
+}
+
+export declare interface ContainerProps extends BaseProps {
+    sortableChildren?: boolean;
 }
 
 export declare class CreditsButtonComponent extends ButtonComponent {
-    protected onClick(): Promise<void>;
+    protected _onClick(): Promise<void>;
 }
 
 export declare const debounce: (startCallback: () => void, cancelCallback: () => void, startWaitTime?: number, cancelWaitTime?: number) => {
@@ -256,6 +258,12 @@ declare interface GameState {
 
 export declare const getRandomInt: (min: number, max: number) => number;
 
+export declare interface HitArea {
+    circle?: Circle;
+    rectangle?: Rectangle;
+    polygon?: Polygon;
+}
+
 export declare const initGame: () => Promise<void>;
 
 export declare const initPhysicsEngine: () => void;
@@ -277,14 +285,13 @@ declare interface Movement {
 export declare const movePhysicalEntity: (target: Target, x: number, y: number) => void;
 
 export declare class MovingBackgroundComponent extends TilingBackgroundComponent {
-    constructor(props: BaseSpriteProps);
-    protected onTick(): void;
+    protected _onTick(): void;
 }
 
 declare interface PhysicalEntity {
     target: Target;
-    rectangle?: Rectangle;
-    circle?: Circle;
+    rectangle?: Rectangle_2;
+    circle?: Circle_2;
     surface?: boolean;
     movement?: Movement;
     onUpdatePosition?: (x: number, y: number, onGround: boolean) => any;
@@ -303,7 +310,19 @@ export declare interface Point {
     y: number;
 }
 
-declare interface Rectangle {
+export declare interface Polygon {
+    points: Point[];
+}
+
+export declare interface Rectangle {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    borderRadius?: number;
+}
+
+declare interface Rectangle_2 {
     x: number;
     y: number;
     width: number;
@@ -329,10 +348,16 @@ export declare const setMovement: (target: Target, movement: Movement) => void;
 export declare const setMute: (muted: boolean) => void;
 
 export declare class SpriteComponent extends BaseComponent<Sprite> {
-    constructor(props: BaseSpriteProps);
+    constructor(props: SpriteProps);
+    get anchor(): Point;
+    set anchor(anchor: Point);
     get originalWidth(): number;
     get originalHeight(): number;
     set texture(resource: string);
+}
+
+export declare interface SpriteProps extends BaseProps {
+    resource: string;
 }
 
 export declare const stopSound: (name: string) => void;
@@ -342,7 +367,7 @@ declare type Target = DisplayObject & {
 };
 
 export declare class TextComponent extends BaseComponent<Text_2 | BitmapText> {
-    constructor(props: BaseTextProps);
+    constructor(props: TextProps);
     get anchor(): Point;
     set anchor(anchor: Point);
     get fontSize(): number;
@@ -353,13 +378,29 @@ export declare class TextComponent extends BaseComponent<Text_2 | BitmapText> {
     set text(text: string);
 }
 
+export declare interface TextProps extends BaseProps {
+    text: string;
+    fontFamily: string;
+    fontSize: number;
+    textColor: number;
+    strokeColor?: number;
+    strokeWidth?: number;
+    lineHeight?: number;
+    wordWrap?: boolean;
+    wordWrapWidth?: number;
+    align?: 'left' | 'center' | 'right' | 'justify';
+    bitmap?: boolean;
+}
+
 export declare class TilingBackgroundComponent extends TilingSpriteComponent {
-    constructor(props: BaseSpriteProps);
-    protected onResize(): void;
+    constructor(props: SpriteProps);
+    protected _onResize(): void;
 }
 
 export declare class TilingSpriteComponent extends BaseComponent<TilingSprite> {
-    constructor(props: BaseSpriteProps);
+    constructor(props: SpriteProps);
+    get anchor(): Point;
+    set anchor(anchor: Point);
     get originalWidth(): number;
     get originalHeight(): number;
     get tileScale(): Point;
@@ -376,17 +417,17 @@ declare interface Velocity {
 }
 
 export declare class VolumeButtonComponent extends ButtonComponent {
+    private _originalProps;
     constructor(props: VolumeButtonProps);
     get props(): VolumeButtonProps;
-    protected get defaultResource(): string;
-    protected get hoverResource(): string;
-    protected onClick(): Promise<void>;
+    protected _onClick(): Promise<void>;
+    private _setResources;
 }
 
-declare interface VolumeButtonProps extends BaseSpriteProps {
-    hoverResource: string;
+export declare interface VolumeButtonProps extends ButtonProps {
     mutedResource: string;
     mutedHoverResource: string;
+    mutedDisabledResource: string;
 }
 
 export { }
