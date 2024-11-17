@@ -288,6 +288,8 @@ export declare class MovingBackgroundComponent extends TilingBackgroundComponent
     protected _onTick(): void;
 }
 
+export declare const pauseSounds: () => void;
+
 declare interface PhysicalEntity {
     target: Target;
     rectangle?: Rectangle_2;
@@ -342,6 +344,8 @@ declare interface RectangleProps extends BaseProps {
 export declare const removePhysicalEntity: (target: Target) => void;
 
 export declare const removeSignalListener: (name: string, binding: any) => void;
+
+export declare const resumeSounds: () => void;
 
 export declare const setMovement: (target: Target, movement: Movement) => void;
 

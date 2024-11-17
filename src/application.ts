@@ -6,12 +6,13 @@ import gameState from './game-state';
 import { LoadingScene } from './scenes';
 import { fireSignal } from './signals';
 import { type BaseScene } from './scenes';
-import { initSound } from './sound';
+import { initSound, pauseSounds, resumeSounds } from './sound';
 import { initPhysicsEngine, updatePhysics } from './physics-engine';
 import { Animation } from './animation';
 import '@pixi/sound';
 
 let _app!: Application;
+let _paused = false;
 
 const _getScreenHeight = () => {
   return (config.screen.width * 1) / config.screen.aspectRatio;
@@ -78,6 +79,8 @@ const _handleTick = () => {
       totalFPSEntries++;
     }
 
+    if (_paused) return;
+
     totalDeltaTime += ticker.deltaMS;
     while (totalDeltaTime >= config.tickIntervalMillis) {
       fireSignal(config.signals.onTick);
@@ -85,6 +88,25 @@ const _handleTick = () => {
       updatePhysics(config.tickIntervalMillis);
       totalDeltaTime -= config.tickIntervalMillis;
     }
+  });
+};
+
+const _handleFocus = () => {
+  let focusedOnce = false;
+
+  window.addEventListener('focus', () => {
+    focusedOnce = true;
+    if (!_paused) return;
+
+    _paused = false;
+    resumeSounds();
+  });
+
+  window.addEventListener('blur', () => {
+    if (_paused || !focusedOnce) return;
+
+    _paused = true;
+    pauseSounds();
   });
 };
 
@@ -123,6 +145,7 @@ export const initGame = async () => {
   initPhysicsEngine();
   Animation.initEngine();
   _handleTick();
+  _handleFocus();
 
   await Promise.all([
     new Promise((resolve) =>

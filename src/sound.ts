@@ -70,6 +70,7 @@ export const fadeInSound = async (
 
 export const stopSound = (name: string) => {
   _playingSounds.get(name)?.stop();
+  _playingSounds.get(name)?.destroy();
   _playingSounds.delete(name);
 };
 
@@ -94,4 +95,16 @@ export const fadeOutSound = async (
 
 export const setMute = (muted: boolean) => {
   _sound.muted = muted;
+};
+
+export const pauseSounds = () => {
+  for (const [_, s] of _playingSounds) {
+    s.paused = true;
+  }
+};
+
+export const resumeSounds = () => {
+  for (const [_, s] of _playingSounds) {
+    s.paused = false;
+  }
 };
