@@ -2,6 +2,15 @@
   "name": "@printezisn/game-engine",
   "type": "module",
   "version": "0.4.0",
+  "author": {
+    "name": "Nikos Printezis",
+    "url": "https://printezisn.github.io/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/printezisn/game-engine"
+  },
+  "homepage": "https://printezisn.github.io/",
   "files": [
     "dist",
     "bin"
@@ -28,7 +37,7 @@
     "lint": "tsc && eslint ./src",
     "lint:fix": "tsc && eslint ./src --fix",
     "prettier:format": "prettier --write .",
-    "prepare": "husky",
+    "prepare": "husky && vite build",
     "test:unit": "vitest run ./src --passWithNoTests"
   },
   "dependencies": {

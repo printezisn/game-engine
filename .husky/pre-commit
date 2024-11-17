@@ -3,4 +3,3 @@ pnpm lint
 pnpm test:unit
 pnpm build
 git update-index --again
-git add ./dist
