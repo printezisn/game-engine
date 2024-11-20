@@ -1,7 +1,7 @@
 {
   "name": "@printezisn/game-engine",
   "type": "module",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "author": {
     "name": "Nikos Printezis",
     "url": "https://printezisn.github.io/"
