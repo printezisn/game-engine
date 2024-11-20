@@ -46,7 +46,6 @@ const config = {
     onOrientationChange: 'onOrientationChange',
     onTick: 'onTick',
     destroyLoadingScene: 'destroyLoadingScene',
-    showCredits: 'showCredits',
   },
   sounds: {
     click: 'click',

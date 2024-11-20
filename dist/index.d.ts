@@ -171,10 +171,6 @@ export declare interface ContainerProps extends BaseProps {
     sortableChildren?: boolean;
 }
 
-export declare class CreditsButtonComponent extends ButtonComponent {
-    protected _onClick(): Promise<void>;
-}
-
 export declare const debounce: (startCallback: () => void, cancelCallback: () => void, startWaitTime?: number, cancelWaitTime?: number) => {
     start: () => void;
     cancel: () => void;
@@ -230,7 +226,6 @@ export declare const engineConfig: {
         onOrientationChange: string;
         onTick: string;
         destroyLoadingScene: string;
-        showCredits: string;
     };
     sounds: {
         click: string;
@@ -282,6 +277,16 @@ export declare const initSound: () => void;
 
 declare interface LinearMovement {
     velocity: Velocity;
+}
+
+export declare class LinkButtonComponent extends ButtonComponent {
+    constructor(props: LinkButtonProps);
+    get props(): LinkButtonProps;
+    protected _onClick(): Promise<void>;
+}
+
+export declare interface LinkButtonProps extends ButtonProps {
+    url: string;
 }
 
 export declare class LoadingScene extends BaseScene {

@@ -1,7 +1,7 @@
 import BaseComponent from './base';
 import ButtonComponent from './button';
 import ContainerComponent from './container';
-import CreditsButtonComponent from './credits-button';
+import LinkButtonComponent from './link-button';
 import MovingBackgroundComponent from './moving-background';
 import SpriteComponent from './sprite';
 import TextComponent from './text';
@@ -15,7 +15,7 @@ export {
   BaseComponent,
   ButtonComponent,
   ContainerComponent,
-  CreditsButtonComponent,
+  LinkButtonComponent,
   MovingBackgroundComponent,
   SpriteComponent,
   TextComponent,

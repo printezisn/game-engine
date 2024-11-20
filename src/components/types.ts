@@ -88,6 +88,10 @@ export interface VolumeButtonProps extends ButtonProps {
   mutedDisabledResource: Resource;
 }
 
+export interface LinkButtonProps extends ButtonProps {
+  url: string;
+}
+
 export interface TextProps extends BaseProps {
   text: string;
   fontFamily: string;
