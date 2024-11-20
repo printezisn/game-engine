@@ -96,32 +96,56 @@ const _handleTick = () => {
 
 const _handleFocus = () => {
   let focusedOnce = false;
-  let timerId: NodeJS.Timeout | null = null;
+  const { start: startEventModeChange, cancel: cancelEventModeChange } =
+    debounce(
+      () => {
+        _app.stage.eventMode = 'passive';
+      },
+      () => {},
+      100,
+      0,
+    );
 
-  window.addEventListener('focus', () => {
-    focusedOnce = true;
+  const unpause = () => {
     if (!_paused) return;
 
     _paused = false;
     _pauseScene.visible = false;
     resumeSounds();
+    startEventModeChange();
+  };
 
-    if (timerId != null) clearTimeout(timerId);
-    timerId = setTimeout(() => {
-      timerId = null;
-      _app.stage.eventMode = 'passive';
-    }, 100);
-  });
-
-  window.addEventListener('blur', () => {
+  const pause = () => {
     if (_paused || !focusedOnce) return;
 
     _paused = true;
     _pauseScene.visible = true;
     _app.stage.eventMode = 'none';
     pauseSounds();
+    cancelEventModeChange();
+  };
 
-    if (timerId != null) clearTimeout(timerId);
+  window.addEventListener(
+    'focus',
+    () => {
+      focusedOnce = true;
+    },
+    { once: true },
+  );
+
+  document.addEventListener('click', () => {
+    focusedOnce = true;
+    unpause();
+  });
+
+  window.addEventListener('blur', () => {
+    pause();
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      pause();
+    }
   });
 };
 
