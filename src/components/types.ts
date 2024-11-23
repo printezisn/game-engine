@@ -148,6 +148,7 @@ export interface InputProps extends BaseProps {
   padding?: Padding | number;
   maxLength?: number;
   placeholder?: string;
+  onChange?: () => any;
 }
 
 export type Resource = string | FilledShape;

@@ -319,6 +319,7 @@ export declare interface InputProps extends BaseProps {
     padding?: Padding | number;
     maxLength?: number;
     placeholder?: string;
+    onChange?: () => any;
 }
 
 declare interface LinearMovement {
