@@ -179,7 +179,7 @@ const or = (s) => {
   },
   test: () => !0,
   load: async () => {
-    await import("./browserAll-DHPNjzLw.js");
+    await import("./browserAll-H_f6mCOL.js");
   }
 }, Nc = {
   extension: {
@@ -189,7 +189,7 @@ const or = (s) => {
   },
   test: () => typeof self < "u" && self.WorkerGlobalScope !== void 0,
   load: async () => {
-    await import("./webworkerAll-AQLydtCY.js");
+    await import("./webworkerAll-CWRFth_2.js");
   }
 };
 class mt {
@@ -6480,13 +6480,13 @@ async function Mf(s) {
   for (let n = 0; n < t.length; n++) {
     const o = t[n];
     if (o === "webgpu" && await Pf()) {
-      const { WebGPURenderer: a } = await import("./WebGPURenderer-CcWbzyM1.js");
+      const { WebGPURenderer: a } = await import("./WebGPURenderer-BcHotYAu.js");
       e = a, i = { ...s, ...s.webgpu };
       break;
     } else if (o === "webgl" && Cf(
       s.failIfMajorPerformanceCaveat ?? Nl.defaultOptions.failIfMajorPerformanceCaveat
     )) {
-      const { WebGLRenderer: a } = await import("./WebGLRenderer-CFeS6iqT.js");
+      const { WebGLRenderer: a } = await import("./WebGLRenderer-DncSAbWG.js");
       e = a, i = { ...s, ...s.webgl };
       break;
     } else if (o === "canvas")
@@ -18951,7 +18951,7 @@ class bn {
     Gt(this, "_parent", null);
     Gt(this, "_bindings", []);
     Gt(this, "_animations", []);
-    this._props = e, this._object = t, this.hitArea = this.props.hitArea, this._createEvents(), this._positionToScreen();
+    this._props = e, this._object = t, this.hitArea = this.props.hitArea, this._createEvents(), this._setOrientationProperties(), this._positionToScreen();
   }
   _registerToSignal(t, e) {
     this._bindings.push(wm(t, e.bind(this)));
@@ -19116,6 +19116,7 @@ class bn {
     this.props.horizontalAlignment === "center" ? this.x = j.screen.width / 2 + (((t = this.props.margin) == null ? void 0 : t.x) ?? 0) : this.props.horizontalAlignment === "right" && (this.x = j.screen.width + (((e = this.props.margin) == null ? void 0 : e.x) ?? 0)), this.props.verticalAlignment === "center" ? this.y = j.screen.height / 2 + (((i = this.props.margin) == null ? void 0 : i.y) ?? 0) : this.props.verticalAlignment === "bottom" && (this.y = j.screen.height + (((r = this.props.margin) == null ? void 0 : r.y) ?? 0));
   }
   _setOrientationProperties() {
+    if (!this.props.landscape && !this.props.portrait) return;
     const t = this.props[j.screen.orientation];
     for (const e in t)
       this[e] = t[e];

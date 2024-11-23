@@ -27,6 +27,7 @@ abstract class BaseComponent<T extends Container> implements DisplayObject {
     this.hitArea = this.props.hitArea;
 
     this._createEvents();
+    this._setOrientationProperties();
     this._positionToScreen();
   }
 
@@ -274,6 +275,8 @@ abstract class BaseComponent<T extends Container> implements DisplayObject {
   }
 
   private _setOrientationProperties() {
+    if (!this.props.landscape && !this.props.portrait) return;
+
     const props = this.props[gameState.screen.orientation];
     for (const key in props) {
       (this as any)[key] = props[key];
