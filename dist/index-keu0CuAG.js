@@ -179,7 +179,7 @@ const rr = (s) => {
   },
   test: () => !0,
   load: async () => {
-    await import("./browserAll-CFfeEf5r.js");
+    await import("./browserAll-DKIYR90C.js");
   }
 }, Nc = {
   extension: {
@@ -189,7 +189,7 @@ const rr = (s) => {
   },
   test: () => typeof self < "u" && self.WorkerGlobalScope !== void 0,
   load: async () => {
-    await import("./webworkerAll-K5QEDYEa.js");
+    await import("./webworkerAll-CFRD4XpI.js");
   }
 };
 class mt {
@@ -6480,13 +6480,13 @@ async function Mf(s) {
   for (let n = 0; n < t.length; n++) {
     const o = t[n];
     if (o === "webgpu" && await Pf()) {
-      const { WebGPURenderer: a } = await import("./WebGPURenderer-DBjUN-AM.js");
+      const { WebGPURenderer: a } = await import("./WebGPURenderer-DqCLG5Ux.js");
       e = a, i = { ...s, ...s.webgpu };
       break;
     } else if (o === "webgl" && Cf(
       s.failIfMajorPerformanceCaveat ?? Nl.defaultOptions.failIfMajorPerformanceCaveat
     )) {
-      const { WebGLRenderer: a } = await import("./WebGLRenderer-DBvStMZf.js");
+      const { WebGLRenderer: a } = await import("./WebGLRenderer-r3pBMLOD.js");
       e = a, i = { ...s, ...s.webgl };
       break;
     } else if (o === "canvas")
@@ -19309,6 +19309,7 @@ class Xg extends vn {
       e
     );
     Gt(this, "_components", []);
+    this.addComponents(e.components ?? []);
   }
   get components() {
     return this._components;
@@ -19321,6 +19322,12 @@ class Xg extends vn {
   }
   addComponent(e) {
     return this.components.push(e), this.object.addChild(e.object), e.parent = this, e;
+  }
+  addComponents(e) {
+    e.forEach((i) => this.addComponent(i));
+  }
+  getComponent(e) {
+    return this.components.find((i) => i.label === e);
   }
   removeComponent(e) {
     const i = this.components.indexOf(e);

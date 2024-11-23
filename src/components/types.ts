@@ -108,6 +108,7 @@ export interface TextProps extends BaseProps {
 
 export interface ContainerProps extends BaseProps {
   sortableChildren?: boolean;
+  components?: DisplayObject[];
 }
 
 export type Resource = string | FilledShape;

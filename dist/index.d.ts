@@ -166,6 +166,8 @@ export declare class ContainerComponent extends BaseComponent<Container> {
     get sortableChildren(): boolean;
     set sortableChildren(sortableChildren: boolean);
     addComponent<T extends DisplayObject>(component: T): T;
+    addComponents(components: DisplayObject[]): void;
+    getComponent<T extends DisplayObject>(label: string): T;
     removeComponent(component: DisplayObject): void;
     removeComponents(): void;
     destroy(): void;
@@ -174,6 +176,7 @@ export declare class ContainerComponent extends BaseComponent<Container> {
 
 export declare interface ContainerProps extends BaseProps {
     sortableChildren?: boolean;
+    components?: DisplayObject[];
 }
 
 export declare const debounce: (startCallback: () => void, cancelCallback: () => void, startWaitTime?: number, cancelWaitTime?: number) => {

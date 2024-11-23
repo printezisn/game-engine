@@ -15,6 +15,8 @@ class ContainerComponent extends BaseComponent<Container> {
       }),
       props,
     );
+
+    this.addComponents(props.components ?? []);
   }
 
   get components(): DisplayObject[] {
@@ -35,6 +37,14 @@ class ContainerComponent extends BaseComponent<Container> {
     component.parent = this;
 
     return component;
+  }
+
+  addComponents(components: DisplayObject[]) {
+    components.forEach((component) => this.addComponent(component));
+  }
+
+  getComponent<T extends DisplayObject>(label: string) {
+    return this.components.find((component) => component.label === label) as T;
   }
 
   removeComponent(component: DisplayObject) {
