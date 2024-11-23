@@ -18,16 +18,19 @@ declare class Animation_2 {
     private static _rootTimeMs;
     constructor(options: AnimationOptions);
     get options(): AnimationOptions;
+    get name(): string | undefined;
     start(target: any): Promise<void>;
     stop(): void;
     pause(): void;
     resume(): void;
+    finish(): void;
     static initEngine(): void;
     static updateEngine(delta: number): void;
 }
 export { Animation_2 as Animation }
 
 export declare interface AnimationOptions {
+    name?: string;
     from: any;
     to: any;
     duration: number;
@@ -89,7 +92,9 @@ export declare abstract class BaseComponent<T extends Container> implements Disp
     set zIndex(zIndex: number);
     set hitArea(hitArea: Shape | null | undefined);
     animate(options: AnimationOptions): Promise<void>;
+    getAnimation(name: string): Animation_2 | undefined;
     stopAnimations(): void;
+    finishAnimations(): void;
     delay(duration: number): Promise<void>;
     destroy(): void;
     protected _positionToScreen(): void;

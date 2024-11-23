@@ -179,7 +179,7 @@ const rr = (s) => {
   },
   test: () => !0,
   load: async () => {
-    await import("./browserAll-BCaje91y.js");
+    await import("./browserAll-CFfeEf5r.js");
   }
 }, Nc = {
   extension: {
@@ -189,7 +189,7 @@ const rr = (s) => {
   },
   test: () => typeof self < "u" && self.WorkerGlobalScope !== void 0,
   load: async () => {
-    await import("./webworkerAll-s7Of4n-y.js");
+    await import("./webworkerAll-K5QEDYEa.js");
   }
 };
 class mt {
@@ -6480,13 +6480,13 @@ async function Mf(s) {
   for (let n = 0; n < t.length; n++) {
     const o = t[n];
     if (o === "webgpu" && await Pf()) {
-      const { WebGPURenderer: a } = await import("./WebGPURenderer-C0_2FoZp.js");
+      const { WebGPURenderer: a } = await import("./WebGPURenderer-DBjUN-AM.js");
       e = a, i = { ...s, ...s.webgpu };
       break;
     } else if (o === "webgl" && Cf(
       s.failIfMajorPerformanceCaveat ?? Nl.defaultOptions.failIfMajorPerformanceCaveat
     )) {
-      const { WebGLRenderer: a } = await import("./WebGLRenderer-BwZ4xthu.js");
+      const { WebGLRenderer: a } = await import("./WebGLRenderer-DBvStMZf.js");
       e = a, i = { ...s, ...s.webgl };
       break;
     } else if (o === "canvas")
@@ -16075,6 +16075,9 @@ class Li {
   get options() {
     return this._options;
   }
+  get name() {
+    return this._options.name;
+  }
   start(t) {
     return new Promise((e) => {
       this._tween = Ki.fromTo(t, this.options.from, {
@@ -16100,6 +16103,10 @@ class Li {
   resume() {
     var t;
     (t = this._tween) == null || t.resume();
+  }
+  finish() {
+    var t;
+    (t = this._tween) == null || t.progress(1);
   }
   static initEngine() {
     Ki.ticker.remove(Ki.updateRoot);
@@ -19087,8 +19094,14 @@ class vn {
   animate(t) {
     return this._createAnimation(this, t);
   }
+  getAnimation(t) {
+    return this._animations.find((e) => e.name === t);
+  }
   stopAnimations() {
     this._animations.forEach((t) => t.stop()), this._animations = [];
+  }
+  finishAnimations() {
+    this._animations.forEach((t) => t.finish());
   }
   delay(t) {
     return this._createAnimation(

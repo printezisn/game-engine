@@ -1,6 +1,7 @@
 import gsap from 'gsap';
 
 export interface AnimationOptions {
+  name?: string;
   from: any;
   to: any;
   duration: number;
@@ -23,6 +24,10 @@ export class Animation {
 
   get options() {
     return this._options;
+  }
+
+  get name() {
+    return this._options.name;
   }
 
   start(target: any) {
@@ -51,6 +56,10 @@ export class Animation {
 
   resume() {
     this._tween?.resume();
+  }
+
+  finish() {
+    this._tween?.progress(1);
   }
 
   static initEngine() {

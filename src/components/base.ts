@@ -253,9 +253,17 @@ abstract class BaseComponent<T extends Container> implements DisplayObject {
     return this._createAnimation(this, options);
   }
 
+  getAnimation(name: string) {
+    return this._animations.find((animation) => animation.name === name);
+  }
+
   stopAnimations() {
     this._animations.forEach((animation) => animation.stop());
     this._animations = [];
+  }
+
+  finishAnimations() {
+    this._animations.forEach((animation) => animation.finish());
   }
 
   delay(duration: number) {
