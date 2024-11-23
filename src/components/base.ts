@@ -29,6 +29,8 @@ abstract class BaseComponent<T extends Container> implements DisplayObject {
     this._createEvents();
     this._setOrientationProperties();
     this._positionToScreen();
+
+    (this.props.animations ?? []).forEach((options) => this.animate(options));
   }
 
   protected _registerToSignal(

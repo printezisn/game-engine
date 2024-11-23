@@ -179,7 +179,7 @@ const or = (s) => {
   },
   test: () => !0,
   load: async () => {
-    await import("./browserAll-I5UTdDgQ.js");
+    await import("./browserAll-Dssle7Qo.js");
   }
 }, Nc = {
   extension: {
@@ -189,7 +189,7 @@ const or = (s) => {
   },
   test: () => typeof self < "u" && self.WorkerGlobalScope !== void 0,
   load: async () => {
-    await import("./webworkerAll-CvB0YM5R.js");
+    await import("./webworkerAll-XkkUrHh_.js");
   }
 };
 class mt {
@@ -6480,13 +6480,13 @@ async function Mf(s) {
   for (let n = 0; n < t.length; n++) {
     const o = t[n];
     if (o === "webgpu" && await Pf()) {
-      const { WebGPURenderer: a } = await import("./WebGPURenderer-CpepRyqn.js");
+      const { WebGPURenderer: a } = await import("./WebGPURenderer-sA7JsyqD.js");
       e = a, i = { ...s, ...s.webgpu };
       break;
     } else if (o === "webgl" && Cf(
       s.failIfMajorPerformanceCaveat ?? Nl.defaultOptions.failIfMajorPerformanceCaveat
     )) {
-      const { WebGLRenderer: a } = await import("./WebGLRenderer-CYjFZAc3.js");
+      const { WebGLRenderer: a } = await import("./WebGLRenderer-DVLb137N.js");
       e = a, i = { ...s, ...s.webgl };
       break;
     } else if (o === "canvas")
@@ -18951,7 +18951,7 @@ class bn {
     Gt(this, "_parent", null);
     Gt(this, "_bindings", []);
     Gt(this, "_animations", []);
-    this._props = e, this._object = t, this.hitArea = this.props.hitArea, this._createEvents(), this._setOrientationProperties(), this._positionToScreen();
+    this._props = e, this._object = t, this.hitArea = this.props.hitArea, this._createEvents(), this._setOrientationProperties(), this._positionToScreen(), (this.props.animations ?? []).forEach((i) => this.animate(i));
   }
   _registerToSignal(t, e) {
     this._bindings.push(wm(t, e.bind(this)));
@@ -19457,8 +19457,8 @@ class jr extends bn {
         wordWrap: t.wordWrap,
         wordWrapWidth: t.wordWrapWidth,
         align: t.align,
-        fontWeight: t.fontWeight,
-        fontStyle: t.fontStyle,
+        fontWeight: t.fontWeight ?? "normal",
+        fontStyle: t.fontStyle ?? "normal",
         stroke: t.strokeColor && {
           color: t.strokeColor,
           width: t.strokeWidth

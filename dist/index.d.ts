@@ -123,6 +123,7 @@ export declare interface BaseProps {
     hitArea?: Shape;
     landscape?: any;
     portrait?: any;
+    animations?: AnimationOptions[];
     onResize?: (component: DisplayObject) => any;
     onOrientationChange?: (component: DisplayObject) => any;
     onClick?: (component: DisplayObject) => any;

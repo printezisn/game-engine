@@ -22,8 +22,8 @@ class TextComponent extends BaseComponent<Text | BitmapText> {
         wordWrap: props.wordWrap,
         wordWrapWidth: props.wordWrapWidth,
         align: props.align,
-        fontWeight: props.fontWeight,
-        fontStyle: props.fontStyle,
+        fontWeight: props.fontWeight ?? 'normal',
+        fontStyle: props.fontStyle ?? 'normal',
         stroke: props.strokeColor && {
           color: props.strokeColor,
           width: props.strokeWidth,
