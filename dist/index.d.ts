@@ -98,6 +98,7 @@ export declare abstract class BaseComponent<T extends Container> implements Disp
     delay(duration: number): Promise<void>;
     destroy(): void;
     protected _positionToScreen(): void;
+    private _setOrientationProperties;
     private _createAnimation;
     private _createEvents;
 }
@@ -120,6 +121,8 @@ export declare interface BaseProps {
     tint?: number;
     zIndex?: number;
     hitArea?: Shape;
+    landscape?: any;
+    portrait?: any;
     onResize?: (component: DisplayObject) => any;
     onOrientationChange?: (component: DisplayObject) => any;
     onClick?: (component: DisplayObject) => any;

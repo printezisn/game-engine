@@ -179,7 +179,7 @@ const rr = (s) => {
   },
   test: () => !0,
   load: async () => {
-    await import("./browserAll-C90SLMim.js");
+    await import("./browserAll-CdsbRUEK.js");
   }
 }, Nc = {
   extension: {
@@ -189,7 +189,7 @@ const rr = (s) => {
   },
   test: () => typeof self < "u" && self.WorkerGlobalScope !== void 0,
   load: async () => {
-    await import("./webworkerAll-C5XqfkqC.js");
+    await import("./webworkerAll-iiCwHNpF.js");
   }
 };
 class mt {
@@ -6480,13 +6480,13 @@ async function Mf(s) {
   for (let n = 0; n < t.length; n++) {
     const o = t[n];
     if (o === "webgpu" && await Pf()) {
-      const { WebGPURenderer: a } = await import("./WebGPURenderer-B_AKuAO5.js");
+      const { WebGPURenderer: a } = await import("./WebGPURenderer-Bg29nGW0.js");
       e = a, i = { ...s, ...s.webgpu };
       break;
     } else if (o === "webgl" && Cf(
       s.failIfMajorPerformanceCaveat ?? Nl.defaultOptions.failIfMajorPerformanceCaveat
     )) {
-      const { WebGLRenderer: a } = await import("./WebGLRenderer-D2rotivN.js");
+      const { WebGLRenderer: a } = await import("./WebGLRenderer-DsDa0u-p.js");
       e = a, i = { ...s, ...s.webgl };
       break;
     } else if (o === "canvas")
@@ -19115,6 +19115,11 @@ class vn {
     var t, e, i, r;
     this.props.horizontalAlignment === "center" ? this.x = j.screen.width / 2 + (((t = this.props.margin) == null ? void 0 : t.x) ?? 0) : this.props.horizontalAlignment === "right" && (this.x = j.screen.width + (((e = this.props.margin) == null ? void 0 : e.x) ?? 0)), this.props.verticalAlignment === "center" ? this.y = j.screen.height / 2 + (((i = this.props.margin) == null ? void 0 : i.y) ?? 0) : this.props.verticalAlignment === "bottom" && (this.y = j.screen.height + (((r = this.props.margin) == null ? void 0 : r.y) ?? 0));
   }
+  _setOrientationProperties() {
+    const t = this.props[j.screen.orientation];
+    for (const e in t)
+      this[e] = t[e];
+  }
   async _createAnimation(t, e) {
     const i = new Li(e);
     this._animations.push(i), await i.start(t);
@@ -19132,6 +19137,7 @@ class vn {
       t.forEach((a) => a(this));
     });
     const e = [
+      this.props.landscape || this.props.portrait ? this._setOrientationProperties.bind(this) : null,
       this.props.onOrientationChange,
       (n = this._onOrientationChange) == null ? void 0 : n.bind(this)
     ].filter(Boolean);

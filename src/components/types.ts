@@ -71,6 +71,8 @@ export interface BaseProps {
   tint?: number;
   zIndex?: number;
   hitArea?: Shape;
+  landscape?: any;
+  portrait?: any;
   onResize?: (component: DisplayObject) => any;
   onOrientationChange?: (component: DisplayObject) => any;
   onClick?: (component: DisplayObject) => any;

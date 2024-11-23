@@ -273,6 +273,13 @@ abstract class BaseComponent<T extends Container> implements DisplayObject {
     }
   }
 
+  private _setOrientationProperties() {
+    const props = this.props[gameState.screen.orientation];
+    for (const key in props) {
+      (this as any)[key] = props[key];
+    }
+  }
+
   private async _createAnimation(target: any, options: AnimationOptions) {
     const animation = new Animation(options);
     this._animations.push(animation);
@@ -299,6 +306,9 @@ abstract class BaseComponent<T extends Container> implements DisplayObject {
     }
 
     const onOrientationCallbacks = [
+      this.props.landscape || this.props.portrait
+        ? this._setOrientationProperties.bind(this)
+        : null,
       this.props.onOrientationChange,
       (this as any)._onOrientationChange?.bind(this),
     ].filter(Boolean);
