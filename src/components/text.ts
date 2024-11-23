@@ -30,7 +30,7 @@ class TextComponent extends BaseComponent<Text | BitmapText> {
     return this.object.anchor;
   }
 
-  set anchor(anchor: Point) {
+  set anchor(anchor: Point | number) {
     this.object.anchor = anchor;
   }
 

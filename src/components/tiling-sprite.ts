@@ -1,6 +1,6 @@
 import { TilingSprite } from 'pixi.js';
 import BaseComponent from './base';
-import type { SpriteProps, Point } from './types';
+import type { SpriteProps, Point, Resource } from './types';
 import { basePropsToConfig } from './helpers';
 import { getTexture } from '../textures';
 
@@ -10,6 +10,10 @@ class TilingSpriteComponent extends BaseComponent<TilingSprite> {
       new TilingSprite({
         ...basePropsToConfig(props),
         texture: getTexture(props.resource),
+        anchor:
+          typeof props.anchor === 'number'
+            ? { x: props.anchor, y: props.anchor }
+            : props.anchor,
       }),
       props,
     );
@@ -19,7 +23,7 @@ class TilingSpriteComponent extends BaseComponent<TilingSprite> {
     return this.object.anchor;
   }
 
-  set anchor(anchor: Point) {
+  set anchor(anchor: Point | number) {
     this.object.anchor = anchor;
   }
 
@@ -35,7 +39,7 @@ class TilingSpriteComponent extends BaseComponent<TilingSprite> {
     return this.object.tileScale;
   }
 
-  set tileScale(scale: Point) {
+  set tileScale(scale: Point | number) {
     this.object.tileScale = scale;
   }
 
@@ -45,6 +49,10 @@ class TilingSpriteComponent extends BaseComponent<TilingSprite> {
 
   set tilePosition(position: Point) {
     this.object.tilePosition = position;
+  }
+
+  set texture(resource: Resource) {
+    this.object.texture = getTexture(resource);
   }
 }
 

@@ -83,7 +83,7 @@ abstract class BaseComponent<T extends Container> implements DisplayObject {
     return this.object.toGlobal(this.position);
   }
 
-  set scale(scale: Point) {
+  set scale(scale: Point | number) {
     this.object.scale = scale;
   }
 

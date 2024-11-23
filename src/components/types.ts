@@ -56,8 +56,8 @@ export interface FilledShape extends Shape {
 export interface BaseProps {
   label: string;
   position?: Point;
-  anchor?: Point;
-  scale?: Point;
+  anchor?: Point | number;
+  scale?: Point | number;
   rotation?: number;
   width?: number;
   height?: number;

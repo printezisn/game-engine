@@ -19,7 +19,7 @@ class SpriteComponent extends BaseComponent<Sprite> {
     return this.object.anchor;
   }
 
-  set anchor(anchor: Point) {
+  set anchor(anchor: Point | number) {
     this.object.anchor = anchor;
   }
 

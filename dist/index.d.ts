@@ -65,7 +65,7 @@ export declare abstract class BaseComponent<T extends Container> implements Disp
     get position(): Point;
     set position(position: Point);
     get globalPosition(): Point;
-    set scale(scale: Point);
+    set scale(scale: Point | number);
     get scale(): Point;
     get scaleX(): number;
     set scaleX(x: number);
@@ -106,8 +106,8 @@ export declare abstract class BaseComponent<T extends Container> implements Disp
 export declare interface BaseProps {
     label: string;
     position?: Point;
-    anchor?: Point;
-    scale?: Point;
+    anchor?: Point | number;
+    scale?: Point | number;
     rotation?: number;
     width?: number;
     height?: number;
@@ -394,7 +394,7 @@ export declare interface Shape {
 export declare class SpriteComponent extends BaseComponent<Sprite> {
     constructor(props: SpriteProps);
     get anchor(): Point;
-    set anchor(anchor: Point);
+    set anchor(anchor: Point | number);
     get originalWidth(): number;
     get originalHeight(): number;
     set texture(resource: Resource);
@@ -413,7 +413,7 @@ declare type Target = DisplayObject & {
 export declare class TextComponent extends BaseComponent<Text_2 | BitmapText> {
     constructor(props: TextProps);
     get anchor(): Point;
-    set anchor(anchor: Point);
+    set anchor(anchor: Point | number);
     get fontSize(): number;
     set fontSize(fontSize: number);
     get wordWrapWidth(): number;
@@ -444,13 +444,14 @@ export declare class TilingBackgroundComponent extends TilingSpriteComponent {
 export declare class TilingSpriteComponent extends BaseComponent<TilingSprite> {
     constructor(props: SpriteProps);
     get anchor(): Point;
-    set anchor(anchor: Point);
+    set anchor(anchor: Point | number);
     get originalWidth(): number;
     get originalHeight(): number;
     get tileScale(): Point;
-    set tileScale(scale: Point);
+    set tileScale(scale: Point | number);
     get tilePosition(): Point;
     set tilePosition(position: Point);
+    set texture(resource: Resource);
 }
 
 export declare const updatePhysics: (interval: number) => void;
