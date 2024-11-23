@@ -99,6 +99,7 @@ export declare abstract class BaseComponent<T extends Container> implements Disp
     destroy(): void;
     protected _positionToScreen(): void;
     private _createAnimation;
+    private _createEvents;
 }
 
 export declare interface BaseProps {
@@ -119,6 +120,13 @@ export declare interface BaseProps {
     tint?: number;
     zIndex?: number;
     hitArea?: Shape;
+    onResize?: (component: DisplayObject) => any;
+    onOrientationChange?: (component: DisplayObject) => any;
+    onClick?: (component: DisplayObject) => any;
+    onPointerUp?: (component: DisplayObject) => any;
+    onPointerEnter?: (component: DisplayObject) => any;
+    onPointerOut?: (component: DisplayObject) => any;
+    onTick?: (component: DisplayObject) => any;
 }
 
 export declare class BaseScene extends ContainerComponent {

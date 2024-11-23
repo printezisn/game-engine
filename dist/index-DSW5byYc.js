@@ -179,7 +179,7 @@ const rr = (s) => {
   },
   test: () => !0,
   load: async () => {
-    await import("./browserAll-DKIYR90C.js");
+    await import("./browserAll-C90SLMim.js");
   }
 }, Nc = {
   extension: {
@@ -189,7 +189,7 @@ const rr = (s) => {
   },
   test: () => typeof self < "u" && self.WorkerGlobalScope !== void 0,
   load: async () => {
-    await import("./webworkerAll-CFRD4XpI.js");
+    await import("./webworkerAll-C5XqfkqC.js");
   }
 };
 class mt {
@@ -6480,13 +6480,13 @@ async function Mf(s) {
   for (let n = 0; n < t.length; n++) {
     const o = t[n];
     if (o === "webgpu" && await Pf()) {
-      const { WebGPURenderer: a } = await import("./WebGPURenderer-DqCLG5Ux.js");
+      const { WebGPURenderer: a } = await import("./WebGPURenderer-B_AKuAO5.js");
       e = a, i = { ...s, ...s.webgpu };
       break;
     } else if (o === "webgl" && Cf(
       s.failIfMajorPerformanceCaveat ?? Nl.defaultOptions.failIfMajorPerformanceCaveat
     )) {
-      const { WebGLRenderer: a } = await import("./WebGLRenderer-r3pBMLOD.js");
+      const { WebGLRenderer: a } = await import("./WebGLRenderer-D2rotivN.js");
       e = a, i = { ...s, ...s.webgl };
       break;
     } else if (o === "canvas")
@@ -18951,18 +18951,7 @@ class vn {
     Gt(this, "_parent", null);
     Gt(this, "_bindings", []);
     Gt(this, "_animations", []);
-    this._props = e, this._object = t, this.hitArea = this.props.hitArea, (this.props.horizontalAlignment || this.props.verticalAlignment) && this._registerToSignal(G.signals.onResize, this._positionToScreen), this._onResize && this._registerToSignal(G.signals.onResize, this._onResize), this._onOrientationChange && this._registerToSignal(
-      G.signals.onOrientationChange,
-      this._onOrientationChange
-    ), this._onTick && this._registerToSignal(G.signals.onTick, this._onTick), this._onClick && this.object.on("pointerdown", (i) => {
-      i.stopImmediatePropagation(), this._onClick();
-    }), this._onPointerUp && this.object.on("pointerup", (i) => {
-      i.stopImmediatePropagation(), this._onPointerUp();
-    }), this._onPointerEnter && this.object.on("pointerenter", () => {
-      this._onPointerEnter();
-    }), this._onPointerOut && this.object.on("pointerout", () => {
-      this._onPointerOut();
-    }), this._positionToScreen();
+    this._props = e, this._object = t, this.hitArea = this.props.hitArea, this._createEvents(), this._positionToScreen();
   }
   _registerToSignal(t, e) {
     this._bindings.push(wm(t, e.bind(this)));
@@ -19131,6 +19120,43 @@ class vn {
     this._animations.push(i), await i.start(t);
     const r = this._animations.indexOf(i);
     this._animations.splice(r, 1);
+  }
+  _createEvents() {
+    var r, n, o;
+    const t = [
+      this.props.horizontalAlignment || this.props.verticalAlignment ? this._positionToScreen.bind(this) : null,
+      this.props.onResize,
+      (r = this._onResize) == null ? void 0 : r.bind(this)
+    ].filter(Boolean);
+    t.length > 0 && this._registerToSignal(G.signals.onResize, () => {
+      t.forEach((a) => a(this));
+    });
+    const e = [
+      this.props.onOrientationChange,
+      (n = this._onOrientationChange) == null ? void 0 : n.bind(this)
+    ].filter(Boolean);
+    e.length > 0 && this._registerToSignal(G.signals.onOrientationChange, () => {
+      e.forEach((a) => a(this));
+    });
+    const i = [
+      this.props.onTick,
+      (o = this._onTick) == null ? void 0 : o.bind(this)
+    ].filter(Boolean);
+    i.length > 0 && this._registerToSignal(G.signals.onTick, () => {
+      i.forEach((a) => a(this));
+    }), (this._onClick || this.props.onClick) && this.object.on("pointerdown", (a) => {
+      var l, c;
+      a.stopImmediatePropagation(), (c = (l = this.props).onClick) == null || c.call(l, this), this._onClick();
+    }), (this._onPointerUp || this.props.onPointerUp) && this.object.on("pointerup", (a) => {
+      var l, c;
+      a.stopImmediatePropagation(), (c = (l = this.props).onPointerUp) == null || c.call(l, this), this._onPointerUp();
+    }), (this._onPointerEnter || this.props.onPointerEnter) && this.object.on("pointerenter", (a) => {
+      var l, c;
+      a.stopImmediatePropagation(), (c = (l = this.props).onPointerEnter) == null || c.call(l, this), this._onPointerEnter();
+    }), (this._onPointerOut || this.props.onPointerOut) && this.object.on("pointerout", (a) => {
+      var l, c;
+      a.stopImmediatePropagation(), (c = (l = this.props).onPointerOut) == null || c.call(l, this), this._onPointerOut();
+    });
   }
 }
 let is;

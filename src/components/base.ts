@@ -26,44 +26,7 @@ abstract class BaseComponent<T extends Container> implements DisplayObject {
 
     this.hitArea = this.props.hitArea;
 
-    if (this.props.horizontalAlignment || this.props.verticalAlignment) {
-      this._registerToSignal(config.signals.onResize, this._positionToScreen);
-    }
-    if ((this as any)._onResize) {
-      this._registerToSignal(config.signals.onResize, (this as any)._onResize);
-    }
-    if ((this as any)._onOrientationChange) {
-      this._registerToSignal(
-        config.signals.onOrientationChange,
-        (this as any)._onOrientationChange,
-      );
-    }
-    if ((this as any)._onTick) {
-      this._registerToSignal(config.signals.onTick, (this as any)._onTick);
-    }
-    if ((this as any)._onClick) {
-      this.object.on('pointerdown', (e) => {
-        e.stopImmediatePropagation();
-        (this as any)._onClick();
-      });
-    }
-    if ((this as any)._onPointerUp) {
-      this.object.on('pointerup', (e) => {
-        e.stopImmediatePropagation();
-        (this as any)._onPointerUp();
-      });
-    }
-    if ((this as any)._onPointerEnter) {
-      this.object.on('pointerenter', () => {
-        (this as any)._onPointerEnter();
-      });
-    }
-    if ((this as any)._onPointerOut) {
-      this.object.on('pointerout', () => {
-        (this as any)._onPointerOut();
-      });
-    }
-
+    this._createEvents();
     this._positionToScreen();
   }
 
@@ -318,6 +281,73 @@ abstract class BaseComponent<T extends Container> implements DisplayObject {
 
     const index = this._animations.indexOf(animation);
     this._animations.splice(index, 1);
+  }
+
+  private _createEvents() {
+    const onResizeCallbacks = [
+      this.props.horizontalAlignment || this.props.verticalAlignment
+        ? this._positionToScreen.bind(this)
+        : null,
+      this.props.onResize,
+      (this as any)._onResize?.bind(this),
+    ].filter(Boolean);
+
+    if (onResizeCallbacks.length > 0) {
+      this._registerToSignal(config.signals.onResize, () => {
+        onResizeCallbacks.forEach((callback) => callback(this));
+      });
+    }
+
+    const onOrientationCallbacks = [
+      this.props.onOrientationChange,
+      (this as any)._onOrientationChange?.bind(this),
+    ].filter(Boolean);
+
+    if (onOrientationCallbacks.length > 0) {
+      this._registerToSignal(config.signals.onOrientationChange, () => {
+        onOrientationCallbacks.forEach((callback) => callback(this));
+      });
+    }
+
+    const onTickCallbacks = [
+      this.props.onTick,
+      (this as any)._onTick?.bind(this),
+    ].filter(Boolean);
+
+    if (onTickCallbacks.length > 0) {
+      this._registerToSignal(config.signals.onTick, () => {
+        onTickCallbacks.forEach((callback) => callback(this));
+      });
+    }
+
+    if ((this as any)._onClick || this.props.onClick) {
+      this.object.on('pointerdown', (e) => {
+        e.stopImmediatePropagation();
+        this.props.onClick?.(this);
+        (this as any)._onClick();
+      });
+    }
+    if ((this as any)._onPointerUp || this.props.onPointerUp) {
+      this.object.on('pointerup', (e) => {
+        e.stopImmediatePropagation();
+        this.props.onPointerUp?.(this);
+        (this as any)._onPointerUp();
+      });
+    }
+    if ((this as any)._onPointerEnter || this.props.onPointerEnter) {
+      this.object.on('pointerenter', (e) => {
+        e.stopImmediatePropagation();
+        this.props.onPointerEnter?.(this);
+        (this as any)._onPointerEnter();
+      });
+    }
+    if ((this as any)._onPointerOut || this.props.onPointerOut) {
+      this.object.on('pointerout', (e) => {
+        e.stopImmediatePropagation();
+        this.props.onPointerOut?.(this);
+        (this as any)._onPointerOut();
+      });
+    }
   }
 }
 

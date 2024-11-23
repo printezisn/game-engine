@@ -71,6 +71,13 @@ export interface BaseProps {
   tint?: number;
   zIndex?: number;
   hitArea?: Shape;
+  onResize?: (component: DisplayObject) => any;
+  onOrientationChange?: (component: DisplayObject) => any;
+  onClick?: (component: DisplayObject) => any;
+  onPointerUp?: (component: DisplayObject) => any;
+  onPointerEnter?: (component: DisplayObject) => any;
+  onPointerOut?: (component: DisplayObject) => any;
+  onTick?: (component: DisplayObject) => any;
 }
 
 export interface SpriteProps extends BaseProps {
