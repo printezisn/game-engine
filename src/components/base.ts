@@ -339,28 +339,28 @@ abstract class BaseComponent<T extends Container> implements DisplayObject {
       this.object.on('pointerdown', (e) => {
         e.stopImmediatePropagation();
         this.props.onClick?.(this);
-        (this as any)._onClick();
+        (this as any)._onClick?.();
       });
     }
     if ((this as any)._onPointerUp || this.props.onPointerUp) {
       this.object.on('pointerup', (e) => {
         e.stopImmediatePropagation();
         this.props.onPointerUp?.(this);
-        (this as any)._onPointerUp();
+        (this as any)._onPointerUp?.();
       });
     }
     if ((this as any)._onPointerEnter || this.props.onPointerEnter) {
       this.object.on('pointerenter', (e) => {
         e.stopImmediatePropagation();
         this.props.onPointerEnter?.(this);
-        (this as any)._onPointerEnter();
+        (this as any)._onPointerEnter?.();
       });
     }
     if ((this as any)._onPointerOut || this.props.onPointerOut) {
       this.object.on('pointerout', (e) => {
         e.stopImmediatePropagation();
         this.props.onPointerOut?.(this);
-        (this as any)._onPointerOut();
+        (this as any)._onPointerOut?.();
       });
     }
   }

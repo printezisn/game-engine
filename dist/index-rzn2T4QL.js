@@ -179,7 +179,7 @@ const Sr = (s) => {
   },
   test: () => !0,
   load: async () => {
-    await import("./browserAll-CG6BSre2.js");
+    await import("./browserAll-9zfcW6hG.js");
   }
 }, Bu = {
   extension: {
@@ -189,7 +189,7 @@ const Sr = (s) => {
   },
   test: () => typeof self < "u" && self.WorkerGlobalScope !== void 0,
   load: async () => {
-    await import("./webworkerAll-Bo9rMnfB.js");
+    await import("./webworkerAll-B2K7Rp4L.js");
   }
 };
 class _t {
@@ -6542,13 +6542,13 @@ async function xf(s) {
   for (let r = 0; r < t.length; r++) {
     const o = t[r];
     if (o === "webgpu" && await _f()) {
-      const { WebGPURenderer: a } = await import("./WebGPURenderer-BwjPFywh.js");
+      const { WebGPURenderer: a } = await import("./WebGPURenderer-CiUOO_nV.js");
       e = a, i = { ...s, ...s.webgpu };
       break;
     } else if (o === "webgl" && mf(
       s.failIfMajorPerformanceCaveat ?? wl.defaultOptions.failIfMajorPerformanceCaveat
     )) {
-      const { WebGLRenderer: a } = await import("./WebGLRenderer-BlqA6CD3.js");
+      const { WebGLRenderer: a } = await import("./WebGLRenderer-X3HBBYf6.js");
       e = a, i = { ...s, ...s.webgl };
       break;
     } else if (o === "canvas")
@@ -19518,17 +19518,17 @@ class Ts {
     i.length > 0 && this._registerToSignal(W.signals.onTick, () => {
       i.forEach((a) => a(this));
     }), (this._onClick || this.props.onClick) && this.object.on("pointerdown", (a) => {
-      var h, c;
-      a.stopImmediatePropagation(), (c = (h = this.props).onClick) == null || c.call(h, this), this._onClick();
+      var h, c, l;
+      a.stopImmediatePropagation(), (c = (h = this.props).onClick) == null || c.call(h, this), (l = this._onClick) == null || l.call(this);
     }), (this._onPointerUp || this.props.onPointerUp) && this.object.on("pointerup", (a) => {
-      var h, c;
-      a.stopImmediatePropagation(), (c = (h = this.props).onPointerUp) == null || c.call(h, this), this._onPointerUp();
+      var h, c, l;
+      a.stopImmediatePropagation(), (c = (h = this.props).onPointerUp) == null || c.call(h, this), (l = this._onPointerUp) == null || l.call(this);
     }), (this._onPointerEnter || this.props.onPointerEnter) && this.object.on("pointerenter", (a) => {
-      var h, c;
-      a.stopImmediatePropagation(), (c = (h = this.props).onPointerEnter) == null || c.call(h, this), this._onPointerEnter();
+      var h, c, l;
+      a.stopImmediatePropagation(), (c = (h = this.props).onPointerEnter) == null || c.call(h, this), (l = this._onPointerEnter) == null || l.call(this);
     }), (this._onPointerOut || this.props.onPointerOut) && this.object.on("pointerout", (a) => {
-      var h, c;
-      a.stopImmediatePropagation(), (c = (h = this.props).onPointerOut) == null || c.call(h, this), this._onPointerOut();
+      var h, c, l;
+      a.stopImmediatePropagation(), (c = (h = this.props).onPointerOut) == null || c.call(h, this), (l = this._onPointerOut) == null || l.call(this);
     });
   }
 }
