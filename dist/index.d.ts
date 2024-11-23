@@ -1,6 +1,7 @@
 import { AssetsManifest } from 'pixi.js';
 import { BitmapText } from 'pixi.js';
 import { Container } from 'pixi.js';
+import { Input } from '@pixi/ui';
 import { Sprite } from 'pixi.js';
 import { Text as Text_2 } from 'pixi.js';
 import { TilingSprite } from 'pixi.js';
@@ -299,6 +300,27 @@ export declare const initPhysicsEngine: () => void;
 
 export declare const initSound: () => void;
 
+export declare class InputComponent extends BaseComponent<Input> {
+    constructor(props: InputProps);
+    get text(): string;
+    set text(text: string);
+}
+
+export declare interface InputProps extends BaseProps {
+    text?: string;
+    background: Resource;
+    fontFamily: string;
+    fontSize: number;
+    textColor: number;
+    strokeColor?: number;
+    strokeWidth?: number;
+    fontWeight?: FontWeight;
+    align?: 'left' | 'center' | 'right';
+    padding?: Padding | number;
+    maxLength?: number;
+    placeholder?: string;
+}
+
 declare interface LinearMovement {
     velocity: Velocity;
 }
@@ -325,6 +347,13 @@ export declare const movePhysicalEntity: (target: Target, x: number, y: number) 
 
 export declare class MovingBackgroundComponent extends TilingBackgroundComponent {
     protected _onTick(): void;
+}
+
+export declare interface Padding {
+    top: number;
+    right: number;
+    bottom: number;
+    left: number;
 }
 
 export declare const pauseSounds: () => void;

@@ -53,17 +53,14 @@ export const getTexture = (resource: Resource) => {
   const key = JSON.stringify(resource);
   let texture = _textures.get(key);
   if (texture) return texture;
+  if (typeof resource === 'string') return Texture.from(resource);
 
-  if (typeof resource === 'string') {
-    texture = Texture.from(resource);
-  } else {
-    const shape = createShape(resource);
-    texture = RenderTexture.create({
-      width: shape.width,
-      height: shape.height,
-    });
-    _renderer.render({ container: shape, target: texture });
-  }
+  const shape = createShape(resource);
+  texture = RenderTexture.create({
+    width: shape.width,
+    height: shape.height,
+  });
+  _renderer.render({ container: shape, target: texture });
 
   _textures.set(key, texture);
   return texture;

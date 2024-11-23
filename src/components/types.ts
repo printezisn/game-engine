@@ -128,4 +128,26 @@ export interface ContainerProps extends BaseProps {
   components?: DisplayObject[];
 }
 
+export interface Padding {
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
+}
+
+export interface InputProps extends BaseProps {
+  text?: string;
+  background: Resource;
+  fontFamily: string;
+  fontSize: number;
+  textColor: number;
+  strokeColor?: number;
+  strokeWidth?: number;
+  fontWeight?: FontWeight;
+  align?: 'left' | 'center' | 'right';
+  padding?: Padding | number;
+  maxLength?: number;
+  placeholder?: string;
+}
+
 export type Resource = string | FilledShape;

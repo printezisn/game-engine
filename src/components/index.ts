@@ -8,6 +8,7 @@ import TextComponent from './text';
 import TilingBackgroundComponent from './tiling-background';
 import TilingSpriteComponent from './tiling-sprite';
 import VolumeButtonComponent from './volume-button';
+import InputComponent from './input';
 
 export * from './types';
 
@@ -22,4 +23,5 @@ export {
   TilingBackgroundComponent,
   TilingSpriteComponent,
   VolumeButtonComponent,
+  InputComponent,
 };
