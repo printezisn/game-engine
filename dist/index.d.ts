@@ -276,6 +276,10 @@ export declare interface FilledShape extends Shape {
 
 export declare const fireSignal: (name: string, ...args: any[]) => void;
 
+export declare type FontStyle = 'normal' | 'italic';
+
+export declare type FontWeight = 'normal' | 'bold';
+
 declare interface GameState {
     screen: {
         orientation: 'landscape' | 'portrait';
@@ -410,6 +414,8 @@ declare type Target = DisplayObject & {
     matterBody?: Matter.Body;
 };
 
+export declare type TextAlign = 'left' | 'center' | 'right' | 'justify';
+
 export declare class TextComponent extends BaseComponent<Text_2 | BitmapText> {
     constructor(props: TextProps);
     get anchor(): Point;
@@ -418,6 +424,12 @@ export declare class TextComponent extends BaseComponent<Text_2 | BitmapText> {
     set fontSize(fontSize: number);
     get wordWrapWidth(): number;
     set wordWrapWidth(width: number);
+    get fontWeight(): FontWeight;
+    set fontWeight(fontWeight: FontWeight);
+    get fontStyle(): FontStyle;
+    set fontStyle(fontStyle: FontStyle);
+    get align(): TextAlign;
+    set align(align: TextAlign);
     get text(): string;
     set text(text: string);
 }
@@ -432,7 +444,9 @@ export declare interface TextProps extends BaseProps {
     lineHeight?: number;
     wordWrap?: boolean;
     wordWrapWidth?: number;
-    align?: 'left' | 'center' | 'right' | 'justify';
+    fontWeight?: FontWeight;
+    fontStyle?: FontStyle;
+    align?: TextAlign;
     bitmap?: boolean;
 }
 

@@ -1,6 +1,12 @@
 import { BitmapText, Text, type TextOptions } from 'pixi.js';
 import BaseComponent from './base';
-import { type TextProps, type Point } from './types';
+import type {
+  TextProps,
+  Point,
+  FontWeight,
+  FontStyle,
+  TextAlign,
+} from './types';
 import { basePropsToConfig } from './helpers';
 
 class TextComponent extends BaseComponent<Text | BitmapText> {
@@ -16,6 +22,8 @@ class TextComponent extends BaseComponent<Text | BitmapText> {
         wordWrap: props.wordWrap,
         wordWrapWidth: props.wordWrapWidth,
         align: props.align,
+        fontWeight: props.fontWeight,
+        fontStyle: props.fontStyle,
         stroke: props.strokeColor && {
           color: props.strokeColor,
           width: props.strokeWidth,
@@ -48,6 +56,30 @@ class TextComponent extends BaseComponent<Text | BitmapText> {
 
   set wordWrapWidth(width: number) {
     this.object.style.wordWrapWidth = width;
+  }
+
+  get fontWeight() {
+    return this.object.style.fontWeight as FontWeight;
+  }
+
+  set fontWeight(fontWeight: FontWeight) {
+    this.object.style.fontWeight = fontWeight;
+  }
+
+  get fontStyle() {
+    return this.object.style.fontStyle as FontStyle;
+  }
+
+  set fontStyle(fontStyle: FontStyle) {
+    this.object.style.fontStyle = fontStyle;
+  }
+
+  get align() {
+    return this.object.style.align as TextAlign;
+  }
+
+  set align(align: TextAlign) {
+    this.object.style.align = align;
   }
 
   get text() {

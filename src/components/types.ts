@@ -101,6 +101,10 @@ export interface LinkButtonProps extends ButtonProps {
   url: string;
 }
 
+export type FontWeight = 'normal' | 'bold';
+export type FontStyle = 'normal' | 'italic';
+export type TextAlign = 'left' | 'center' | 'right' | 'justify';
+
 export interface TextProps extends BaseProps {
   text: string;
   fontFamily: string;
@@ -111,7 +115,9 @@ export interface TextProps extends BaseProps {
   lineHeight?: number;
   wordWrap?: boolean;
   wordWrapWidth?: number;
-  align?: 'left' | 'center' | 'right' | 'justify';
+  fontWeight?: FontWeight;
+  fontStyle?: FontStyle;
+  align?: TextAlign;
   bitmap?: boolean;
 }
 
