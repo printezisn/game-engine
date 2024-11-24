@@ -13,7 +13,7 @@ class LinkButtonComponent extends ButtonComponent {
   protected async _onClick() {
     super._onClick();
 
-    window.location.href = this.props.url;
+    window.open(this.props.url, '_blank');
   }
 }
 

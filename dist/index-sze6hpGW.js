@@ -179,7 +179,7 @@ const Sr = (s) => {
   },
   test: () => !0,
   load: async () => {
-    await import("./browserAll-DI-IneS4.js");
+    await import("./browserAll-DZL04g9r.js");
   }
 }, Bu = {
   extension: {
@@ -189,7 +189,7 @@ const Sr = (s) => {
   },
   test: () => typeof self < "u" && self.WorkerGlobalScope !== void 0,
   load: async () => {
-    await import("./webworkerAll-BHMliCxM.js");
+    await import("./webworkerAll-Bpib2tIV.js");
   }
 };
 class _t {
@@ -6542,13 +6542,13 @@ async function xf(s) {
   for (let r = 0; r < t.length; r++) {
     const o = t[r];
     if (o === "webgpu" && await _f()) {
-      const { WebGPURenderer: a } = await import("./WebGPURenderer-iiN_H3vz.js");
+      const { WebGPURenderer: a } = await import("./WebGPURenderer-CQJlTXcH.js");
       e = a, i = { ...s, ...s.webgpu };
       break;
     } else if (o === "webgl" && mf(
       s.failIfMajorPerformanceCaveat ?? wl.defaultOptions.failIfMajorPerformanceCaveat
     )) {
-      const { WebGLRenderer: a } = await import("./WebGLRenderer-SSw25FvB.js");
+      const { WebGLRenderer: a } = await import("./WebGLRenderer-bbiB0ysa.js");
       e = a, i = { ...s, ...s.webgl };
       break;
     } else if (o === "canvas")
@@ -19749,7 +19749,7 @@ class E0 extends xu {
     return super.props;
   }
   async _onClick() {
-    super._onClick(), window.location.href = this.props.url;
+    super._onClick(), window.open(this.props.url, "_blank");
   }
 }
 class W_ extends Ts {
