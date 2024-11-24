@@ -30,9 +30,21 @@ class InputComponent extends BaseComponent<Input> {
       props,
     );
 
-    if (props.onChange) {
-      this.object.on('change', props.onChange);
+    if (this.props.onChange) {
+      this.object.onChange.connect(this.props.onChange);
     }
+  }
+
+  destroy() {
+    if (this.props.onChange) {
+      this.object.onChange.disconnect(this.props.onChange);
+    }
+
+    super.destroy();
+  }
+
+  get props() {
+    return super.props as InputProps;
   }
 
   get text() {

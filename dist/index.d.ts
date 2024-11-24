@@ -302,6 +302,8 @@ export declare const initSound: () => void;
 
 export declare class InputComponent extends BaseComponent<Input> {
     constructor(props: InputProps);
+    destroy(): void;
+    get props(): InputProps;
     get text(): string;
     set text(text: string);
 }
