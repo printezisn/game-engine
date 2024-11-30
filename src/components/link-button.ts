@@ -1,3 +1,4 @@
+import config from '../config';
 import ButtonComponent from './button';
 import type { LinkButtonProps } from './types';
 
@@ -13,7 +14,14 @@ class LinkButtonComponent extends ButtonComponent {
   protected async _onClick() {
     super._onClick();
 
-    window.location.href = this.props.url;
+    const link = document.createElement('a') as HTMLAnchorElement;
+    link.href = this.props.url;
+    link.target = '_blank';
+    link.rel = 'noreferrer';
+
+    config.gameContainer.appendChild(link);
+    link.click();
+    setTimeout(() => link.remove(), 0);
   }
 }
 
