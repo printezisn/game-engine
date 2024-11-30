@@ -1,12 +1,12 @@
-import { P as f, i as S, r as U, E as T, b as D, U as H, c as X, w as m, e as L, C as x } from "./index-DO_s8Fw1.js";
-import "./webworkerAll-BHMliCxM.js";
-class P {
+import { P as m, r as J, E as w, b as L, U as Q, c as ee, w as y, e as z, C as Z } from "./index-DHJAtEVI.js";
+import "./webworkerAll-DQbc7pxG.js";
+class M {
   /**
    * @param manager - The event boundary which manages this event. Propagation can only occur
    *  within the boundary's jurisdiction.
    */
-  constructor(t) {
-    this.bubbles = !0, this.cancelBubble = !0, this.cancelable = !1, this.composed = !1, this.defaultPrevented = !1, this.eventPhase = P.prototype.NONE, this.propagationStopped = !1, this.propagationImmediatelyStopped = !1, this.layer = new f(), this.page = new f(), this.NONE = 0, this.CAPTURING_PHASE = 1, this.AT_TARGET = 2, this.BUBBLING_PHASE = 3, this.manager = t;
+  constructor(e) {
+    this.bubbles = !0, this.cancelBubble = !0, this.cancelable = !1, this.composed = !1, this.defaultPrevented = !1, this.eventPhase = M.prototype.NONE, this.propagationStopped = !1, this.propagationImmediatelyStopped = !1, this.layer = new m(), this.page = new m(), this.NONE = 0, this.CAPTURING_PHASE = 1, this.AT_TARGET = 2, this.BUBBLING_PHASE = 3, this.manager = e;
   }
   /** @readonly */
   get layerX() {
@@ -42,7 +42,7 @@ class P {
    * @param _bubbles
    * @param _cancelable
    */
-  initEvent(t, e, i) {
+  initEvent(e, t, i) {
     throw new Error("initEvent() is a legacy DOM API. It is not implemented in the Federated Events API.");
   }
   /**
@@ -54,7 +54,7 @@ class P {
    * @param _viewArg
    * @param _detailArg
    */
-  initUIEvent(t, e, i, s, n) {
+  initUIEvent(e, t, i, n, s) {
     throw new Error("initUIEvent() is a legacy DOM API. It is not implemented in the Federated Events API.");
   }
   /** Prevent default behavior of PixiJS and the user agent. */
@@ -77,17 +77,79 @@ class P {
     this.propagationStopped = !0;
   }
 }
-const Y = 9, w = 100, R = 0, F = 0, O = 2, k = 1, K = -1e3, $ = -1e3, G = 2;
-class B {
+var O = /iPhone/i, C = /iPod/i, S = /iPad/i, U = /\biOS-universal(?:.+)Mac\b/i, k = /\bAndroid(?:.+)Mobile\b/i, H = /Android/i, b = /(?:SD4930UR|\bSilk(?:.+)Mobile\b)/i, A = /Silk/i, g = /Windows Phone/i, X = /\bWindows(?:.+)ARM\b/i, R = /BlackBerry/i, F = /BB10/i, Y = /Opera Mini/i, K = /\b(CriOS|Chrome)(?:.+)Mobile/i, $ = /Mobile(?:.+)Firefox\b/i, G = function(r) {
+  return typeof r < "u" && r.platform === "MacIntel" && typeof r.maxTouchPoints == "number" && r.maxTouchPoints > 1 && typeof MSStream > "u";
+};
+function te(r) {
+  return function(e) {
+    return e.test(r);
+  };
+}
+function W(r) {
+  var e = {
+    userAgent: "",
+    platform: "",
+    maxTouchPoints: 0
+  };
+  !r && typeof navigator < "u" ? e = {
+    userAgent: navigator.userAgent,
+    platform: navigator.platform,
+    maxTouchPoints: navigator.maxTouchPoints || 0
+  } : typeof r == "string" ? e.userAgent = r : r && r.userAgent && (e = {
+    userAgent: r.userAgent,
+    platform: r.platform,
+    maxTouchPoints: r.maxTouchPoints || 0
+  });
+  var t = e.userAgent, i = t.split("[FBAN");
+  typeof i[1] < "u" && (t = i[0]), i = t.split("Twitter"), typeof i[1] < "u" && (t = i[0]);
+  var n = te(t), s = {
+    apple: {
+      phone: n(O) && !n(g),
+      ipod: n(C),
+      tablet: !n(O) && (n(S) || G(e)) && !n(g),
+      universal: n(U),
+      device: (n(O) || n(C) || n(S) || n(U) || G(e)) && !n(g)
+    },
+    amazon: {
+      phone: n(b),
+      tablet: !n(b) && n(A),
+      device: n(b) || n(A)
+    },
+    android: {
+      phone: !n(g) && n(b) || !n(g) && n(k),
+      tablet: !n(g) && !n(b) && !n(k) && (n(A) || n(H)),
+      device: !n(g) && (n(b) || n(A) || n(k) || n(H)) || n(/\bokhttp\b/i)
+    },
+    windows: {
+      phone: n(g),
+      tablet: n(X),
+      device: n(g) || n(X)
+    },
+    other: {
+      blackberry: n(R),
+      blackberry10: n(F),
+      opera: n(Y),
+      firefox: n($),
+      chrome: n(K),
+      device: n(R) || n(F) || n(Y) || n($) || n(K)
+    },
+    any: !1,
+    phone: !1,
+    tablet: !1
+  };
+  return s.any = s.apple.device || s.android.device || s.windows.device || s.other.device, s.phone = s.apple.phone || s.android.phone || s.windows.phone, s.tablet = s.apple.tablet || s.android.tablet || s.windows.tablet, s;
+}
+const ie = W.default ?? W, ne = ie(globalThis.navigator), se = 9, I = 100, oe = 0, re = 0, j = 2, N = 1, ae = -1e3, he = -1e3, le = 2;
+class V {
   // 2fps
   // eslint-disable-next-line jsdoc/require-param
   /**
    * @param {WebGLRenderer|WebGPURenderer} renderer - A reference to the current renderer
    */
-  constructor(t, e = S) {
-    this._mobileInfo = e, this.debug = !1, this._isActive = !1, this._isMobileAccessibility = !1, this._pool = [], this._renderId = 0, this._children = [], this._androidUpdateCount = 0, this._androidUpdateFrequency = 500, this._hookDiv = null, (e.tablet || e.phone) && this._createTouchHook();
+  constructor(e, t = ne) {
+    this._mobileInfo = t, this.debug = !1, this._isActive = !1, this._isMobileAccessibility = !1, this._pool = [], this._renderId = 0, this._children = [], this._androidUpdateCount = 0, this._androidUpdateFrequency = 500, this._hookDiv = null, (t.tablet || t.phone) && this._createTouchHook();
     const i = document.createElement("div");
-    i.style.width = `${w}px`, i.style.height = `${w}px`, i.style.position = "absolute", i.style.top = `${R}px`, i.style.left = `${F}px`, i.style.zIndex = O.toString(), this._div = i, this._renderer = t, this._onKeyDown = this._onKeyDown.bind(this), this._onMouseMove = this._onMouseMove.bind(this), globalThis.addEventListener("keydown", this._onKeyDown, !1);
+    i.style.width = `${I}px`, i.style.height = `${I}px`, i.style.position = "absolute", i.style.top = `${oe}px`, i.style.left = `${re}px`, i.style.zIndex = j.toString(), this._div = i, this._renderer = e, this._onKeyDown = this._onKeyDown.bind(this), this._onMouseMove = this._onMouseMove.bind(this), globalThis.addEventListener("keydown", this._onKeyDown, !1);
   }
   /**
    * Value of `true` if accessibility is currently active and accessibility layers are showing.
@@ -113,10 +175,10 @@ class B {
    * @private
    */
   _createTouchHook() {
-    const t = document.createElement("button");
-    t.style.width = `${k}px`, t.style.height = `${k}px`, t.style.position = "absolute", t.style.top = `${K}px`, t.style.left = `${$}px`, t.style.zIndex = G.toString(), t.style.backgroundColor = "#FF0000", t.title = "select to enable accessibility for this content", t.addEventListener("focus", () => {
+    const e = document.createElement("button");
+    e.style.width = `${N}px`, e.style.height = `${N}px`, e.style.position = "absolute", e.style.top = `${ae}px`, e.style.left = `${he}px`, e.style.zIndex = le.toString(), e.style.backgroundColor = "#FF0000", e.title = "select to enable accessibility for this content", e.addEventListener("focus", () => {
       this._isMobileAccessibility = !0, this._activate(), this._destroyTouchHook();
-    }), document.body.appendChild(t), this._hookDiv = t;
+    }), document.body.appendChild(e), this._hookDiv = e;
   }
   /**
    * Destroys the touch hooks.
@@ -131,8 +193,8 @@ class B {
    * @private
    */
   _activate() {
-    var t;
-    this._isActive || (this._isActive = !0, globalThis.document.addEventListener("mousemove", this._onMouseMove, !0), globalThis.removeEventListener("keydown", this._onKeyDown, !1), this._renderer.runners.postrender.add(this), (t = this._renderer.view.canvas.parentNode) == null || t.appendChild(this._div));
+    var e;
+    this._isActive || (this._isActive = !0, globalThis.document.addEventListener("mousemove", this._onMouseMove, !0), globalThis.removeEventListener("keydown", this._onKeyDown, !1), this._renderer.runners.postrender.add(this), (e = this._renderer.view.canvas.parentNode) == null || e.appendChild(this._div));
   }
   /**
    * Deactivating will cause the Accessibility layer to be hidden.
@@ -140,29 +202,29 @@ class B {
    * @private
    */
   _deactivate() {
-    var t;
-    !this._isActive || this._isMobileAccessibility || (this._isActive = !1, globalThis.document.removeEventListener("mousemove", this._onMouseMove, !0), globalThis.addEventListener("keydown", this._onKeyDown, !1), this._renderer.runners.postrender.remove(this), (t = this._div.parentNode) == null || t.removeChild(this._div));
+    var e;
+    !this._isActive || this._isMobileAccessibility || (this._isActive = !1, globalThis.document.removeEventListener("mousemove", this._onMouseMove, !0), globalThis.addEventListener("keydown", this._onKeyDown, !1), this._renderer.runners.postrender.remove(this), (e = this._div.parentNode) == null || e.removeChild(this._div));
   }
   /**
    * This recursive function will run through the scene graph and add any new accessible objects to the DOM layer.
    * @private
    * @param {Container} container - The Container to check.
    */
-  _updateAccessibleObjects(t) {
-    if (!t.visible || !t.accessibleChildren)
+  _updateAccessibleObjects(e) {
+    if (!e.visible || !e.accessibleChildren)
       return;
-    t.accessible && t.isInteractive() && (t._accessibleActive || this._addChild(t), t._renderId = this._renderId);
-    const e = t.children;
-    if (e)
-      for (let i = 0; i < e.length; i++)
-        this._updateAccessibleObjects(e[i]);
+    e.accessible && e.isInteractive() && (e._accessibleActive || this._addChild(e), e._renderId = this._renderId);
+    const t = e.children;
+    if (t)
+      for (let i = 0; i < t.length; i++)
+        this._updateAccessibleObjects(t[i]);
   }
   /**
    * Runner init called, view is available at this point.
    * @ignore
    */
-  init(t) {
-    this.debug = (t == null ? void 0 : t.debug) ?? this.debug, this._renderer.runners.postrender.remove(this);
+  init(e) {
+    this.debug = (e == null ? void 0 : e.debug) ?? this.debug, this._renderer.runners.postrender.remove(this);
   }
   /**
    * Runner postrender was called, ensure that all divs are mapped correctly to their Containers.
@@ -170,22 +232,22 @@ class B {
    * @ignore
    */
   postrender() {
-    const t = performance.now();
-    if (this._mobileInfo.android.device && t < this._androidUpdateCount || (this._androidUpdateCount = t + this._androidUpdateFrequency, !this._renderer.renderingToScreen || !this._renderer.view.canvas))
+    const e = performance.now();
+    if (this._mobileInfo.android.device && e < this._androidUpdateCount || (this._androidUpdateCount = e + this._androidUpdateFrequency, !this._renderer.renderingToScreen || !this._renderer.view.canvas))
       return;
     this._renderer.lastObjectRendered && this._updateAccessibleObjects(this._renderer.lastObjectRendered);
-    const { x: e, y: i, width: s, height: n } = this._renderer.view.canvas.getBoundingClientRect(), { width: o, height: r, resolution: c } = this._renderer, p = s / o * c, v = n / r * c;
-    let a = this._div;
-    a.style.left = `${e}px`, a.style.top = `${i}px`, a.style.width = `${o}px`, a.style.height = `${r}px`;
-    for (let h = 0; h < this._children.length; h++) {
-      const l = this._children[h];
-      if (l._renderId !== this._renderId)
-        l._accessibleActive = !1, U(this._children, h, 1), this._div.removeChild(l._accessibleDiv), this._pool.push(l._accessibleDiv), l._accessibleDiv = null, h--;
+    const { x: t, y: i, width: n, height: s } = this._renderer.view.canvas.getBoundingClientRect(), { width: o, height: a, resolution: c } = this._renderer, p = n / o * c, v = s / a * c;
+    let h = this._div;
+    h.style.left = `${t}px`, h.style.top = `${i}px`, h.style.width = `${o}px`, h.style.height = `${a}px`;
+    for (let l = 0; l < this._children.length; l++) {
+      const u = this._children[l];
+      if (u._renderId !== this._renderId)
+        u._accessibleActive = !1, J(this._children, l, 1), this._div.removeChild(u._accessibleDiv), this._pool.push(u._accessibleDiv), u._accessibleDiv = null, l--;
       else {
-        a = l._accessibleDiv;
-        let d = l.hitArea;
-        const E = l.worldTransform;
-        l.hitArea ? (a.style.left = `${(E.tx + d.x * E.a) * p}px`, a.style.top = `${(E.ty + d.y * E.d) * v}px`, a.style.width = `${d.width * E.a * p}px`, a.style.height = `${d.height * E.d * v}px`) : (d = l.getBounds().rectangle, this._capHitArea(d), a.style.left = `${d.x * p}px`, a.style.top = `${d.y * v}px`, a.style.width = `${d.width * p}px`, a.style.height = `${d.height * v}px`, a.title !== l.accessibleTitle && l.accessibleTitle !== null && (a.title = l.accessibleTitle || ""), a.getAttribute("aria-label") !== l.accessibleHint && l.accessibleHint !== null && a.setAttribute("aria-label", l.accessibleHint || "")), (l.accessibleTitle !== a.title || l.tabIndex !== a.tabIndex) && (a.title = l.accessibleTitle || "", a.tabIndex = l.tabIndex, this.debug && this._updateDebugHTML(a));
+        h = u._accessibleDiv;
+        let d = u.hitArea;
+        const _ = u.worldTransform;
+        u.hitArea ? (h.style.left = `${(_.tx + d.x * _.a) * p}px`, h.style.top = `${(_.ty + d.y * _.d) * v}px`, h.style.width = `${d.width * _.a * p}px`, h.style.height = `${d.height * _.d * v}px`) : (d = u.getBounds().rectangle, this._capHitArea(d), h.style.left = `${d.x * p}px`, h.style.top = `${d.y * v}px`, h.style.width = `${d.width * p}px`, h.style.height = `${d.height * v}px`, h.title !== u.accessibleTitle && u.accessibleTitle !== null && (h.title = u.accessibleTitle || ""), h.getAttribute("aria-label") !== u.accessibleHint && u.accessibleHint !== null && h.setAttribute("aria-label", u.accessibleHint || "")), (u.accessibleTitle !== h.title || u.tabIndex !== h.tabIndex) && (h.title = u.accessibleTitle || "", h.tabIndex = u.tabIndex, this.debug && this._updateDebugHTML(h));
       }
     }
     this._renderId++;
@@ -195,26 +257,26 @@ class B {
    * accessibility div
    * @param {HTMLElement} div -
    */
-  _updateDebugHTML(t) {
-    t.innerHTML = `type: ${t.type}</br> title : ${t.title}</br> tabIndex: ${t.tabIndex}`;
+  _updateDebugHTML(e) {
+    e.innerHTML = `type: ${e.type}</br> title : ${e.title}</br> tabIndex: ${e.tabIndex}`;
   }
   /**
    * Adjust the hit area based on the bounds of a display object
    * @param {Rectangle} hitArea - Bounds of the child
    */
-  _capHitArea(t) {
-    t.x < 0 && (t.width += t.x, t.x = 0), t.y < 0 && (t.height += t.y, t.y = 0);
-    const { width: e, height: i } = this._renderer;
-    t.x + t.width > e && (t.width = e - t.x), t.y + t.height > i && (t.height = i - t.y);
+  _capHitArea(e) {
+    e.x < 0 && (e.width += e.x, e.x = 0), e.y < 0 && (e.height += e.y, e.y = 0);
+    const { width: t, height: i } = this._renderer;
+    e.x + e.width > t && (e.width = t - e.x), e.y + e.height > i && (e.height = i - e.y);
   }
   /**
    * Adds a Container to the accessibility manager
    * @private
    * @param {Container} container - The child to make accessible.
    */
-  _addChild(t) {
-    let e = this._pool.pop();
-    e || (e = document.createElement("button"), e.style.width = `${w}px`, e.style.height = `${w}px`, e.style.backgroundColor = this.debug ? "rgba(255,255,255,0.5)" : "transparent", e.style.position = "absolute", e.style.zIndex = O.toString(), e.style.borderStyle = "none", navigator.userAgent.toLowerCase().includes("chrome") ? e.setAttribute("aria-live", "off") : e.setAttribute("aria-live", "polite"), navigator.userAgent.match(/rv:.*Gecko\//) ? e.setAttribute("aria-relevant", "additions") : e.setAttribute("aria-relevant", "text"), e.addEventListener("click", this._onClick.bind(this)), e.addEventListener("focus", this._onFocus.bind(this)), e.addEventListener("focusout", this._onFocusOut.bind(this))), e.style.pointerEvents = t.accessiblePointerEvents, e.type = t.accessibleType, t.accessibleTitle && t.accessibleTitle !== null ? e.title = t.accessibleTitle : (!t.accessibleHint || t.accessibleHint === null) && (e.title = `container ${t.tabIndex}`), t.accessibleHint && t.accessibleHint !== null && e.setAttribute("aria-label", t.accessibleHint), this.debug && this._updateDebugHTML(e), t._accessibleActive = !0, t._accessibleDiv = e, e.container = t, this._children.push(t), this._div.appendChild(t._accessibleDiv), t._accessibleDiv.tabIndex = t.tabIndex;
+  _addChild(e) {
+    let t = this._pool.pop();
+    t || (t = document.createElement("button"), t.style.width = `${I}px`, t.style.height = `${I}px`, t.style.backgroundColor = this.debug ? "rgba(255,255,255,0.5)" : "transparent", t.style.position = "absolute", t.style.zIndex = j.toString(), t.style.borderStyle = "none", navigator.userAgent.toLowerCase().includes("chrome") ? t.setAttribute("aria-live", "off") : t.setAttribute("aria-live", "polite"), navigator.userAgent.match(/rv:.*Gecko\//) ? t.setAttribute("aria-relevant", "additions") : t.setAttribute("aria-relevant", "text"), t.addEventListener("click", this._onClick.bind(this)), t.addEventListener("focus", this._onFocus.bind(this)), t.addEventListener("focusout", this._onFocusOut.bind(this))), t.style.pointerEvents = e.accessiblePointerEvents, t.type = e.accessibleType, e.accessibleTitle && e.accessibleTitle !== null ? t.title = e.accessibleTitle : (!e.accessibleHint || e.accessibleHint === null) && (t.title = `container ${e.tabIndex}`), e.accessibleHint && e.accessibleHint !== null && t.setAttribute("aria-label", e.accessibleHint), this.debug && this._updateDebugHTML(t), e._accessibleActive = !0, e._accessibleDiv = t, t.container = e, this._children.push(e), this._div.appendChild(e._accessibleDiv), e._accessibleDiv.tabIndex = e.tabIndex;
   }
   /**
    * Dispatch events with the EventSystem.
@@ -222,63 +284,63 @@ class B {
    * @param type
    * @private
    */
-  _dispatchEvent(t, e) {
-    const { container: i } = t.target, s = this._renderer.events.rootBoundary, n = Object.assign(new P(s), { target: i });
-    s.rootTarget = this._renderer.lastObjectRendered, e.forEach((o) => s.dispatchEvent(n, o));
+  _dispatchEvent(e, t) {
+    const { container: i } = e.target, n = this._renderer.events.rootBoundary, s = Object.assign(new M(n), { target: i });
+    n.rootTarget = this._renderer.lastObjectRendered, t.forEach((o) => n.dispatchEvent(s, o));
   }
   /**
    * Maps the div button press to pixi's EventSystem (click)
    * @private
    * @param {MouseEvent} e - The click event.
    */
-  _onClick(t) {
-    this._dispatchEvent(t, ["click", "pointertap", "tap"]);
+  _onClick(e) {
+    this._dispatchEvent(e, ["click", "pointertap", "tap"]);
   }
   /**
    * Maps the div focus events to pixi's EventSystem (mouseover)
    * @private
    * @param {FocusEvent} e - The focus event.
    */
-  _onFocus(t) {
-    t.target.getAttribute("aria-live") || t.target.setAttribute("aria-live", "assertive"), this._dispatchEvent(t, ["mouseover"]);
+  _onFocus(e) {
+    e.target.getAttribute("aria-live") || e.target.setAttribute("aria-live", "assertive"), this._dispatchEvent(e, ["mouseover"]);
   }
   /**
    * Maps the div focus events to pixi's EventSystem (mouseout)
    * @private
    * @param {FocusEvent} e - The focusout event.
    */
-  _onFocusOut(t) {
-    t.target.getAttribute("aria-live") || t.target.setAttribute("aria-live", "polite"), this._dispatchEvent(t, ["mouseout"]);
+  _onFocusOut(e) {
+    e.target.getAttribute("aria-live") || e.target.setAttribute("aria-live", "polite"), this._dispatchEvent(e, ["mouseout"]);
   }
   /**
    * Is called when a key is pressed
    * @private
    * @param {KeyboardEvent} e - The keydown event.
    */
-  _onKeyDown(t) {
-    t.keyCode === Y && this._activate();
+  _onKeyDown(e) {
+    e.keyCode === se && this._activate();
   }
   /**
    * Is called when the mouse moves across the renderer element
    * @private
    * @param {MouseEvent} e - The mouse event.
    */
-  _onMouseMove(t) {
-    t.movementX === 0 && t.movementY === 0 || this._deactivate();
+  _onMouseMove(e) {
+    e.movementX === 0 && e.movementY === 0 || this._deactivate();
   }
   /** Destroys the accessibility manager */
   destroy() {
     this._destroyTouchHook(), this._div = null, globalThis.document.removeEventListener("mousemove", this._onMouseMove, !0), globalThis.removeEventListener("keydown", this._onKeyDown), this._pool = null, this._children = null, this._renderer = null;
   }
 }
-B.extension = {
+V.extension = {
   type: [
-    T.WebGLSystem,
-    T.WebGPUSystem
+    w.WebGLSystem,
+    w.WebGPUSystem
   ],
   name: "accessibility"
 };
-const j = {
+const ue = {
   /**
    * Flag for if the object is accessible. If true AccessibilityManager will overlay a
    * shadow div with attributes set
@@ -347,7 +409,7 @@ const j = {
    */
   _renderId: -1
 };
-class N {
+class de {
   constructor() {
     this.interactionFrequency = 10, this._deltaTime = 0, this._didMove = !1, this._tickerAdded = !1, this._pauseUpdate = !0;
   }
@@ -355,23 +417,23 @@ class N {
    * Initializes the event ticker.
    * @param events - The event system.
    */
-  init(t) {
-    this.removeTickerListener(), this.events = t, this.interactionFrequency = 10, this._deltaTime = 0, this._didMove = !1, this._tickerAdded = !1, this._pauseUpdate = !0;
+  init(e) {
+    this.removeTickerListener(), this.events = e, this.interactionFrequency = 10, this._deltaTime = 0, this._didMove = !1, this._tickerAdded = !1, this._pauseUpdate = !0;
   }
   /** Whether to pause the update checks or not. */
   get pauseUpdate() {
     return this._pauseUpdate;
   }
-  set pauseUpdate(t) {
-    this._pauseUpdate = t;
+  set pauseUpdate(e) {
+    this._pauseUpdate = e;
   }
   /** Adds the ticker listener. */
   addTickerListener() {
-    this._tickerAdded || !this.domElement || (D.system.add(this._tickerUpdate, this, H.INTERACTION), this._tickerAdded = !0);
+    this._tickerAdded || !this.domElement || (L.system.add(this._tickerUpdate, this, Q.INTERACTION), this._tickerAdded = !0);
   }
   /** Removes the ticker listener. */
   removeTickerListener() {
-    this._tickerAdded && (D.system.remove(this._tickerUpdate, this), this._tickerAdded = !1);
+    this._tickerAdded && (L.system.remove(this._tickerUpdate, this), this._tickerAdded = !1);
   }
   /** Sets flag to not fire extra events when the user has already moved there mouse */
   pointerMoved() {
@@ -385,12 +447,12 @@ class N {
       this._didMove = !1;
       return;
     }
-    const t = this.events._rootPointerEvent;
-    this.events.supportsTouchEvents && t.pointerType === "touch" || globalThis.document.dispatchEvent(new PointerEvent("pointermove", {
-      clientX: t.clientX,
-      clientY: t.clientY,
-      pointerType: t.pointerType,
-      pointerId: t.pointerId
+    const e = this.events._rootPointerEvent;
+    this.events.supportsTouchEvents && e.pointerType === "touch" || globalThis.document.dispatchEvent(new PointerEvent("pointermove", {
+      clientX: e.clientX,
+      clientY: e.clientY,
+      pointerType: e.pointerType,
+      pointerId: e.pointerId
     }));
   }
   /**
@@ -400,14 +462,14 @@ class N {
    * Invoked by a throttled ticker update from {@link Ticker.system}.
    * @param ticker - The throttled ticker.
    */
-  _tickerUpdate(t) {
-    this._deltaTime += t.deltaTime, !(this._deltaTime < this.interactionFrequency) && (this._deltaTime = 0, this._update());
+  _tickerUpdate(e) {
+    this._deltaTime += e.deltaTime, !(this._deltaTime < this.interactionFrequency) && (this._deltaTime = 0, this._update());
   }
 }
-const y = new N();
-class M extends P {
+const E = new de();
+class D extends M {
   constructor() {
-    super(...arguments), this.client = new f(), this.movement = new f(), this.offset = new f(), this.global = new f(), this.screen = new f();
+    super(...arguments), this.client = new m(), this.movement = new m(), this.offset = new m(), this.global = new m(), this.screen = new m();
   }
   /** @readonly */
   get clientX() {
@@ -480,15 +542,15 @@ class M extends P {
    * @returns - A point containing the coordinates of the InteractionData position relative
    *  to the Container
    */
-  getLocalPosition(t, e, i) {
-    return t.worldTransform.applyInverse(i || this.global, e);
+  getLocalPosition(e, t, i) {
+    return e.worldTransform.applyInverse(i || this.global, t);
   }
   /**
    * Whether the modifier key was pressed when this event natively occurred.
    * @param key - The modifier key.
    */
-  getModifierState(t) {
-    return "getModifierState" in this.nativeEvent && this.nativeEvent.getModifierState(t);
+  getModifierState(e) {
+    return "getModifierState" in this.nativeEvent && this.nativeEvent.getModifierState(e);
   }
   /**
    * Not supported.
@@ -510,11 +572,11 @@ class M extends P {
    * @deprecated since 7.0.0
    */
   // eslint-disable-next-line max-params
-  initMouseEvent(t, e, i, s, n, o, r, c, p, v, a, h, l, d, E) {
+  initMouseEvent(e, t, i, n, s, o, a, c, p, v, h, l, u, d, _) {
     throw new Error("Method not implemented.");
   }
 }
-class g extends M {
+class f extends D {
   constructor() {
     super(...arguments), this.width = 0, this.height = 0, this.isPrimary = !1;
   }
@@ -527,23 +589,23 @@ class g extends M {
     throw new Error("getPredictedEvents is not supported!");
   }
 }
-class _ extends M {
+class T extends D {
   constructor() {
     super(...arguments), this.DOM_DELTA_PIXEL = 0, this.DOM_DELTA_LINE = 1, this.DOM_DELTA_PAGE = 2;
   }
 }
-_.DOM_DELTA_PIXEL = 0;
-_.DOM_DELTA_LINE = 1;
-_.DOM_DELTA_PAGE = 2;
-const W = 2048, z = new f(), b = new f();
-class Z {
+T.DOM_DELTA_PIXEL = 0;
+T.DOM_DELTA_LINE = 1;
+T.DOM_DELTA_PAGE = 2;
+const ce = 2048, pe = new m(), P = new m();
+class ve {
   /**
    * @param rootTarget - The holder of the event boundary.
    */
-  constructor(t) {
-    this.dispatch = new X(), this.moveOnAll = !1, this.enableGlobalMoveEvents = !0, this.mappingState = {
+  constructor(e) {
+    this.dispatch = new ee(), this.moveOnAll = !1, this.enableGlobalMoveEvents = !0, this.mappingState = {
       trackingData: {}
-    }, this.eventPool = /* @__PURE__ */ new Map(), this._allInteractiveElements = [], this._hitElements = [], this._isPointerMoveEvent = !1, this.rootTarget = t, this.hitPruneFn = this.hitPruneFn.bind(this), this.hitTestFn = this.hitTestFn.bind(this), this.mapPointerDown = this.mapPointerDown.bind(this), this.mapPointerMove = this.mapPointerMove.bind(this), this.mapPointerOut = this.mapPointerOut.bind(this), this.mapPointerOver = this.mapPointerOver.bind(this), this.mapPointerUp = this.mapPointerUp.bind(this), this.mapPointerUpOutside = this.mapPointerUpOutside.bind(this), this.mapWheel = this.mapWheel.bind(this), this.mappingTable = {}, this.addEventMapping("pointerdown", this.mapPointerDown), this.addEventMapping("pointermove", this.mapPointerMove), this.addEventMapping("pointerout", this.mapPointerOut), this.addEventMapping("pointerleave", this.mapPointerOut), this.addEventMapping("pointerover", this.mapPointerOver), this.addEventMapping("pointerup", this.mapPointerUp), this.addEventMapping("pointerupoutside", this.mapPointerUpOutside), this.addEventMapping("wheel", this.mapWheel);
+    }, this.eventPool = /* @__PURE__ */ new Map(), this._allInteractiveElements = [], this._hitElements = [], this._isPointerMoveEvent = !1, this.rootTarget = e, this.hitPruneFn = this.hitPruneFn.bind(this), this.hitTestFn = this.hitTestFn.bind(this), this.mapPointerDown = this.mapPointerDown.bind(this), this.mapPointerMove = this.mapPointerMove.bind(this), this.mapPointerOut = this.mapPointerOut.bind(this), this.mapPointerOver = this.mapPointerOver.bind(this), this.mapPointerUp = this.mapPointerUp.bind(this), this.mapPointerUpOutside = this.mapPointerUpOutside.bind(this), this.mapWheel = this.mapWheel.bind(this), this.mappingTable = {}, this.addEventMapping("pointerdown", this.mapPointerDown), this.addEventMapping("pointermove", this.mapPointerMove), this.addEventMapping("pointerout", this.mapPointerOut), this.addEventMapping("pointerleave", this.mapPointerOut), this.addEventMapping("pointerover", this.mapPointerOver), this.addEventMapping("pointerup", this.mapPointerUp), this.addEventMapping("pointerupoutside", this.mapPointerUpOutside), this.addEventMapping("wheel", this.mapWheel);
   }
   /**
    * Adds an event mapping for the event `type` handled by `fn`.
@@ -557,33 +619,33 @@ class Z {
    * @param type - The type of upstream event to map.
    * @param fn - The mapping method. The context of this function must be bound manually, if desired.
    */
-  addEventMapping(t, e) {
-    this.mappingTable[t] || (this.mappingTable[t] = []), this.mappingTable[t].push({
-      fn: e,
+  addEventMapping(e, t) {
+    this.mappingTable[e] || (this.mappingTable[e] = []), this.mappingTable[e].push({
+      fn: t,
       priority: 0
-    }), this.mappingTable[t].sort((i, s) => i.priority - s.priority);
+    }), this.mappingTable[e].sort((i, n) => i.priority - n.priority);
   }
   /**
    * Dispatches the given event
    * @param e - The event to dispatch.
    * @param type - The type of event to dispatch. Defaults to `e.type`.
    */
-  dispatchEvent(t, e) {
-    t.propagationStopped = !1, t.propagationImmediatelyStopped = !1, this.propagate(t, e), this.dispatch.emit(e || t.type, t);
+  dispatchEvent(e, t) {
+    e.propagationStopped = !1, e.propagationImmediatelyStopped = !1, this.propagate(e, t), this.dispatch.emit(t || e.type, e);
   }
   /**
    * Maps the given upstream event through the event boundary and propagates it downstream.
    * @param e - The event to map.
    */
-  mapEvent(t) {
+  mapEvent(e) {
     if (!this.rootTarget)
       return;
-    const e = this.mappingTable[t.type];
-    if (e)
-      for (let i = 0, s = e.length; i < s; i++)
-        e[i].fn(t);
+    const t = this.mappingTable[e.type];
+    if (t)
+      for (let i = 0, n = t.length; i < n; i++)
+        t[i].fn(e);
     else
-      m(`[EventBoundary]: Event mapping not defined for ${t.type}`);
+      y(`[EventBoundary]: Event mapping not defined for ${e.type}`);
   }
   /**
    * Finds the Container that is the target of a event at the given coordinates.
@@ -592,16 +654,16 @@ class Z {
    * @param x - The x coordinate of the event.
    * @param y - The y coordinate of the event.
    */
-  hitTest(t, e) {
-    y.pauseUpdate = !0;
-    const s = this._isPointerMoveEvent && this.enableGlobalMoveEvents ? "hitTestMoveRecursive" : "hitTestRecursive", n = this[s](
+  hitTest(e, t) {
+    E.pauseUpdate = !0;
+    const n = this._isPointerMoveEvent && this.enableGlobalMoveEvents ? "hitTestMoveRecursive" : "hitTestRecursive", s = this[n](
       this.rootTarget,
       this.rootTarget.eventMode,
-      z.set(t, e),
+      pe.set(e, t),
       this.hitTestFn,
       this.hitPruneFn
     );
-    return n && n[0];
+    return s && s[0];
   }
   /**
    * Propagate the passed event from from {@link EventBoundary.rootTarget this.rootTarget} to its
@@ -609,18 +671,18 @@ class Z {
    * @param e - The event to propagate.
    * @param type - The type of event to propagate. Defaults to `e.type`.
    */
-  propagate(t, e) {
-    if (!t.target)
+  propagate(e, t) {
+    if (!e.target)
       return;
-    const i = t.composedPath();
-    t.eventPhase = t.CAPTURING_PHASE;
-    for (let s = 0, n = i.length - 1; s < n; s++)
-      if (t.currentTarget = i[s], this.notifyTarget(t, e), t.propagationStopped || t.propagationImmediatelyStopped)
+    const i = e.composedPath();
+    e.eventPhase = e.CAPTURING_PHASE;
+    for (let n = 0, s = i.length - 1; n < s; n++)
+      if (e.currentTarget = i[n], this.notifyTarget(e, t), e.propagationStopped || e.propagationImmediatelyStopped)
         return;
-    if (t.eventPhase = t.AT_TARGET, t.currentTarget = t.target, this.notifyTarget(t, e), !(t.propagationStopped || t.propagationImmediatelyStopped)) {
-      t.eventPhase = t.BUBBLING_PHASE;
-      for (let s = i.length - 2; s >= 0; s--)
-        if (t.currentTarget = i[s], this.notifyTarget(t, e), t.propagationStopped || t.propagationImmediatelyStopped)
+    if (e.eventPhase = e.AT_TARGET, e.currentTarget = e.target, this.notifyTarget(e, t), !(e.propagationStopped || e.propagationImmediatelyStopped)) {
+      e.eventPhase = e.BUBBLING_PHASE;
+      for (let n = i.length - 2; n >= 0; n--)
+        if (e.currentTarget = i[n], this.notifyTarget(e, t), e.propagationStopped || e.propagationImmediatelyStopped)
           return;
     }
   }
@@ -632,14 +694,14 @@ class Z {
    * @param type - The listeners to notify.
    * @param targets - The targets to notify.
    */
-  all(t, e, i = this._allInteractiveElements) {
+  all(e, t, i = this._allInteractiveElements) {
     if (i.length === 0)
       return;
-    t.eventPhase = t.BUBBLING_PHASE;
-    const s = Array.isArray(e) ? e : [e];
-    for (let n = i.length - 1; n >= 0; n--)
-      s.forEach((o) => {
-        t.currentTarget = i[n], this.notifyTarget(t, o);
+    e.eventPhase = e.BUBBLING_PHASE;
+    const n = Array.isArray(t) ? t : [t];
+    for (let s = i.length - 1; s >= 0; s--)
+      n.forEach((o) => {
+        e.currentTarget = i[s], this.notifyTarget(e, o);
       });
   }
   /**
@@ -647,40 +709,40 @@ class Z {
    * {@code target}. The last element in the path is {@code target}.
    * @param target - The target to find the propagation path to.
    */
-  propagationPath(t) {
-    const e = [t];
-    for (let i = 0; i < W && t !== this.rootTarget && t.parent; i++) {
-      if (!t.parent)
+  propagationPath(e) {
+    const t = [e];
+    for (let i = 0; i < ce && e !== this.rootTarget && e.parent; i++) {
+      if (!e.parent)
         throw new Error("Cannot find propagation path to disconnected target");
-      e.push(t.parent), t = t.parent;
+      t.push(e.parent), e = e.parent;
     }
-    return e.reverse(), e;
+    return t.reverse(), t;
   }
-  hitTestMoveRecursive(t, e, i, s, n, o = !1) {
-    let r = !1;
-    if (this._interactivePrune(t))
+  hitTestMoveRecursive(e, t, i, n, s, o = !1) {
+    let a = !1;
+    if (this._interactivePrune(e))
       return null;
-    if ((t.eventMode === "dynamic" || e === "dynamic") && (y.pauseUpdate = !1), t.interactiveChildren && t.children) {
-      const v = t.children;
-      for (let a = v.length - 1; a >= 0; a--) {
-        const h = v[a], l = this.hitTestMoveRecursive(
-          h,
-          this._isInteractive(e) ? e : h.eventMode,
+    if ((e.eventMode === "dynamic" || t === "dynamic") && (E.pauseUpdate = !1), e.interactiveChildren && e.children) {
+      const v = e.children;
+      for (let h = v.length - 1; h >= 0; h--) {
+        const l = v[h], u = this.hitTestMoveRecursive(
+          l,
+          this._isInteractive(t) ? t : l.eventMode,
           i,
-          s,
           n,
-          o || n(t, i)
+          s,
+          o || s(e, i)
         );
-        if (l) {
-          if (l.length > 0 && !l[l.length - 1].parent)
+        if (u) {
+          if (u.length > 0 && !u[u.length - 1].parent)
             continue;
-          const d = t.isInteractive();
-          (l.length > 0 || d) && (d && this._allInteractiveElements.push(t), l.push(t)), this._hitElements.length === 0 && (this._hitElements = l), r = !0;
+          const d = e.isInteractive();
+          (u.length > 0 || d) && (d && this._allInteractiveElements.push(e), u.push(e)), this._hitElements.length === 0 && (this._hitElements = u), a = !0;
         }
       }
     }
-    const c = this._isInteractive(e), p = t.isInteractive();
-    return p && p && this._allInteractiveElements.push(t), o || this._hitElements.length > 0 ? null : r ? this._hitElements : c && !n(t, i) && s(t, i) ? p ? [t] : [] : null;
+    const c = this._isInteractive(t), p = e.isInteractive();
+    return p && p && this._allInteractiveElements.push(e), o || this._hitElements.length > 0 ? null : a ? this._hitElements : c && !s(e, i) && n(e, i) ? p ? [e] : [] : null;
   }
   /**
    * Recursive implementation for {@link EventBoundary.hitTest hitTest}.
@@ -696,35 +758,35 @@ class Z {
    *  is the target itself and the last is {@link EventBoundary.rootTarget rootTarget}. This is the opposite
    *  order w.r.t. the propagation path. If no hit testing target is found, null is returned.
    */
-  hitTestRecursive(t, e, i, s, n) {
-    if (this._interactivePrune(t) || n(t, i))
+  hitTestRecursive(e, t, i, n, s) {
+    if (this._interactivePrune(e) || s(e, i))
       return null;
-    if ((t.eventMode === "dynamic" || e === "dynamic") && (y.pauseUpdate = !1), t.interactiveChildren && t.children) {
-      const c = t.children, p = i;
+    if ((e.eventMode === "dynamic" || t === "dynamic") && (E.pauseUpdate = !1), e.interactiveChildren && e.children) {
+      const c = e.children, p = i;
       for (let v = c.length - 1; v >= 0; v--) {
-        const a = c[v], h = this.hitTestRecursive(
-          a,
-          this._isInteractive(e) ? e : a.eventMode,
+        const h = c[v], l = this.hitTestRecursive(
+          h,
+          this._isInteractive(t) ? t : h.eventMode,
           p,
-          s,
-          n
+          n,
+          s
         );
-        if (h) {
-          if (h.length > 0 && !h[h.length - 1].parent)
+        if (l) {
+          if (l.length > 0 && !l[l.length - 1].parent)
             continue;
-          const l = t.isInteractive();
-          return (h.length > 0 || l) && h.push(t), h;
+          const u = e.isInteractive();
+          return (l.length > 0 || u) && l.push(e), l;
         }
       }
     }
-    const o = this._isInteractive(e), r = t.isInteractive();
-    return o && s(t, i) ? r ? [t] : [] : null;
+    const o = this._isInteractive(t), a = e.isInteractive();
+    return o && n(e, i) ? a ? [e] : [] : null;
   }
-  _isInteractive(t) {
-    return t === "static" || t === "dynamic";
+  _isInteractive(e) {
+    return e === "static" || e === "dynamic";
   }
-  _interactivePrune(t) {
-    return !t || !t.visible || !t.renderable || !t.includeInBuild || !t.measurable || t.eventMode === "none" || t.eventMode === "passive" && !t.interactiveChildren;
+  _interactivePrune(e) {
+    return !e || !e.visible || !e.renderable || !e.includeInBuild || !e.measurable || e.eventMode === "none" || e.eventMode === "passive" && !e.interactiveChildren;
   }
   /**
    * Checks whether the container or any of its children cannot pass the hit test at all.
@@ -734,13 +796,13 @@ class Z {
    * @param container - The container to prune.
    * @param location - The location to test for overlap.
    */
-  hitPruneFn(t, e) {
-    if (t.hitArea && (t.worldTransform.applyInverse(e, b), !t.hitArea.contains(b.x, b.y)))
+  hitPruneFn(e, t) {
+    if (e.hitArea && (e.worldTransform.applyInverse(t, P), !e.hitArea.contains(P.x, P.y)))
       return !0;
-    if (t.effects && t.effects.length)
-      for (let i = 0; i < t.effects.length; i++) {
-        const s = t.effects[i];
-        if (s.containsPoint && !s.containsPoint(e, this.hitTestFn))
+    if (e.effects && e.effects.length)
+      for (let i = 0; i < e.effects.length; i++) {
+        const n = e.effects[i];
+        if (n.containsPoint && !n.containsPoint(t, this.hitTestFn))
           return !0;
       }
     return !1;
@@ -751,8 +813,8 @@ class Z {
    * @param location - The location to test for overlap.
    * @returns - Whether `container` passes hit testing for `location`.
    */
-  hitTestFn(t, e) {
-    return t.hitArea ? !0 : t != null && t.containsPoint ? (t.worldTransform.applyInverse(e, b), t.containsPoint(b)) : !1;
+  hitTestFn(e, t) {
+    return e.hitArea ? !0 : e != null && e.containsPoint ? (e.worldTransform.applyInverse(t, P), e.containsPoint(P)) : !1;
   }
   /**
    * Notify all the listeners to the event's `currentTarget`.
@@ -762,15 +824,15 @@ class Z {
    * @param e - The event passed to the target.
    * @param type - The type of event to notify. Defaults to `e.type`.
    */
-  notifyTarget(t, e) {
-    var n, o;
-    if (!t.currentTarget.isInteractive())
+  notifyTarget(e, t) {
+    var s, o;
+    if (!e.currentTarget.isInteractive())
       return;
-    e = e ?? t.type;
-    const i = `on${e}`;
-    (o = (n = t.currentTarget)[i]) == null || o.call(n, t);
-    const s = t.eventPhase === t.CAPTURING_PHASE || t.eventPhase === t.AT_TARGET ? `${e}capture` : e;
-    this._notifyListeners(t, s), t.eventPhase === t.AT_TARGET && this._notifyListeners(t, e);
+    t = t ?? e.type;
+    const i = `on${t}`;
+    (o = (s = e.currentTarget)[i]) == null || o.call(s, e);
+    const n = e.eventPhase === e.CAPTURING_PHASE || e.eventPhase === e.AT_TARGET ? `${t}capture` : t;
+    this._notifyListeners(e, n), e.eventPhase === e.AT_TARGET && this._notifyListeners(e, t);
   }
   /**
    * Maps the upstream `pointerdown` events to a downstream `pointerdown` event.
@@ -778,20 +840,20 @@ class Z {
    * `touchstart`, `rightdown`, `mousedown` events are also dispatched for specific pointer types.
    * @param from - The upstream `pointerdown` event.
    */
-  mapPointerDown(t) {
-    if (!(t instanceof g)) {
-      m("EventBoundary cannot map a non-pointer event as a pointer event");
+  mapPointerDown(e) {
+    if (!(e instanceof f)) {
+      y("EventBoundary cannot map a non-pointer event as a pointer event");
       return;
     }
-    const e = this.createPointerEvent(t);
-    if (this.dispatchEvent(e, "pointerdown"), e.pointerType === "touch")
-      this.dispatchEvent(e, "touchstart");
-    else if (e.pointerType === "mouse" || e.pointerType === "pen") {
-      const s = e.button === 2;
-      this.dispatchEvent(e, s ? "rightdown" : "mousedown");
+    const t = this.createPointerEvent(e);
+    if (this.dispatchEvent(t, "pointerdown"), t.pointerType === "touch")
+      this.dispatchEvent(t, "touchstart");
+    else if (t.pointerType === "mouse" || t.pointerType === "pen") {
+      const n = t.button === 2;
+      this.dispatchEvent(t, n ? "rightdown" : "mousedown");
     }
-    const i = this.trackingData(t.pointerId);
-    i.pressTargetsByButton[t.button] = e.composedPath(), this.freeEvent(e);
+    const i = this.trackingData(e.pointerId);
+    i.pressTargetsByButton[e.button] = t.composedPath(), this.freeEvent(t);
   }
   /**
    * Maps the upstream `pointermove` to downstream `pointerout`, `pointerover`, and `pointermove` events, in that order.
@@ -800,42 +862,42 @@ class Z {
    * `mousemove`, and `touchmove` events are fired as well for specific pointer types.
    * @param from - The upstream `pointermove` event.
    */
-  mapPointerMove(t) {
+  mapPointerMove(e) {
     var c, p;
-    if (!(t instanceof g)) {
-      m("EventBoundary cannot map a non-pointer event as a pointer event");
+    if (!(e instanceof f)) {
+      y("EventBoundary cannot map a non-pointer event as a pointer event");
       return;
     }
     this._allInteractiveElements.length = 0, this._hitElements.length = 0, this._isPointerMoveEvent = !0;
-    const e = this.createPointerEvent(t);
+    const t = this.createPointerEvent(e);
     this._isPointerMoveEvent = !1;
-    const i = e.pointerType === "mouse" || e.pointerType === "pen", s = this.trackingData(t.pointerId), n = this.findMountedTarget(s.overTargets);
-    if (((c = s.overTargets) == null ? void 0 : c.length) > 0 && n !== e.target) {
-      const v = t.type === "mousemove" ? "mouseout" : "pointerout", a = this.createPointerEvent(t, v, n);
-      if (this.dispatchEvent(a, "pointerout"), i && this.dispatchEvent(a, "mouseout"), !e.composedPath().includes(n)) {
-        const h = this.createPointerEvent(t, "pointerleave", n);
-        for (h.eventPhase = h.AT_TARGET; h.target && !e.composedPath().includes(h.target); )
-          h.currentTarget = h.target, this.notifyTarget(h), i && this.notifyTarget(h, "mouseleave"), h.target = h.target.parent;
-        this.freeEvent(h);
+    const i = t.pointerType === "mouse" || t.pointerType === "pen", n = this.trackingData(e.pointerId), s = this.findMountedTarget(n.overTargets);
+    if (((c = n.overTargets) == null ? void 0 : c.length) > 0 && s !== t.target) {
+      const v = e.type === "mousemove" ? "mouseout" : "pointerout", h = this.createPointerEvent(e, v, s);
+      if (this.dispatchEvent(h, "pointerout"), i && this.dispatchEvent(h, "mouseout"), !t.composedPath().includes(s)) {
+        const l = this.createPointerEvent(e, "pointerleave", s);
+        for (l.eventPhase = l.AT_TARGET; l.target && !t.composedPath().includes(l.target); )
+          l.currentTarget = l.target, this.notifyTarget(l), i && this.notifyTarget(l, "mouseleave"), l.target = l.target.parent;
+        this.freeEvent(l);
       }
-      this.freeEvent(a);
+      this.freeEvent(h);
     }
-    if (n !== e.target) {
-      const v = t.type === "mousemove" ? "mouseover" : "pointerover", a = this.clonePointerEvent(e, v);
-      this.dispatchEvent(a, "pointerover"), i && this.dispatchEvent(a, "mouseover");
-      let h = n == null ? void 0 : n.parent;
-      for (; h && h !== this.rootTarget.parent && h !== e.target; )
-        h = h.parent;
-      if (!h || h === this.rootTarget.parent) {
-        const d = this.clonePointerEvent(e, "pointerenter");
-        for (d.eventPhase = d.AT_TARGET; d.target && d.target !== n && d.target !== this.rootTarget.parent; )
+    if (s !== t.target) {
+      const v = e.type === "mousemove" ? "mouseover" : "pointerover", h = this.clonePointerEvent(t, v);
+      this.dispatchEvent(h, "pointerover"), i && this.dispatchEvent(h, "mouseover");
+      let l = s == null ? void 0 : s.parent;
+      for (; l && l !== this.rootTarget.parent && l !== t.target; )
+        l = l.parent;
+      if (!l || l === this.rootTarget.parent) {
+        const d = this.clonePointerEvent(t, "pointerenter");
+        for (d.eventPhase = d.AT_TARGET; d.target && d.target !== s && d.target !== this.rootTarget.parent; )
           d.currentTarget = d.target, this.notifyTarget(d), i && this.notifyTarget(d, "mouseenter"), d.target = d.target.parent;
         this.freeEvent(d);
       }
-      this.freeEvent(a);
+      this.freeEvent(h);
     }
-    const o = [], r = this.enableGlobalMoveEvents ?? !0;
-    this.moveOnAll ? o.push("pointermove") : this.dispatchEvent(e, "pointermove"), r && o.push("globalpointermove"), e.pointerType === "touch" && (this.moveOnAll ? o.splice(1, 0, "touchmove") : this.dispatchEvent(e, "touchmove"), r && o.push("globaltouchmove")), i && (this.moveOnAll ? o.splice(1, 0, "mousemove") : this.dispatchEvent(e, "mousemove"), r && o.push("globalmousemove"), this.cursor = (p = e.target) == null ? void 0 : p.cursor), o.length > 0 && this.all(e, o), this._allInteractiveElements.length = 0, this._hitElements.length = 0, s.overTargets = e.composedPath(), this.freeEvent(e);
+    const o = [], a = this.enableGlobalMoveEvents ?? !0;
+    this.moveOnAll ? o.push("pointermove") : this.dispatchEvent(t, "pointermove"), a && o.push("globalpointermove"), t.pointerType === "touch" && (this.moveOnAll ? o.splice(1, 0, "touchmove") : this.dispatchEvent(t, "touchmove"), a && o.push("globaltouchmove")), i && (this.moveOnAll ? o.splice(1, 0, "mousemove") : this.dispatchEvent(t, "mousemove"), a && o.push("globalmousemove"), this.cursor = (p = t.target) == null ? void 0 : p.cursor), o.length > 0 && this.all(t, o), this._allInteractiveElements.length = 0, this._hitElements.length = 0, n.overTargets = t.composedPath(), this.freeEvent(t);
   }
   /**
    * Maps the upstream `pointerover` to downstream `pointerover` and `pointerenter` events, in that order.
@@ -843,18 +905,18 @@ class Z {
    * The tracking data for the specific pointer gets a new `overTarget`.
    * @param from - The upstream `pointerover` event.
    */
-  mapPointerOver(t) {
+  mapPointerOver(e) {
     var o;
-    if (!(t instanceof g)) {
-      m("EventBoundary cannot map a non-pointer event as a pointer event");
+    if (!(e instanceof f)) {
+      y("EventBoundary cannot map a non-pointer event as a pointer event");
       return;
     }
-    const e = this.trackingData(t.pointerId), i = this.createPointerEvent(t), s = i.pointerType === "mouse" || i.pointerType === "pen";
-    this.dispatchEvent(i, "pointerover"), s && this.dispatchEvent(i, "mouseover"), i.pointerType === "mouse" && (this.cursor = (o = i.target) == null ? void 0 : o.cursor);
-    const n = this.clonePointerEvent(i, "pointerenter");
-    for (n.eventPhase = n.AT_TARGET; n.target && n.target !== this.rootTarget.parent; )
-      n.currentTarget = n.target, this.notifyTarget(n), s && this.notifyTarget(n, "mouseenter"), n.target = n.target.parent;
-    e.overTargets = i.composedPath(), this.freeEvent(i), this.freeEvent(n);
+    const t = this.trackingData(e.pointerId), i = this.createPointerEvent(e), n = i.pointerType === "mouse" || i.pointerType === "pen";
+    this.dispatchEvent(i, "pointerover"), n && this.dispatchEvent(i, "mouseover"), i.pointerType === "mouse" && (this.cursor = (o = i.target) == null ? void 0 : o.cursor);
+    const s = this.clonePointerEvent(i, "pointerenter");
+    for (s.eventPhase = s.AT_TARGET; s.target && s.target !== this.rootTarget.parent; )
+      s.currentTarget = s.target, this.notifyTarget(s), n && this.notifyTarget(s, "mouseenter"), s.target = s.target.parent;
+    t.overTargets = i.composedPath(), this.freeEvent(i), this.freeEvent(s);
   }
   /**
    * Maps the upstream `pointerout` to downstream `pointerout`, `pointerleave` events, in that order.
@@ -862,19 +924,19 @@ class Z {
    * The tracking data for the specific pointer is cleared of a `overTarget`.
    * @param from - The upstream `pointerout` event.
    */
-  mapPointerOut(t) {
-    if (!(t instanceof g)) {
-      m("EventBoundary cannot map a non-pointer event as a pointer event");
+  mapPointerOut(e) {
+    if (!(e instanceof f)) {
+      y("EventBoundary cannot map a non-pointer event as a pointer event");
       return;
     }
-    const e = this.trackingData(t.pointerId);
-    if (e.overTargets) {
-      const i = t.pointerType === "mouse" || t.pointerType === "pen", s = this.findMountedTarget(e.overTargets), n = this.createPointerEvent(t, "pointerout", s);
-      this.dispatchEvent(n), i && this.dispatchEvent(n, "mouseout");
-      const o = this.createPointerEvent(t, "pointerleave", s);
+    const t = this.trackingData(e.pointerId);
+    if (t.overTargets) {
+      const i = e.pointerType === "mouse" || e.pointerType === "pen", n = this.findMountedTarget(t.overTargets), s = this.createPointerEvent(e, "pointerout", n);
+      this.dispatchEvent(s), i && this.dispatchEvent(s, "mouseout");
+      const o = this.createPointerEvent(e, "pointerleave", n);
       for (o.eventPhase = o.AT_TARGET; o.target && o.target !== this.rootTarget.parent; )
         o.currentTarget = o.target, this.notifyTarget(o), i && this.notifyTarget(o, "mouseleave"), o.target = o.target.parent;
-      e.overTargets = null, this.freeEvent(n), this.freeEvent(o);
+      t.overTargets = null, this.freeEvent(s), this.freeEvent(o);
     }
     this.cursor = null;
   }
@@ -888,46 +950,46 @@ class Z {
    * specific pointer types.
    * @param from - The upstream `pointerup` event.
    */
-  mapPointerUp(t) {
-    if (!(t instanceof g)) {
-      m("EventBoundary cannot map a non-pointer event as a pointer event");
+  mapPointerUp(e) {
+    if (!(e instanceof f)) {
+      y("EventBoundary cannot map a non-pointer event as a pointer event");
       return;
     }
-    const e = performance.now(), i = this.createPointerEvent(t);
+    const t = performance.now(), i = this.createPointerEvent(e);
     if (this.dispatchEvent(i, "pointerup"), i.pointerType === "touch")
       this.dispatchEvent(i, "touchend");
     else if (i.pointerType === "mouse" || i.pointerType === "pen") {
-      const r = i.button === 2;
-      this.dispatchEvent(i, r ? "rightup" : "mouseup");
+      const a = i.button === 2;
+      this.dispatchEvent(i, a ? "rightup" : "mouseup");
     }
-    const s = this.trackingData(t.pointerId), n = this.findMountedTarget(s.pressTargetsByButton[t.button]);
-    let o = n;
-    if (n && !i.composedPath().includes(n)) {
-      let r = n;
-      for (; r && !i.composedPath().includes(r); ) {
-        if (i.currentTarget = r, this.notifyTarget(i, "pointerupoutside"), i.pointerType === "touch")
+    const n = this.trackingData(e.pointerId), s = this.findMountedTarget(n.pressTargetsByButton[e.button]);
+    let o = s;
+    if (s && !i.composedPath().includes(s)) {
+      let a = s;
+      for (; a && !i.composedPath().includes(a); ) {
+        if (i.currentTarget = a, this.notifyTarget(i, "pointerupoutside"), i.pointerType === "touch")
           this.notifyTarget(i, "touchendoutside");
         else if (i.pointerType === "mouse" || i.pointerType === "pen") {
           const c = i.button === 2;
           this.notifyTarget(i, c ? "rightupoutside" : "mouseupoutside");
         }
-        r = r.parent;
+        a = a.parent;
       }
-      delete s.pressTargetsByButton[t.button], o = r;
+      delete n.pressTargetsByButton[e.button], o = a;
     }
     if (o) {
-      const r = this.clonePointerEvent(i, "click");
-      r.target = o, r.path = null, s.clicksByButton[t.button] || (s.clicksByButton[t.button] = {
+      const a = this.clonePointerEvent(i, "click");
+      a.target = o, a.path = null, n.clicksByButton[e.button] || (n.clicksByButton[e.button] = {
         clickCount: 0,
-        target: r.target,
-        timeStamp: e
+        target: a.target,
+        timeStamp: t
       });
-      const c = s.clicksByButton[t.button];
-      if (c.target === r.target && e - c.timeStamp < 200 ? ++c.clickCount : c.clickCount = 1, c.target = r.target, c.timeStamp = e, r.detail = c.clickCount, r.pointerType === "mouse") {
-        const p = r.button === 2;
-        this.dispatchEvent(r, p ? "rightclick" : "click");
-      } else r.pointerType === "touch" && this.dispatchEvent(r, "tap");
-      this.dispatchEvent(r, "pointertap"), this.freeEvent(r);
+      const c = n.clicksByButton[e.button];
+      if (c.target === a.target && t - c.timeStamp < 200 ? ++c.clickCount : c.clickCount = 1, c.target = a.target, c.timeStamp = t, a.detail = c.clickCount, a.pointerType === "mouse") {
+        const p = a.button === 2;
+        this.dispatchEvent(a, p ? "rightclick" : "click");
+      } else a.pointerType === "touch" && this.dispatchEvent(a, "tap");
+      this.dispatchEvent(a, "pointertap"), this.freeEvent(a);
     }
     this.freeEvent(i);
   }
@@ -942,31 +1004,31 @@ class Z {
    * types. The tracking data for the specific pointer is cleared of a `pressTarget`.
    * @param from - The upstream `pointerupoutside` event.
    */
-  mapPointerUpOutside(t) {
-    if (!(t instanceof g)) {
-      m("EventBoundary cannot map a non-pointer event as a pointer event");
+  mapPointerUpOutside(e) {
+    if (!(e instanceof f)) {
+      y("EventBoundary cannot map a non-pointer event as a pointer event");
       return;
     }
-    const e = this.trackingData(t.pointerId), i = this.findMountedTarget(e.pressTargetsByButton[t.button]), s = this.createPointerEvent(t);
+    const t = this.trackingData(e.pointerId), i = this.findMountedTarget(t.pressTargetsByButton[e.button]), n = this.createPointerEvent(e);
     if (i) {
-      let n = i;
-      for (; n; )
-        s.currentTarget = n, this.notifyTarget(s, "pointerupoutside"), s.pointerType === "touch" ? this.notifyTarget(s, "touchendoutside") : (s.pointerType === "mouse" || s.pointerType === "pen") && this.notifyTarget(s, s.button === 2 ? "rightupoutside" : "mouseupoutside"), n = n.parent;
-      delete e.pressTargetsByButton[t.button];
+      let s = i;
+      for (; s; )
+        n.currentTarget = s, this.notifyTarget(n, "pointerupoutside"), n.pointerType === "touch" ? this.notifyTarget(n, "touchendoutside") : (n.pointerType === "mouse" || n.pointerType === "pen") && this.notifyTarget(n, n.button === 2 ? "rightupoutside" : "mouseupoutside"), s = s.parent;
+      delete t.pressTargetsByButton[e.button];
     }
-    this.freeEvent(s);
+    this.freeEvent(n);
   }
   /**
    * Maps the upstream `wheel` event to a downstream `wheel` event.
    * @param from - The upstream `wheel` event.
    */
-  mapWheel(t) {
-    if (!(t instanceof _)) {
-      m("EventBoundary cannot map a non-wheel event as a wheel event");
+  mapWheel(e) {
+    if (!(e instanceof T)) {
+      y("EventBoundary cannot map a non-wheel event as a wheel event");
       return;
     }
-    const e = this.createWheelEvent(t);
-    this.dispatchEvent(e), this.freeEvent(e);
+    const t = this.createWheelEvent(e);
+    this.dispatchEvent(t), this.freeEvent(t);
   }
   /**
    * Finds the most specific event-target in the given propagation path that is still mounted in the scene graph.
@@ -976,13 +1038,13 @@ class Z {
    * @param propagationPath - The propagation path was valid in the past.
    * @returns - The most specific event-target still mounted at the same location in the scene graph.
    */
-  findMountedTarget(t) {
-    if (!t)
+  findMountedTarget(e) {
+    if (!e)
       return null;
-    let e = t[0];
-    for (let i = 1; i < t.length && t[i].parent === e; i++)
-      e = t[i];
-    return e;
+    let t = e[0];
+    for (let i = 1; i < e.length && e[i].parent === t; i++)
+      t = e[i];
+    return t;
   }
   /**
    * Creates an event whose {@code originalEvent} is {@code from}, with an optional `type` and `target` override.
@@ -992,9 +1054,9 @@ class Z {
    * @param [type=from.type] - The type of the returned event.
    * @param target - The target of the returned event.
    */
-  createPointerEvent(t, e, i) {
-    const s = this.allocateEvent(g);
-    return this.copyPointerData(t, s), this.copyMouseData(t, s), this.copyData(t, s), s.nativeEvent = t.nativeEvent, s.originalEvent = t, s.target = i ?? this.hitTest(s.global.x, s.global.y) ?? this._hitElements[0], typeof e == "string" && (s.type = e), s;
+  createPointerEvent(e, t, i) {
+    const n = this.allocateEvent(f);
+    return this.copyPointerData(e, n), this.copyMouseData(e, n), this.copyData(e, n), n.nativeEvent = e.nativeEvent, n.originalEvent = e, n.target = i ?? this.hitTest(n.global.x, n.global.y) ?? this._hitElements[0], typeof t == "string" && (n.type = t), n;
   }
   /**
    * Creates a wheel event whose {@code originalEvent} is {@code from}.
@@ -1002,9 +1064,9 @@ class Z {
    * The event is allocated using {@link EventBoundary#allocateEvent this.allocateEvent}.
    * @param from - The upstream wheel event.
    */
-  createWheelEvent(t) {
-    const e = this.allocateEvent(_);
-    return this.copyWheelData(t, e), this.copyMouseData(t, e), this.copyData(t, e), e.nativeEvent = t.nativeEvent, e.originalEvent = t, e.target = this.hitTest(e.global.x, e.global.y), e;
+  createWheelEvent(e) {
+    const t = this.allocateEvent(T);
+    return this.copyWheelData(e, t), this.copyMouseData(e, t), this.copyData(e, t), t.nativeEvent = e.nativeEvent, t.originalEvent = e, t.target = this.hitTest(t.global.x, t.global.y), t;
   }
   /**
    * Clones the event {@code from}, with an optional {@code type} override.
@@ -1013,9 +1075,9 @@ class Z {
    * @param from - The event to clone.
    * @param [type=from.type] - The type of the returned event.
    */
-  clonePointerEvent(t, e) {
-    const i = this.allocateEvent(g);
-    return i.nativeEvent = t.nativeEvent, i.originalEvent = t.originalEvent, this.copyPointerData(t, i), this.copyMouseData(t, i), this.copyData(t, i), i.target = t.target, i.path = t.composedPath().slice(), i.type = e ?? i.type, i;
+  clonePointerEvent(e, t) {
+    const i = this.allocateEvent(f);
+    return i.nativeEvent = e.nativeEvent, i.originalEvent = e.originalEvent, this.copyPointerData(e, i), this.copyMouseData(e, i), this.copyData(e, i), i.target = e.target, i.path = e.composedPath().slice(), i.type = t ?? i.type, i;
   }
   /**
    * Copies wheel {@link FederatedWheelEvent} data from {@code from} into {@code to}.
@@ -1028,8 +1090,8 @@ class Z {
    * @param from - The event to copy data from.
    * @param to - The event to copy data into.
    */
-  copyWheelData(t, e) {
-    e.deltaMode = t.deltaMode, e.deltaX = t.deltaX, e.deltaY = t.deltaY, e.deltaZ = t.deltaZ;
+  copyWheelData(e, t) {
+    t.deltaMode = e.deltaMode, t.deltaX = e.deltaX, t.deltaY = e.deltaY, t.deltaZ = e.deltaZ;
   }
   /**
    * Copies pointer {@link FederatedPointerEvent} data from {@code from} into {@code to}.
@@ -1047,8 +1109,8 @@ class Z {
    * @param from - The event to copy data from.
    * @param to - The event to copy data into.
    */
-  copyPointerData(t, e) {
-    t instanceof g && e instanceof g && (e.pointerId = t.pointerId, e.width = t.width, e.height = t.height, e.isPrimary = t.isPrimary, e.pointerType = t.pointerType, e.pressure = t.pressure, e.tangentialPressure = t.tangentialPressure, e.tiltX = t.tiltX, e.tiltY = t.tiltY, e.twist = t.twist);
+  copyPointerData(e, t) {
+    e instanceof f && t instanceof f && (t.pointerId = e.pointerId, t.width = e.width, t.height = e.height, t.isPrimary = e.isPrimary, t.pointerType = e.pointerType, t.pressure = e.pressure, t.tangentialPressure = e.tangentialPressure, t.tiltX = e.tiltX, t.tiltY = e.tiltY, t.twist = e.twist);
   }
   /**
    * Copies mouse {@link FederatedMouseEvent} data from {@code from} to {@code to}.
@@ -1072,8 +1134,8 @@ class Z {
    * @param from - The event to copy data from.
    * @param to - The event to copy data into.
    */
-  copyMouseData(t, e) {
-    t instanceof M && e instanceof M && (e.altKey = t.altKey, e.button = t.button, e.buttons = t.buttons, e.client.copyFrom(t.client), e.ctrlKey = t.ctrlKey, e.metaKey = t.metaKey, e.movement.copyFrom(t.movement), e.screen.copyFrom(t.screen), e.shiftKey = t.shiftKey, e.global.copyFrom(t.global));
+  copyMouseData(e, t) {
+    e instanceof D && t instanceof D && (t.altKey = e.altKey, t.button = e.button, t.buttons = e.buttons, t.client.copyFrom(e.client), t.ctrlKey = e.ctrlKey, t.metaKey = e.metaKey, t.movement.copyFrom(e.movement), t.screen.copyFrom(e.screen), t.shiftKey = e.shiftKey, t.global.copyFrom(e.global));
   }
   /**
    * Copies base {@link FederatedEvent} data from {@code from} into {@code to}.
@@ -1086,20 +1148,20 @@ class Z {
    * @param from - The event to copy data from.
    * @param to - The event to copy data into.
    */
-  copyData(t, e) {
-    e.isTrusted = t.isTrusted, e.srcElement = t.srcElement, e.timeStamp = performance.now(), e.type = t.type, e.detail = t.detail, e.view = t.view, e.which = t.which, e.layer.copyFrom(t.layer), e.page.copyFrom(t.page);
+  copyData(e, t) {
+    t.isTrusted = e.isTrusted, t.srcElement = e.srcElement, t.timeStamp = performance.now(), t.type = e.type, t.detail = e.detail, t.view = e.view, t.which = e.which, t.layer.copyFrom(e.layer), t.page.copyFrom(e.page);
   }
   /**
    * @param id - The pointer ID.
    * @returns The tracking data stored for the given pointer. If no data exists, a blank
    *  state will be created.
    */
-  trackingData(t) {
-    return this.mappingState.trackingData[t] || (this.mappingState.trackingData[t] = {
+  trackingData(e) {
+    return this.mappingState.trackingData[e] || (this.mappingState.trackingData[e] = {
       pressTargetsByButton: {},
       clicksByButton: {},
       overTarget: null
-    }), this.mappingState.trackingData[t];
+    }), this.mappingState.trackingData[e];
   }
   /**
    * Allocate a specific type of event from {@link EventBoundary#eventPool this.eventPool}.
@@ -1108,10 +1170,10 @@ class Z {
    * boundary.
    * @param constructor - The event's constructor.
    */
-  allocateEvent(t) {
-    this.eventPool.has(t) || this.eventPool.set(t, []);
-    const e = this.eventPool.get(t).pop() || new t(this);
-    return e.eventPhase = e.NONE, e.currentTarget = null, e.defaultPrevented = !1, e.path = null, e.target = null, e;
+  allocateEvent(e) {
+    this.eventPool.has(e) || this.eventPool.set(e, []);
+    const t = this.eventPool.get(e).pop() || new e(this);
+    return t.eventPhase = t.NONE, t.currentTarget = null, t.defaultPrevented = !1, t.path = null, t.target = null, t;
   }
   /**
    * Frees the event and puts it back into the event pool.
@@ -1124,11 +1186,11 @@ class Z {
    * @param event - The event to be freed.
    * @throws Error if the event is managed by another event boundary.
    */
-  freeEvent(t) {
-    if (t.manager !== this)
+  freeEvent(e) {
+    if (e.manager !== this)
       throw new Error("It is illegal to free an event not managed by this EventBoundary!");
-    const e = t.constructor;
-    this.eventPool.has(e) || this.eventPool.set(e, []), this.eventPool.get(e).push(t);
+    const t = e.constructor;
+    this.eventPool.has(t) || this.eventPool.set(t, []), this.eventPool.get(t).push(e);
   }
   /**
    * Similar to {@link EventEmitter.emit}, except it stops if the `propagationImmediatelyStopped` flag
@@ -1136,32 +1198,32 @@ class Z {
    * @param e - The event to call each listener with.
    * @param type - The event key.
    */
-  _notifyListeners(t, e) {
-    const i = t.currentTarget._events[e];
+  _notifyListeners(e, t) {
+    const i = e.currentTarget._events[t];
     if (i)
       if ("fn" in i)
-        i.once && t.currentTarget.removeListener(e, i.fn, void 0, !0), i.fn.call(i.context, t);
+        i.once && e.currentTarget.removeListener(t, i.fn, void 0, !0), i.fn.call(i.context, e);
       else
-        for (let s = 0, n = i.length; s < n && !t.propagationImmediatelyStopped; s++)
-          i[s].once && t.currentTarget.removeListener(e, i[s].fn, void 0, !0), i[s].fn.call(i[s].context, t);
+        for (let n = 0, s = i.length; n < s && !e.propagationImmediatelyStopped; n++)
+          i[n].once && e.currentTarget.removeListener(t, i[n].fn, void 0, !0), i[n].fn.call(i[n].context, e);
   }
 }
-const V = 1, q = {
+const fe = 1, ge = {
   touchstart: "pointerdown",
   touchend: "pointerup",
   touchendoutside: "pointerupoutside",
   touchmove: "pointermove",
   touchcancel: "pointercancel"
-}, A = class I {
+}, B = class x {
   /**
    * @param {Renderer} renderer
    */
-  constructor(t) {
-    this.supportsTouchEvents = "ontouchstart" in globalThis, this.supportsPointerEvents = !!globalThis.PointerEvent, this.domElement = null, this.resolution = 1, this.renderer = t, this.rootBoundary = new Z(null), y.init(this), this.autoPreventDefault = !0, this._eventsAdded = !1, this._rootPointerEvent = new g(null), this._rootWheelEvent = new _(null), this.cursorStyles = {
+  constructor(e) {
+    this.supportsTouchEvents = "ontouchstart" in globalThis, this.supportsPointerEvents = !!globalThis.PointerEvent, this.domElement = null, this.resolution = 1, this.renderer = e, this.rootBoundary = new ve(null), E.init(this), this.autoPreventDefault = !0, this._eventsAdded = !1, this._rootPointerEvent = new f(null), this._rootWheelEvent = new T(null), this.cursorStyles = {
       default: "inherit",
       pointer: "pointer"
-    }, this.features = new Proxy({ ...I.defaultEventFeatures }, {
-      set: (e, i, s) => (i === "globalMove" && (this.rootBoundary.enableGlobalMoveEvents = s), e[i] = s, !0)
+    }, this.features = new Proxy({ ...x.defaultEventFeatures }, {
+      set: (t, i, n) => (i === "globalMove" && (this.rootBoundary.enableGlobalMoveEvents = n), t[i] = n, !0)
     }), this._onPointerDown = this._onPointerDown.bind(this), this._onPointerMove = this._onPointerMove.bind(this), this._onPointerUp = this._onPointerUp.bind(this), this._onPointerOverOut = this._onPointerOverOut.bind(this), this.onWheel = this.onWheel.bind(this);
   }
   /**
@@ -1178,16 +1240,16 @@ const V = 1, q = {
    * Runner init called, view is available at this point.
    * @ignore
    */
-  init(t) {
-    const { canvas: e, resolution: i } = this.renderer;
-    this.setTargetElement(e), this.resolution = i, I._defaultEventMode = t.eventMode ?? "passive", Object.assign(this.features, t.eventFeatures ?? {}), this.rootBoundary.enableGlobalMoveEvents = this.features.globalMove;
+  init(e) {
+    const { canvas: t, resolution: i } = this.renderer;
+    this.setTargetElement(t), this.resolution = i, x._defaultEventMode = e.eventMode ?? "passive", Object.assign(this.features, e.eventFeatures ?? {}), this.rootBoundary.enableGlobalMoveEvents = this.features.globalMove;
   }
   /**
    * Handle changing resolution.
    * @ignore
    */
-  resolutionChange(t) {
-    this.resolution = t;
+  resolutionChange(e) {
+    this.resolution = e;
   }
   /** Destroys all event listeners and detaches the renderer. */
   destroy() {
@@ -1197,26 +1259,26 @@ const V = 1, q = {
    * Sets the current cursor mode, handling any callbacks or CSS style changes.
    * @param mode - cursor mode, a key from the cursorStyles dictionary
    */
-  setCursor(t) {
-    t = t || "default";
-    let e = !0;
-    if (globalThis.OffscreenCanvas && this.domElement instanceof OffscreenCanvas && (e = !1), this._currentCursor === t)
+  setCursor(e) {
+    e = e || "default";
+    let t = !0;
+    if (globalThis.OffscreenCanvas && this.domElement instanceof OffscreenCanvas && (t = !1), this._currentCursor === e)
       return;
-    this._currentCursor = t;
-    const i = this.cursorStyles[t];
+    this._currentCursor = e;
+    const i = this.cursorStyles[e];
     if (i)
       switch (typeof i) {
         case "string":
-          e && (this.domElement.style.cursor = i);
+          t && (this.domElement.style.cursor = i);
           break;
         case "function":
-          i(t);
+          i(e);
           break;
         case "object":
-          e && Object.assign(this.domElement.style, i);
+          t && Object.assign(this.domElement.style, i);
           break;
       }
-    else e && typeof t == "string" && !Object.prototype.hasOwnProperty.call(this.cursorStyles, t) && (this.domElement.style.cursor = t);
+    else t && typeof e == "string" && !Object.prototype.hasOwnProperty.call(this.cursorStyles, e) && (this.domElement.style.cursor = e);
   }
   /**
    * The global pointer event.
@@ -1230,14 +1292,14 @@ const V = 1, q = {
    * Event handler for pointer down events on {@link EventSystem#domElement this.domElement}.
    * @param nativeEvent - The native mouse/pointer/touch event.
    */
-  _onPointerDown(t) {
+  _onPointerDown(e) {
     if (!this.features.click)
       return;
     this.rootBoundary.rootTarget = this.renderer.lastObjectRendered;
-    const e = this._normalizeToPointerData(t);
-    this.autoPreventDefault && e[0].isNormalized && (t.cancelable || !("cancelable" in t)) && t.preventDefault();
-    for (let i = 0, s = e.length; i < s; i++) {
-      const n = e[i], o = this._bootstrapEvent(this._rootPointerEvent, n);
+    const t = this._normalizeToPointerData(e);
+    this.autoPreventDefault && t[0].isNormalized && (e.cancelable || !("cancelable" in e)) && e.preventDefault();
+    for (let i = 0, n = t.length; i < n; i++) {
+      const s = t[i], o = this._bootstrapEvent(this._rootPointerEvent, s);
       this.rootBoundary.mapEvent(o);
     }
     this.setCursor(this.rootBoundary.cursor);
@@ -1246,14 +1308,14 @@ const V = 1, q = {
    * Event handler for pointer move events on on {@link EventSystem#domElement this.domElement}.
    * @param nativeEvent - The native mouse/pointer/touch events.
    */
-  _onPointerMove(t) {
+  _onPointerMove(e) {
     if (!this.features.move)
       return;
-    this.rootBoundary.rootTarget = this.renderer.lastObjectRendered, y.pointerMoved();
-    const e = this._normalizeToPointerData(t);
-    for (let i = 0, s = e.length; i < s; i++) {
-      const n = this._bootstrapEvent(this._rootPointerEvent, e[i]);
-      this.rootBoundary.mapEvent(n);
+    this.rootBoundary.rootTarget = this.renderer.lastObjectRendered, E.pointerMoved();
+    const t = this._normalizeToPointerData(e);
+    for (let i = 0, n = t.length; i < n; i++) {
+      const s = this._bootstrapEvent(this._rootPointerEvent, t[i]);
+      this.rootBoundary.mapEvent(s);
     }
     this.setCursor(this.rootBoundary.cursor);
   }
@@ -1261,16 +1323,16 @@ const V = 1, q = {
    * Event handler for pointer up events on {@link EventSystem#domElement this.domElement}.
    * @param nativeEvent - The native mouse/pointer/touch event.
    */
-  _onPointerUp(t) {
+  _onPointerUp(e) {
     if (!this.features.click)
       return;
     this.rootBoundary.rootTarget = this.renderer.lastObjectRendered;
-    let e = t.target;
-    t.composedPath && t.composedPath().length > 0 && (e = t.composedPath()[0]);
-    const i = e !== this.domElement ? "outside" : "", s = this._normalizeToPointerData(t);
-    for (let n = 0, o = s.length; n < o; n++) {
-      const r = this._bootstrapEvent(this._rootPointerEvent, s[n]);
-      r.type += i, this.rootBoundary.mapEvent(r);
+    let t = e.target;
+    e.composedPath && e.composedPath().length > 0 && (t = e.composedPath()[0]);
+    const i = t !== this.domElement ? "outside" : "", n = this._normalizeToPointerData(e);
+    for (let s = 0, o = n.length; s < o; s++) {
+      const a = this._bootstrapEvent(this._rootPointerEvent, n[s]);
+      a.type += i, this.rootBoundary.mapEvent(a);
     }
     this.setCursor(this.rootBoundary.cursor);
   }
@@ -1278,14 +1340,14 @@ const V = 1, q = {
    * Event handler for pointer over & out events on {@link EventSystem#domElement this.domElement}.
    * @param nativeEvent - The native mouse/pointer/touch event.
    */
-  _onPointerOverOut(t) {
+  _onPointerOverOut(e) {
     if (!this.features.click)
       return;
     this.rootBoundary.rootTarget = this.renderer.lastObjectRendered;
-    const e = this._normalizeToPointerData(t);
-    for (let i = 0, s = e.length; i < s; i++) {
-      const n = this._bootstrapEvent(this._rootPointerEvent, e[i]);
-      this.rootBoundary.mapEvent(n);
+    const t = this._normalizeToPointerData(e);
+    for (let i = 0, n = t.length; i < n; i++) {
+      const s = this._bootstrapEvent(this._rootPointerEvent, t[i]);
+      this.rootBoundary.mapEvent(s);
     }
     this.setCursor(this.rootBoundary.cursor);
   }
@@ -1293,11 +1355,11 @@ const V = 1, q = {
    * Passive handler for `wheel` events on {@link EventSystem.domElement this.domElement}.
    * @param nativeEvent - The native wheel event.
    */
-  onWheel(t) {
+  onWheel(e) {
     if (!this.features.wheel)
       return;
-    const e = this.normalizeWheelEvent(t);
-    this.rootBoundary.rootTarget = this.renderer.lastObjectRendered, this.rootBoundary.mapEvent(e);
+    const t = this.normalizeWheelEvent(e);
+    this.rootBoundary.rootTarget = this.renderer.lastObjectRendered, this.rootBoundary.mapEvent(t);
   }
   /**
    * Sets the {@link EventSystem#domElement domElement} and binds event listeners.
@@ -1305,16 +1367,16 @@ const V = 1, q = {
    * To deregister the current DOM element without setting a new one, pass {@code null}.
    * @param element - The new DOM element.
    */
-  setTargetElement(t) {
-    this._removeEvents(), this.domElement = t, y.domElement = t, this._addEvents();
+  setTargetElement(e) {
+    this._removeEvents(), this.domElement = e, E.domElement = e, this._addEvents();
   }
   /** Register event listeners on {@link Renderer#domElement this.domElement}. */
   _addEvents() {
     if (this._eventsAdded || !this.domElement)
       return;
-    y.addTickerListener();
-    const t = this.domElement.style;
-    t && (globalThis.navigator.msPointerEnabled ? (t.msContentZooming = "none", t.msTouchAction = "none") : this.supportsPointerEvents && (t.touchAction = "none")), this.supportsPointerEvents ? (globalThis.document.addEventListener("pointermove", this._onPointerMove, !0), this.domElement.addEventListener("pointerdown", this._onPointerDown, !0), this.domElement.addEventListener("pointerleave", this._onPointerOverOut, !0), this.domElement.addEventListener("pointerover", this._onPointerOverOut, !0), globalThis.addEventListener("pointerup", this._onPointerUp, !0)) : (globalThis.document.addEventListener("mousemove", this._onPointerMove, !0), this.domElement.addEventListener("mousedown", this._onPointerDown, !0), this.domElement.addEventListener("mouseout", this._onPointerOverOut, !0), this.domElement.addEventListener("mouseover", this._onPointerOverOut, !0), globalThis.addEventListener("mouseup", this._onPointerUp, !0), this.supportsTouchEvents && (this.domElement.addEventListener("touchstart", this._onPointerDown, !0), this.domElement.addEventListener("touchend", this._onPointerUp, !0), this.domElement.addEventListener("touchmove", this._onPointerMove, !0))), this.domElement.addEventListener("wheel", this.onWheel, {
+    E.addTickerListener();
+    const e = this.domElement.style;
+    e && (globalThis.navigator.msPointerEnabled ? (e.msContentZooming = "none", e.msTouchAction = "none") : this.supportsPointerEvents && (e.touchAction = "none")), this.supportsPointerEvents ? (globalThis.document.addEventListener("pointermove", this._onPointerMove, !0), this.domElement.addEventListener("pointerdown", this._onPointerDown, !0), this.domElement.addEventListener("pointerleave", this._onPointerOverOut, !0), this.domElement.addEventListener("pointerover", this._onPointerOverOut, !0), globalThis.addEventListener("pointerup", this._onPointerUp, !0)) : (globalThis.document.addEventListener("mousemove", this._onPointerMove, !0), this.domElement.addEventListener("mousedown", this._onPointerDown, !0), this.domElement.addEventListener("mouseout", this._onPointerOverOut, !0), this.domElement.addEventListener("mouseover", this._onPointerOverOut, !0), globalThis.addEventListener("mouseup", this._onPointerUp, !0), this.supportsTouchEvents && (this.domElement.addEventListener("touchstart", this._onPointerDown, !0), this.domElement.addEventListener("touchend", this._onPointerUp, !0), this.domElement.addEventListener("touchmove", this._onPointerMove, !0))), this.domElement.addEventListener("wheel", this.onWheel, {
       passive: !0,
       capture: !0
     }), this._eventsAdded = !0;
@@ -1323,9 +1385,9 @@ const V = 1, q = {
   _removeEvents() {
     if (!this._eventsAdded || !this.domElement)
       return;
-    y.removeTickerListener();
-    const t = this.domElement.style;
-    t && (globalThis.navigator.msPointerEnabled ? (t.msContentZooming = "", t.msTouchAction = "") : this.supportsPointerEvents && (t.touchAction = "")), this.supportsPointerEvents ? (globalThis.document.removeEventListener("pointermove", this._onPointerMove, !0), this.domElement.removeEventListener("pointerdown", this._onPointerDown, !0), this.domElement.removeEventListener("pointerleave", this._onPointerOverOut, !0), this.domElement.removeEventListener("pointerover", this._onPointerOverOut, !0), globalThis.removeEventListener("pointerup", this._onPointerUp, !0)) : (globalThis.document.removeEventListener("mousemove", this._onPointerMove, !0), this.domElement.removeEventListener("mousedown", this._onPointerDown, !0), this.domElement.removeEventListener("mouseout", this._onPointerOverOut, !0), this.domElement.removeEventListener("mouseover", this._onPointerOverOut, !0), globalThis.removeEventListener("mouseup", this._onPointerUp, !0), this.supportsTouchEvents && (this.domElement.removeEventListener("touchstart", this._onPointerDown, !0), this.domElement.removeEventListener("touchend", this._onPointerUp, !0), this.domElement.removeEventListener("touchmove", this._onPointerMove, !0))), this.domElement.removeEventListener("wheel", this.onWheel, !0), this.domElement = null, this._eventsAdded = !1;
+    E.removeTickerListener();
+    const e = this.domElement.style;
+    e && (globalThis.navigator.msPointerEnabled ? (e.msContentZooming = "", e.msTouchAction = "") : this.supportsPointerEvents && (e.touchAction = "")), this.supportsPointerEvents ? (globalThis.document.removeEventListener("pointermove", this._onPointerMove, !0), this.domElement.removeEventListener("pointerdown", this._onPointerDown, !0), this.domElement.removeEventListener("pointerleave", this._onPointerOverOut, !0), this.domElement.removeEventListener("pointerover", this._onPointerOverOut, !0), globalThis.removeEventListener("pointerup", this._onPointerUp, !0)) : (globalThis.document.removeEventListener("mousemove", this._onPointerMove, !0), this.domElement.removeEventListener("mousedown", this._onPointerDown, !0), this.domElement.removeEventListener("mouseout", this._onPointerOverOut, !0), this.domElement.removeEventListener("mouseover", this._onPointerOverOut, !0), globalThis.removeEventListener("mouseup", this._onPointerUp, !0), this.supportsTouchEvents && (this.domElement.removeEventListener("touchstart", this._onPointerDown, !0), this.domElement.removeEventListener("touchend", this._onPointerUp, !0), this.domElement.removeEventListener("touchmove", this._onPointerMove, !0))), this.domElement.removeEventListener("wheel", this.onWheel, !0), this.domElement = null, this._eventsAdded = !1;
   }
   /**
    * Maps x and y coords from a DOM object and maps them correctly to the PixiJS view. The
@@ -1335,16 +1397,16 @@ const V = 1, q = {
    * @param  {number} x - the x coord of the position to map
    * @param  {number} y - the y coord of the position to map
    */
-  mapPositionToPoint(t, e, i) {
-    const s = this.domElement.isConnected ? this.domElement.getBoundingClientRect() : {
+  mapPositionToPoint(e, t, i) {
+    const n = this.domElement.isConnected ? this.domElement.getBoundingClientRect() : {
       x: 0,
       y: 0,
       width: this.domElement.width,
       height: this.domElement.height,
       left: 0,
       top: 0
-    }, n = 1 / this.resolution;
-    t.x = (e - s.left) * (this.domElement.width / s.width) * n, t.y = (i - s.top) * (this.domElement.height / s.height) * n;
+    }, s = 1 / this.resolution;
+    e.x = (t - n.left) * (this.domElement.width / n.width) * s, e.y = (i - n.top) * (this.domElement.height / n.height) * s;
   }
   /**
    * Ensures that the original event object contains all data that a regular pointer event would have
@@ -1352,19 +1414,19 @@ const V = 1, q = {
    * @returns An array containing a single normalized pointer event, in the case of a pointer
    *  or mouse event, or a multiple normalized pointer events if there are multiple changed touches
    */
-  _normalizeToPointerData(t) {
-    const e = [];
-    if (this.supportsTouchEvents && t instanceof TouchEvent)
-      for (let i = 0, s = t.changedTouches.length; i < s; i++) {
-        const n = t.changedTouches[i];
-        typeof n.button > "u" && (n.button = 0), typeof n.buttons > "u" && (n.buttons = 1), typeof n.isPrimary > "u" && (n.isPrimary = t.touches.length === 1 && t.type === "touchstart"), typeof n.width > "u" && (n.width = n.radiusX || 1), typeof n.height > "u" && (n.height = n.radiusY || 1), typeof n.tiltX > "u" && (n.tiltX = 0), typeof n.tiltY > "u" && (n.tiltY = 0), typeof n.pointerType > "u" && (n.pointerType = "touch"), typeof n.pointerId > "u" && (n.pointerId = n.identifier || 0), typeof n.pressure > "u" && (n.pressure = n.force || 0.5), typeof n.twist > "u" && (n.twist = 0), typeof n.tangentialPressure > "u" && (n.tangentialPressure = 0), typeof n.layerX > "u" && (n.layerX = n.offsetX = n.clientX), typeof n.layerY > "u" && (n.layerY = n.offsetY = n.clientY), n.isNormalized = !0, n.type = t.type, e.push(n);
+  _normalizeToPointerData(e) {
+    const t = [];
+    if (this.supportsTouchEvents && e instanceof TouchEvent)
+      for (let i = 0, n = e.changedTouches.length; i < n; i++) {
+        const s = e.changedTouches[i];
+        typeof s.button > "u" && (s.button = 0), typeof s.buttons > "u" && (s.buttons = 1), typeof s.isPrimary > "u" && (s.isPrimary = e.touches.length === 1 && e.type === "touchstart"), typeof s.width > "u" && (s.width = s.radiusX || 1), typeof s.height > "u" && (s.height = s.radiusY || 1), typeof s.tiltX > "u" && (s.tiltX = 0), typeof s.tiltY > "u" && (s.tiltY = 0), typeof s.pointerType > "u" && (s.pointerType = "touch"), typeof s.pointerId > "u" && (s.pointerId = s.identifier || 0), typeof s.pressure > "u" && (s.pressure = s.force || 0.5), typeof s.twist > "u" && (s.twist = 0), typeof s.tangentialPressure > "u" && (s.tangentialPressure = 0), typeof s.layerX > "u" && (s.layerX = s.offsetX = s.clientX), typeof s.layerY > "u" && (s.layerY = s.offsetY = s.clientY), s.isNormalized = !0, s.type = e.type, t.push(s);
       }
-    else if (!globalThis.MouseEvent || t instanceof MouseEvent && (!this.supportsPointerEvents || !(t instanceof globalThis.PointerEvent))) {
-      const i = t;
-      typeof i.isPrimary > "u" && (i.isPrimary = !0), typeof i.width > "u" && (i.width = 1), typeof i.height > "u" && (i.height = 1), typeof i.tiltX > "u" && (i.tiltX = 0), typeof i.tiltY > "u" && (i.tiltY = 0), typeof i.pointerType > "u" && (i.pointerType = "mouse"), typeof i.pointerId > "u" && (i.pointerId = V), typeof i.pressure > "u" && (i.pressure = 0.5), typeof i.twist > "u" && (i.twist = 0), typeof i.tangentialPressure > "u" && (i.tangentialPressure = 0), i.isNormalized = !0, e.push(i);
+    else if (!globalThis.MouseEvent || e instanceof MouseEvent && (!this.supportsPointerEvents || !(e instanceof globalThis.PointerEvent))) {
+      const i = e;
+      typeof i.isPrimary > "u" && (i.isPrimary = !0), typeof i.width > "u" && (i.width = 1), typeof i.height > "u" && (i.height = 1), typeof i.tiltX > "u" && (i.tiltX = 0), typeof i.tiltY > "u" && (i.tiltY = 0), typeof i.pointerType > "u" && (i.pointerType = "mouse"), typeof i.pointerId > "u" && (i.pointerId = fe), typeof i.pressure > "u" && (i.pressure = 0.5), typeof i.twist > "u" && (i.twist = 0), typeof i.tangentialPressure > "u" && (i.tangentialPressure = 0), i.isNormalized = !0, t.push(i);
     } else
-      e.push(t);
-    return e;
+      t.push(e);
+    return t;
   }
   /**
    * Normalizes the native {@link https://w3c.github.io/uievents/#interface-wheelevent WheelEvent}.
@@ -1374,37 +1436,37 @@ const V = 1, q = {
    * @param nativeEvent - The native wheel event that occurred on the canvas.
    * @returns A federated wheel event.
    */
-  normalizeWheelEvent(t) {
-    const e = this._rootWheelEvent;
-    return this._transferMouseData(e, t), e.deltaX = t.deltaX, e.deltaY = t.deltaY, e.deltaZ = t.deltaZ, e.deltaMode = t.deltaMode, this.mapPositionToPoint(e.screen, t.clientX, t.clientY), e.global.copyFrom(e.screen), e.offset.copyFrom(e.screen), e.nativeEvent = t, e.type = t.type, e;
+  normalizeWheelEvent(e) {
+    const t = this._rootWheelEvent;
+    return this._transferMouseData(t, e), t.deltaX = e.deltaX, t.deltaY = e.deltaY, t.deltaZ = e.deltaZ, t.deltaMode = e.deltaMode, this.mapPositionToPoint(t.screen, e.clientX, e.clientY), t.global.copyFrom(t.screen), t.offset.copyFrom(t.screen), t.nativeEvent = e, t.type = e.type, t;
   }
   /**
    * Normalizes the `nativeEvent` into a federateed {@link FederatedPointerEvent}.
    * @param event
    * @param nativeEvent
    */
-  _bootstrapEvent(t, e) {
-    return t.originalEvent = null, t.nativeEvent = e, t.pointerId = e.pointerId, t.width = e.width, t.height = e.height, t.isPrimary = e.isPrimary, t.pointerType = e.pointerType, t.pressure = e.pressure, t.tangentialPressure = e.tangentialPressure, t.tiltX = e.tiltX, t.tiltY = e.tiltY, t.twist = e.twist, this._transferMouseData(t, e), this.mapPositionToPoint(t.screen, e.clientX, e.clientY), t.global.copyFrom(t.screen), t.offset.copyFrom(t.screen), t.isTrusted = e.isTrusted, t.type === "pointerleave" && (t.type = "pointerout"), t.type.startsWith("mouse") && (t.type = t.type.replace("mouse", "pointer")), t.type.startsWith("touch") && (t.type = q[t.type] || t.type), t;
+  _bootstrapEvent(e, t) {
+    return e.originalEvent = null, e.nativeEvent = t, e.pointerId = t.pointerId, e.width = t.width, e.height = t.height, e.isPrimary = t.isPrimary, e.pointerType = t.pointerType, e.pressure = t.pressure, e.tangentialPressure = t.tangentialPressure, e.tiltX = t.tiltX, e.tiltY = t.tiltY, e.twist = t.twist, this._transferMouseData(e, t), this.mapPositionToPoint(e.screen, t.clientX, t.clientY), e.global.copyFrom(e.screen), e.offset.copyFrom(e.screen), e.isTrusted = t.isTrusted, e.type === "pointerleave" && (e.type = "pointerout"), e.type.startsWith("mouse") && (e.type = e.type.replace("mouse", "pointer")), e.type.startsWith("touch") && (e.type = ge[e.type] || e.type), e;
   }
   /**
    * Transfers base & mouse event data from the {@code nativeEvent} to the federated event.
    * @param event
    * @param nativeEvent
    */
-  _transferMouseData(t, e) {
-    t.isTrusted = e.isTrusted, t.srcElement = e.srcElement, t.timeStamp = performance.now(), t.type = e.type, t.altKey = e.altKey, t.button = e.button, t.buttons = e.buttons, t.client.x = e.clientX, t.client.y = e.clientY, t.ctrlKey = e.ctrlKey, t.metaKey = e.metaKey, t.movement.x = e.movementX, t.movement.y = e.movementY, t.page.x = e.pageX, t.page.y = e.pageY, t.relatedTarget = null, t.shiftKey = e.shiftKey;
+  _transferMouseData(e, t) {
+    e.isTrusted = t.isTrusted, e.srcElement = t.srcElement, e.timeStamp = performance.now(), e.type = t.type, e.altKey = t.altKey, e.button = t.button, e.buttons = t.buttons, e.client.x = t.clientX, e.client.y = t.clientY, e.ctrlKey = t.ctrlKey, e.metaKey = t.metaKey, e.movement.x = t.movementX, e.movement.y = t.movementY, e.page.x = t.pageX, e.page.y = t.pageY, e.relatedTarget = null, e.shiftKey = t.shiftKey;
   }
 };
-A.extension = {
+B.extension = {
   name: "events",
   type: [
-    T.WebGLSystem,
-    T.CanvasSystem,
-    T.WebGPUSystem
+    w.WebGLSystem,
+    w.CanvasSystem,
+    w.WebGPUSystem
   ],
   priority: -1
 };
-A.defaultEventFeatures = {
+B.defaultEventFeatures = {
   /** Enables pointer events associated with pointer movement. */
   move: !0,
   /** Enables global pointer move events. */
@@ -1414,8 +1476,8 @@ A.defaultEventFeatures = {
   /** Enables wheel events. */
   wheel: !0
 };
-let C = A;
-const J = {
+let q = B;
+const me = {
   /**
    * Property-based event handler for the `click` event.
    * @memberof scene.Container#
@@ -1753,8 +1815,8 @@ const J = {
   get interactive() {
     return this.eventMode === "dynamic" || this.eventMode === "static";
   },
-  set interactive(u) {
-    this.eventMode = u ? "static" : "passive";
+  set interactive(r) {
+    this.eventMode = r ? "static" : "passive";
   },
   /**
    * @ignore
@@ -1782,10 +1844,10 @@ const J = {
    * @since 7.2.0
    */
   get eventMode() {
-    return this._internalEventMode ?? C.defaultEventMode;
+    return this._internalEventMode ?? q.defaultEventMode;
   },
-  set eventMode(u) {
-    this._internalEventMode = u;
+  set eventMode(r) {
+    this._internalEventMode = r;
   },
   /**
    * Determines if the container is interactive or not
@@ -1865,13 +1927,13 @@ const J = {
    *     capture: true,
    * });
    */
-  addEventListener(u, t, e) {
-    const i = typeof e == "boolean" && e || typeof e == "object" && e.capture, s = typeof e == "object" ? e.signal : void 0, n = typeof e == "object" ? e.once === !0 : !1, o = typeof t == "function" ? void 0 : t;
-    u = i ? `${u}capture` : u;
-    const r = typeof t == "function" ? t : t.handleEvent, c = this;
-    s && s.addEventListener("abort", () => {
-      c.off(u, r, o);
-    }), n ? c.once(u, r, o) : c.on(u, r, o);
+  addEventListener(r, e, t) {
+    const i = typeof t == "boolean" && t || typeof t == "object" && t.capture, n = typeof t == "object" ? t.signal : void 0, s = typeof t == "object" ? t.once === !0 : !1, o = typeof e == "function" ? void 0 : e;
+    r = i ? `${r}capture` : r;
+    const a = typeof e == "function" ? e : e.handleEvent, c = this;
+    n && n.addEventListener("abort", () => {
+      c.off(r, a, o);
+    }), s ? c.once(r, a, o) : c.on(r, a, o);
   },
   /**
    * Unlike `off` or `removeListener` which are methods from EventEmitter, `removeEventListener`
@@ -1881,9 +1943,9 @@ const J = {
    * @param listener - The listener callback or object.
    * @param options - The original listener options. This is required to deregister a capture phase listener.
    */
-  removeEventListener(u, t, e) {
-    const i = typeof e == "boolean" && e || typeof e == "object" && e.capture, s = typeof t == "function" ? void 0 : t;
-    u = i ? `${u}capture` : u, t = typeof t == "function" ? t : t.handleEvent, this.off(u, t, s);
+  removeEventListener(r, e, t) {
+    const i = typeof t == "boolean" && t || typeof t == "object" && t.capture, n = typeof e == "function" ? void 0 : e;
+    r = i ? `${r}capture` : r, e = typeof e == "function" ? e : e.handleEvent, this.off(r, e, n);
   },
   /**
    * Dispatch the event on this {@link Container} using the event's {@link EventBoundary}.
@@ -1896,13 +1958,13 @@ const J = {
    * // Reuse a click event!
    * button.dispatchEvent(clickEvent);
    */
-  dispatchEvent(u) {
-    if (!(u instanceof P))
+  dispatchEvent(r) {
+    if (!(r instanceof M))
       throw new Error("Container cannot propagate events outside of the Federated Events API");
-    return u.defaultPrevented = !1, u.path = null, u.target = this, u.manager.dispatchEvent(u), !u.defaultPrevented;
+    return r.defaultPrevented = !1, r.path = null, r.target = this, r.manager.dispatchEvent(r), !r.defaultPrevented;
   }
 };
-L.add(B);
-x.mixin(j);
-L.add(C);
-x.mixin(J);
+z.add(V);
+Z.mixin(ue);
+z.add(q);
+Z.mixin(me);

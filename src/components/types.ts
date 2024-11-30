@@ -120,19 +120,13 @@ export interface TextProps extends BaseProps {
   fontWeight?: FontWeight;
   fontStyle?: FontStyle;
   align?: TextAlign;
+  letterSpacing?: number;
   bitmap?: boolean;
 }
 
 export interface ContainerProps extends BaseProps {
   sortableChildren?: boolean;
   components?: DisplayObject[];
-}
-
-export interface Padding {
-  top: number;
-  right: number;
-  bottom: number;
-  left: number;
 }
 
 export interface InputProps extends BaseProps {
@@ -144,11 +138,10 @@ export interface InputProps extends BaseProps {
   strokeColor?: number;
   strokeWidth?: number;
   fontWeight?: FontWeight;
-  align?: 'left' | 'center' | 'right';
-  padding?: Padding | number;
+  padding?: number;
   maxLength?: number;
-  placeholder?: string;
-  onChange?: () => any;
+  letterSpacing?: number;
+  onChange?: (text: string) => any;
 }
 
 export type Resource = string | FilledShape;
