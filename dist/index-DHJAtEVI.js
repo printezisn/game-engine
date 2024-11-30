@@ -179,7 +179,7 @@ const lr = (s) => {
   },
   test: () => !0,
   load: async () => {
-    await import("./browserAll-Bin3Qwlm.js");
+    await import("./browserAll-BpoGT0PN.js");
   }
 }, Hc = {
   extension: {
@@ -189,7 +189,7 @@ const lr = (s) => {
   },
   test: () => typeof self < "u" && self.WorkerGlobalScope !== void 0,
   load: async () => {
-    await import("./webworkerAll-rHeI-Hlq.js");
+    await import("./webworkerAll-DQbc7pxG.js");
   }
 };
 class mt {
@@ -6480,13 +6480,13 @@ async function Tf(s) {
   for (let n = 0; n < t.length; n++) {
     const o = t[n];
     if (o === "webgpu" && await Mf()) {
-      const { WebGPURenderer: a } = await import("./WebGPURenderer-Du1tyVe5.js");
+      const { WebGPURenderer: a } = await import("./WebGPURenderer-CFR6AS1D.js");
       e = a, i = { ...s, ...s.webgpu };
       break;
     } else if (o === "webgl" && Pf(
       s.failIfMajorPerformanceCaveat ?? Hl.defaultOptions.failIfMajorPerformanceCaveat
     )) {
-      const { WebGLRenderer: a } = await import("./WebGLRenderer-BE_30dhc.js");
+      const { WebGLRenderer: a } = await import("./WebGLRenderer-Di-BqfWs.js");
       e = a, i = { ...s, ...s.webgl };
       break;
     } else if (o === "canvas")
@@ -19383,9 +19383,7 @@ class w_ extends kc {
     return super.props;
   }
   async _onClick() {
-    super._onClick();
-    const t = document.createElement("a");
-    t.href = this.props.url, t.target = "_blank", t.rel = "noreferrer", G.gameContainer.appendChild(t), t.click(), setTimeout(() => t.remove(), 0);
+    super._onClick(), window.location.href = this.props.url;
   }
 }
 class Kg extends Sn {
